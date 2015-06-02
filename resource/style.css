@@ -1,0 +1,3 @@
+#sort-container .active:after {
+    content: ' *';
+}

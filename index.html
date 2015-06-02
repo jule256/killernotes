@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="resource/style.css" type="text/css">
+    <title>killernotes</title>
+</head>
+<body>
+<div id="region-debug"></div>
+<hr>
+<div id="region-sort"></div>
+<hr>
+<div id="region-create"></div>
+<hr>
+<div id="region-view"></div>
+<hr>
+<div id="region-reset"></div>
+<hr>
+<script data-main="javascript/main" src="vendor/requirejs/require.js"></script>
+<!-- handlebar templates -->
+<script id="template-sort" type="text/x-handlebars-template">
+    <h1>{{title}}</h1>
+    {{#sortlist sortOptions}}{{title}}{{/sortlist}}
+</script>
+<script id="template-create" type="text/x-handlebars-template">
+    <h1>{{title}}</h1>
+    <div>
+    {{#formelement formElements}}{{/formelement}}
+    </div>
+    <input type="button" id="create-submit" value="save">
+</script>
+<script id="template-view" type="text/x-handlebars-template">
+    <h1>{{title}}</h1>
+    {{#if noteElements}}
+        {{#each noteElements}}
+        {{> note}}
+        {{/each}}
+    {{else}}
+        <div>keine Notizen vorhanden</div>
+    {{/if}}
+</script>
+<script id="template-partial-note" type="text/x-handlebars-template">
+    <div class="note" id="note-{{createdate}}">
+        <h2>{{title}} ({{timestampToDate duedate}})</h2>
+        <div>{{note}}</div>
+        <div>created: {{timestampToDate createdate}}</div>
+        <div class="imortance-{{importance}}">{{importance}}</div>
+        <div class="edit">edit note</div>
+    </div>
+</script>
+<script id="template-reset" type="text/x-handlebars-template">
+    <h1>{{title}}</h1>
+    <span id="reset">reset all notes</span>
+</script>
+<script id="template-edit" type="text/x-handlebars-template">
+<h1>{{title}}</h1>
+<div>
+    <div>
+        {{#formelement formElements}}{{/formelement}}
+    </div>
+</div>
+<input type="button" id="edit-submit" value="save">
+<input type="button" id="edit-cancel" value="cancel">
+</script>
+
+</body>
+</html>
