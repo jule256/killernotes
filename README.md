@@ -4,6 +4,8 @@
 
   - form evaluation
   - CSS Layouting
+    - basic
+    - responsive
   - Importance: Stars/Flashes instead of select-dropdown
   - default values for due-create and due-time in create form
   - maybe fallback on Cookie if Storage is not supported on browser?
