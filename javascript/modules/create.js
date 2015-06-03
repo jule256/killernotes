@@ -10,13 +10,17 @@ define(
     'use strict';
 
     // @todo form default values for duedate/duetime
-    //       sorting of duedate/duetime
 
     // module
     var returnedCreate = function () {
 
         // configuration
 
+        // class variables
+
+        var $submit = null; // store jquery-element to avoid multiple DOM-queries
+
+        // handlebars settings
 
         var handlebarRegionId = 'region-create';
         var handlebarTemplateId = 'template-create';
@@ -26,9 +30,8 @@ define(
         var handleBarHtml = null;
 
         // private functions
-        var getFormElementHtml,
-            handlebarsFormElementHelper,
-            extractCreateData;
+        var disableCreate,
+            enableCreate;
 
         this.constructor = function() {
             handlebars.registerHelper('formelement', auxiliary.handlebarsFormElementHelper);
@@ -39,6 +42,7 @@ define(
             handlebarTemplate = handlebars.compile(handlebarSource);
             handlebarContext = {
                 title: 'create',
+                mode: 'create',
                 formElements: config.formOptions
             };
             handleBarHtml = handlebarTemplate(handlebarContext);
@@ -53,49 +57,34 @@ define(
         };
 
         this.postRender = function() {
-            $('#create-submit').on('click', function(ev) {
+            $submit = $('#create-submit');
+
+            $submit.on('click', function(ev) {
                 $.event.trigger({
                     type: 'kn:create',
                     kn: {
-                        data: extractCreateData()
+                        data: auxiliary.extractData('create')
                     },
                     time: new Date()
                 });
             });
+
+            // in edit mode, disable saving of new notes
+            $(document).bind('kn:edit', disableCreate);
+            $(document).bind('kn:edit:cancel', enableCreate);
+            $(document).bind('kn:data:change', enableCreate);
         };
 
         // private functions
 
-        // @todo data evaluation?
-        extractCreateData = function() {
-            var data = {},
-                date,
-                time,
-                formOptions = config.formOptions;
-            $.each(formOptions, function(key, formElement) {
-                if (typeof formElement.dependant === 'undefined') {
-                    if (typeof formElement.dependee !== 'undefined') {
-                        if (formElement.type === 'date' && formOptions[formElement.dependee].type === 'time') {
-                            // this is a date field and the dependee is a time field -> merge the two values
-                            date = $('#create-' + formElement.name).val();
-                            time = $('#create-' + formOptions[formElement.dependee].name).val();
-                            data[formElement.name] = Date.parse(date + ' ' + time);
-                        }
-                        // @todo maybe add some fallback here to tackle missconfiguration of the config
-                    }
-                    else if(formElement.type === 'checkbox') {
-                        data[formElement.name] = $('#create-' + formElement.name).is(':checked');
-                    }
-                    else {
-                        // this field has no dependee -> get its value straight from DOM
-                        data[formElement.name] = $('#create-' + formElement.name).val();
-                    }
-                }
-            });
-            return data;
+        disableCreate = function() {
+            $submit.attr('disabled', true);
+        };
+
+        enableCreate = function() {
+            $submit.removeAttr('disabled');
         };
     };
 
     return returnedCreate;
-
 });

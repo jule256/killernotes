@@ -14,6 +14,11 @@ define(
 
         // configuration
 
+        // class variables
+
+        var data = null; // the data of the currently in edit mode note
+        var id = null; // the id (aka create-timestamp) of the currently in edit mode note
+
         // handlebar settings
 
         var handlebarRegionId = 'region-debug';
@@ -24,48 +29,74 @@ define(
         var handleBarHtml = null;
 
         // private functions
-        var showEditForm,
+        var prepareEditForm,
+            renderEditForm,
             transformFormOptions;
 
         this.constructor = function () {
-            $(document).bind('kn:edit', showEditForm);
-        };
-
-        this.preRender = function () {
-
-        };
-
-        this.render = function () {
-            this.preRender();
-
-            this.postRender();
-        };
-
-        this.postRender = function () {
-
+            $(document).bind('kn:edit', prepareEditForm.bind(this)); // binding context "this" to prepareEditForm()
         };
 
         // private functions
 
-        showEditForm = function (ev) {
-            var id = ev.kn.id,
-                data = ev.kn.data;
+        prepareEditForm = function (ev) {
+            data = ev.kn.data;
+            id = ev.kn.id;
 
+            this.render();
+        };
+
+        this.preRender = function () {
             handlebarSource = $('#' + handlebarTemplateId).html();
             handlebarTemplate = handlebars.compile(handlebarSource);
             handlebarContext = {
                 title: 'edit',
+                mode: 'edit',
                 formElements: transformFormOptions(config.formOptions, data)
             };
             handleBarHtml = handlebarTemplate(handlebarContext);
-
-            // testing
-            $('#' + handlebarRegionId).html(handleBarHtml);
-
-            // CONTINUE HERE -> tidy up code
-            //                  add listeners to cancel & save
-            //                  replace the actual node instead of using #region-edit
         };
+
+        this.render = function() {
+            var noteContainer;
+
+            this.preRender();
+
+            // find the container of the to-be-edited note
+            noteContainer = $('#note-' + id);
+            if (noteContainer.length === 0) {
+                throw Error('no DOM element with id "#note-' + id + '" found');
+            }
+
+            // replace view by edit form
+            noteContainer.html(handleBarHtml);
+
+            this.postRender();
+        }
+
+        this.postRender = function () {
+
+            $('#edit-submit').on('click', function (ev) {
+                $.event.trigger({
+                    type: 'kn:edit:save',
+                    kn: {
+                        id: id,
+                        data: auxiliary.extractData('edit')
+                    },
+                    time: new Date()
+                });
+            });
+
+            $('#edit-cancel').on('click', function (ev) {
+                $.event.trigger({
+                    type: 'kn:edit:cancel',
+                    kn: {},
+                    time: new Date()
+                });
+            });
+        };
+
+        // private functions
 
         /**
          * merges the form data of the to-be-edited note into the form structure from config
@@ -92,8 +123,8 @@ define(
                             dateObj = new Date(data[formOption.name]);
                             date =
                                 dateObj.getFullYear() + '-' +
-                                auxiliary.pad2Digits(dateObj.getMonth()) + '-' +
-                                auxiliary.pad2Digits(dateObj.getDay());
+                                auxiliary.pad2Digits(dateObj.getMonth() + 1) + '-' +
+                                auxiliary.pad2Digits(dateObj.getDate());
                             time =
                                 auxiliary.pad2Digits(dateObj.getHours()) + ':' +
                                 auxiliary.pad2Digits(dateObj.getMinutes()) + ':00.000';
@@ -109,13 +140,8 @@ define(
                 }
             }
 
-            console.log('transformFormOptions() returnData:', returnData);
-
             return returnData;
         };
-
-
-        /**/
     };
 
     return returnedEdit;

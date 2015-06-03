@@ -15,7 +15,6 @@ define(
         // configuration
 
         var sorting = config.defaultSort;
-        var showFinished = config.defaultShowFinished;
 
         // handlebar settings
 
@@ -32,7 +31,6 @@ define(
             getNoteElements,
             compareNotes,
             updateSort,
-            updateFilter,
             handlebarsTimestampToDateHelper;
 
         var pad2Digits;
@@ -42,9 +40,9 @@ define(
             handlebars.registerHelper('timestampToDate', handlebarsTimestampToDateHelper);
 
             $(document).bind('kn:sort', updateSort.bind(this)); // binding context "this" to updateSort()
-            $(document).bind('kn:filter', updateFilter.bind(this)); // binding context "this" to updateFilter()
-            $(document).bind('kn:created', this.render.bind(this)); // binding context "this" to render()
+            $(document).bind('kn:data:change', this.render.bind(this)); // binding context "this" to render()
             $(document).bind('kn:reset:complete', this.render.bind(this)); // binding context "this" to render()
+            $(document).bind('kn:edit:cancel', this.render.bind(this)); // binding context "this" to render()
         };
 
         this.preRender = function () {
@@ -102,16 +100,14 @@ define(
             // parse createdate to a more human readable format
             $.each(noteElements, function (key, value) {
                 date = new Date(value.createdate);
-                if(!value.finished || showFinished) {
-                    cleanedElements.push({
-                        title: value.title || '<kein Titel>',
-                        note: value.note || '<keine Notiz>', // @todo new-line-to-break
-                        createdate: value.createdate, // date.toDateString(),
-                        duedate: value.duedate,
-                        importance: value.importance,
-                        finished: value.finished
-                    });
-                }
+
+                cleanedElements.push({
+                    title: value.title || '<no title>',
+                    note: value.note || '<no content>', // @todo new-line-to-break
+                    createdate: value.createdate, // date.toDateString(),
+                    duedate: value.duedate,
+                    importance: value.importance
+                });
             });
 
             // sort objects in array by current active sorting
@@ -139,20 +135,22 @@ define(
             this.render();
         };
 
-        updateFilter = function(ev) {
-            showFinished = ev.kn.filter;
-            this.render();
-        }
-
         retrieveNotes = function() {
             return JSON.parse(localStorage.getItem(config.localStorageName)) || {};
         };
 
+        /**
+         * takes the given timestamp and returns a string "dd/mm/yyyy hh:MM". Takes care of various shortcomings of
+         * the native javascript Date object (like padding zeros and month values 0-11).
+         * @author Julian Mollik <jule@creative-coding.net>
+         * @param {Number} timestamp
+         * @returns {string}
+         */
         handlebarsTimestampToDateHelper = function(timestamp) {
             var dateObj = new Date(timestamp);
             return '' +
-                auxiliary.pad2Digits(dateObj.getDay()) + '/' +
-                auxiliary.pad2Digits(dateObj.getMonth()) + '/' +
+                auxiliary.pad2Digits(dateObj.getDate()) + '/' +
+                auxiliary.pad2Digits(dateObj.getMonth() + 1) + '/' +
                 dateObj.getFullYear() + ' ' +
                 auxiliary.pad2Digits(dateObj.getHours()) + ':' + auxiliary.pad2Digits(dateObj.getMinutes());
         };

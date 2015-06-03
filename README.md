@@ -9,9 +9,15 @@
   - maybe fallback on Cookie if Storage is not supported on browser?
   - reset create form after kn:created
   - sort view: use handlebars correctly
-  - edit a note
   - style picker
   - JSDoc comments for "every" function
   - get variable-names straight: formElement/s vs. formOptions/s
   - find a better solution for the Date zero-padding problem
-  - investigate bug with due-date "31.12.2014 23:44" -> display in view is wrong
+  - add (un)necessary files to .gitignore
+  - implement "complete task" functionality
+  - implement "completed" filter
+  - don't allow edit-mode if another note is already in edit mode
+  - maybe make preRender() and postRender() private, since they should not be called from outside
+  - standardize event naming (maybe 'kn:`<type`>:`<action`>')
+  - add JSCS and JSHint configuration
+  - disable sorting during edit mode
