@@ -1,4 +1,4 @@
-/* global define:true, console:true */
+/* globals define:true, console:true */
 define(
     [
         'jQuery',

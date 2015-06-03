@@ -1,8 +1,9 @@
 /* global define:true, console:true */
 define(
     [
-        'jQuery'
-    ], function ($) {
+        'jQuery',
+        'config'
+    ], function ($, config) {
 
     'use strict';
 
@@ -10,14 +11,15 @@ define(
     var returnedAuxiliary = {
 
         handlebarsFormElementHelper: function(formElements, options) {
-            var html = [];
+            var html = [],
+                mode = options.data.root.mode;
 
             $.each(formElements, function(key, formElement) {
-                html.push('<label for="create-' + formElement.name + '">');
+                html.push('<label for="' + mode + '-' + formElement.name + '">');
                 html.push(formElement.title);
                 html.push('</label>');
                 html.push('<div>');
-                html.push(returnedAuxiliary.getFormElementHtml(formElement));
+                html.push(returnedAuxiliary.getFormElementHtml(formElement, mode));
                 html.push('</div>');
             });
 
@@ -29,25 +31,24 @@ define(
          *
          * @author Julian Mollik <jule@creative-coding.net>
          * @param {Object} formElement
+         * @param {string} mode (should be either "create" or "edit")
          * @returns {string}
          */
-        getFormElementHtml: function(formElement) {
+        getFormElementHtml: function(formElement, mode) {
             var html = [],
                 valueHtml;
-
-            console.log('getFormElementHtml() formElement', formElement);
 
             switch(formElement.type) {
                 case 'input':
                     valueHtml = typeof formElement.value === 'undefined' ? '' : ' value="' + formElement.value + '"';
-                    html.push('<input type="text" id="create-' + formElement.name + '"' + valueHtml + '>');
+                    html.push('<input type="text" id="' + mode + '-' + formElement.name + '"' + valueHtml + '>');
                     break;
                 case 'text':
                     valueHtml = typeof formElement.value === 'undefined' ? '' : formElement.value;
-                    html.push('<textarea id="create-' + formElement.name + '">' + valueHtml + '</textarea>');
+                    html.push('<textarea id="' + mode + '-' + formElement.name + '">' + valueHtml + '</textarea>');
                     break;
                 case 'select':
-                    html.push('<select id="create-' + formElement.name + '">');
+                    html.push('<select id="' + mode + '-' + formElement.name + '">');
                     $.each(formElement.options, function(key, value) {
                         valueHtml = '';
                         if (typeof formElement.value !== 'undefined' && +formElement.value === +key) {
@@ -59,19 +60,53 @@ define(
                     break;
                 case 'date':
                     valueHtml = typeof formElement.value === 'undefined' ? '' : ' value="' + formElement.value + '"';
-                    html.push('<input type="date" id="create-' + formElement.name + '"' + valueHtml + '>');
+                    html.push('<input type="date" id="' + mode + '-' + formElement.name + '"' + valueHtml + '>');
                     break;
                 case 'time':
                     valueHtml = typeof formElement.value === 'undefined' ? '' : ' value="' + formElement.value + '"';
-                    html.push('<input type="time" id="create-' + formElement.name + '"' + valueHtml + '>');
+                    html.push('<input type="time" id="' + mode + '-' + formElement.name + '"' + valueHtml + '>');
                     break;
                 default:
-                    html.push('<span id="create-' + formElement.name + '">');
+                    html.push('<span id="' + mode + '-' + formElement.name + '">');
                     html.push('unknown form element type: ' + formElement.type);
                     html.push('</span>');
             }
 
             return html.join("\n");
+        },
+
+        /**
+         * gets the data of the 'new' or 'edit' note form from the DOM. Takes the configuration into consideration
+         * and therefore is able to merge dependants/dependees (used for date + time = timestamp). Returns an object
+         * ready for saving into storage
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         * @param mode
+         * @returns {object}
+         */
+        extractData: function(mode) {
+            var data = {},
+                date,
+                time,
+                formOptions = config.formOptions;
+            $.each(formOptions, function(key, formElement) {
+                if (typeof formElement.dependant === 'undefined') {
+                    if (typeof formElement.dependee !== 'undefined') {
+                        if (formElement.type === 'date' && formOptions[formElement.dependee].type === 'time') {
+                            // this is a date field and the dependee is a time field -> merge the two values
+                            date = $('#' + mode + '-' + formElement.name).val();
+                            time = $('#' + mode + '-' + formOptions[formElement.dependee].name).val();
+                            data[formElement.name] = Date.parse(date + ' ' + time);
+                        }
+                        // @todo maybe add some fallback here to tackle missconfiguration of the config
+                    }
+                    else {
+                        // this field has no dependee -> get its value straight from DOM
+                        data[formElement.name] = $('#' + mode + '-' + formElement.name).val();
+                    }
+                }
+            });
+            return data;
         },
 
         /**
@@ -82,7 +117,7 @@ define(
          * @returns {string}
          */
         pad2Digits: function(number) {
-            return ('0' + number).slice(-2);
+            return ('00' + number).slice(-2);
         }
     };
 
