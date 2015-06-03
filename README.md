@@ -18,6 +18,6 @@
   - implement "completed" filter
   - don't allow edit-mode if another note is already in edit mode
   - maybe make preRender() and postRender() private, since they should not be called from outside
-  - standardize event naming (maybe 'kn:<type>:<action>')
+  - standardize event naming (maybe 'kn:`<type`>:`<action`>')
   - add JSCS and JSHint configuration
   - disable sorting during edit mode
