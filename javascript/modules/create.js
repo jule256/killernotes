@@ -83,6 +83,9 @@ define(
                         }
                         // @todo maybe add some fallback here to tackle missconfiguration of the config
                     }
+                    else if(formElement.type === 'checkbox') {
+                        data[formElement.name] = $('#create-' + formElement.name).is(':checked');
+                    }
                     else {
                         // this field has no dependee -> get its value straight from DOM
                         data[formElement.name] = $('#create-' + formElement.name).val();

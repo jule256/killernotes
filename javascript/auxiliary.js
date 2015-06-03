@@ -65,6 +65,10 @@ define(
                     valueHtml = typeof formElement.value === 'undefined' ? '' : ' value="' + formElement.value + '"';
                     html.push('<input type="time" id="create-' + formElement.name + '"' + valueHtml + '>');
                     break;
+                case 'checkbox':
+                    valueHtml = typeof formElement.value === 'undefined' ? '' : formElement.value ? 'checked' : '';
+                    html.push('<input type="checkbox" id="create-' + formElement.name + '"' + valueHtml + '>');
+                    break;
                 default:
                     html.push('<span id="create-' + formElement.name + '">');
                     html.push('unknown form element type: ' + formElement.type);

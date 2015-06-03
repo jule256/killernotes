@@ -6,6 +6,7 @@ define([], function () {
     return {
         localStorageName: 'kn:storage',
         defaultSort: 'duedate',
+        defaultShowFinished: false,
         formOptions: [
             {
                 id: 0,
@@ -46,6 +47,12 @@ define([], function () {
                 title: 'Duetime',
                 type: 'time',
                 dependant: 3 // defines that this item is used by formOptions[3]
+            },
+            {
+                id: 5,
+                name: 'finished',
+                title: 'Finished?',
+                type: 'checkbox'
             }
         ]
     };

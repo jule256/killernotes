@@ -2,13 +2,15 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="resource/style.css" type="text/css">
+    <link rel="stylesheet" href="resource/main.css" type="text/css">
     <title>killernotes</title>
 </head>
 <body>
 <div id="region-debug"></div>
 <hr>
 <div id="region-sort"></div>
+<hr>
+<div id="region-filter"></div>
 <hr>
 <div id="region-create"></div>
 <hr>
@@ -45,8 +47,17 @@
         <div>{{note}}</div>
         <div>created: {{timestampToDate createdate}}</div>
         <div class="imortance-{{importance}}">{{importance}}</div>
+        <div>
+            {{#if finished}}
+                finished
+            {{/if}}
+        </div>
         <div class="edit">edit note</div>
     </div>
+</script>
+<script id="template-filter" type="text/x-handlebars-template">
+    <h1>{{title}}</h1>
+    <input type="checkbox" id="filter-finished"> <label for="filter-finished">Show finished</label>
 </script>
 <script id="template-reset" type="text/x-handlebars-template">
     <h1>{{title}}</h1>

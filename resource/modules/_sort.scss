@@ -1,0 +1,12 @@
+// Module: Sort
+#sort-container  {
+  li {
+    cursor:pointer;
+  }
+
+  .active {
+    &:after {
+      content: ' *';
+    }
+  }
+}

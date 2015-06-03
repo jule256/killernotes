@@ -7,23 +7,30 @@ define(
         'modules/storage',
         'modules/view',
         'modules/reset',
-        'modules/edit'
-    ], function ($, SortRef, CreateRef, StorageRef, ViewRef, ResetRef, EditRef) {
+        'modules/edit',
+        'modules/filter'
+    ], function ($, SortRef, CreateRef, StorageRef, ViewRef, ResetRef, EditRef, FilterRef) {
 
     'use strict';
 
     var returnedApp = function () {
 
         this.start = function() {
-            var myFilter,
+            var mySorter,
                 myCreate,
                 myView,
                 myReset,
                 myStorage,
-                myEdit;
+                myEdit,
+                myFilter;
 
             // filter
-            myFilter = new SortRef();
+            mySorter = new SortRef();
+            mySorter.constructor();
+            mySorter.render();
+
+            // edit
+            myFilter = new FilterRef();
             myFilter.constructor();
             myFilter.render();
 
@@ -49,10 +56,6 @@ define(
             // edit
             myEdit = new EditRef();
             myEdit.constructor();
-
-
-
-
         };
 
         this.VERSION = 0.1;

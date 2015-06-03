@@ -15,6 +15,7 @@ define(
         // configuration
 
         var sorting = config.defaultSort;
+        var showFinished = config.defaultShowFinished;
 
         // handlebar settings
 
@@ -31,6 +32,7 @@ define(
             getNoteElements,
             compareNotes,
             updateSort,
+            updateFilter,
             handlebarsTimestampToDateHelper;
 
         var pad2Digits;
@@ -40,6 +42,7 @@ define(
             handlebars.registerHelper('timestampToDate', handlebarsTimestampToDateHelper);
 
             $(document).bind('kn:sort', updateSort.bind(this)); // binding context "this" to updateSort()
+            $(document).bind('kn:filter', updateFilter.bind(this)); // binding context "this" to updateFilter()
             $(document).bind('kn:created', this.render.bind(this)); // binding context "this" to render()
             $(document).bind('kn:reset:complete', this.render.bind(this)); // binding context "this" to render()
         };
@@ -99,14 +102,16 @@ define(
             // parse createdate to a more human readable format
             $.each(noteElements, function (key, value) {
                 date = new Date(value.createdate);
-
-                cleanedElements.push({
-                    title: value.title || '<kein Titel>',
-                    note: value.note || '<keine Notiz>', // @todo new-line-to-break
-                    createdate: value.createdate, // date.toDateString(),
-                    duedate: value.duedate,
-                    importance: value.importance
-                });
+                if(!value.finished || showFinished) {
+                    cleanedElements.push({
+                        title: value.title || '<kein Titel>',
+                        note: value.note || '<keine Notiz>', // @todo new-line-to-break
+                        createdate: value.createdate, // date.toDateString(),
+                        duedate: value.duedate,
+                        importance: value.importance,
+                        finished: value.finished
+                    });
+                }
             });
 
             // sort objects in array by current active sorting
@@ -133,6 +138,11 @@ define(
             sorting = ev.kn.sort.name;
             this.render();
         };
+
+        updateFilter = function(ev) {
+            showFinished = ev.kn.filter;
+            this.render();
+        }
 
         retrieveNotes = function() {
             return JSON.parse(localStorage.getItem(config.localStorageName)) || {};
