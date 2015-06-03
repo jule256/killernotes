@@ -21,3 +21,12 @@
   - standardize event naming (maybe 'kn:`<type`>:`<action`>')
   - add JSCS and JSHint configuration
   - disable sorting during edit mode
+  - Exception Handling
+  - save data on server (wird gefordert)
+  - templates should only be compiled once
+
+### @ideas
+  - Additional features
+    - 
+    - 
+  - store/precompile handlebar templates 
