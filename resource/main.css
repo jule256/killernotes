@@ -1,0 +1,6 @@
+#sort-container li {
+  cursor: pointer; }
+#sort-container .active:after {
+  content: ' *'; }
+
+/*# sourceMappingURL=main.css.map */
