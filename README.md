@@ -15,14 +15,17 @@
   - get variable-names straight: formElement/s vs. formOptions/s (Julian)
   - find a better solution for the Date zero-padding problem (???)
   - don't allow edit-mode if another note is already in edit mode (Julian)
-  - maybe make preRender() and postRender() private, since they should not be called from outside
+  - maybe make preRender() and postRender() private, since they should not be called from outside ✓
   - standardize event naming (maybe 'kn:`<type`>:`<action`>') (Julian)
   - add JSCS and JSHint configuration (Julian)
   - disable sorting during edit mode (Julian)
   - Exception Handling: Errorview & Loglevels (Dominik)
   - save data on server
-  - templates should only be compiled once,  store/precompile handlebar templates (Dominik)
+  - templates should only be compiled once, store/precompile handlebar templates (Dominik)
   - form generator: good or bad? (???)
+  
+### bugs
+  - note editing always sets `finished:false` ✓
 
 ### @ideas
   - Additional features
