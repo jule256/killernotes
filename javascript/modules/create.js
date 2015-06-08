@@ -9,8 +9,6 @@ define(
 
     'use strict';
 
-    // @todo form default values for duedate/duetime
-
     // module
     return function () {
 
@@ -29,18 +27,41 @@ define(
         var handlebarContext = null;
         var handleBarHtml = null;
 
-        // private functions
-        var disableCreate,
-            enableCreate;
-
+        /**
+         * constructor
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         */
         var publicConstructor = function() {
             handlebars.registerHelper('formelement', auxiliary.handlebarsFormElementHelper);
 
             handlebarSource = $('#' + handlebarTemplateId).html();
             handlebarTemplate = handlebars.compile(handlebarSource);
 
+            $(document).bind('kn:create', privateResetCreateForm);
         };
 
+        /**
+         * appends the created html into the designated region of the DOM
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         */
+        var publicRender = function() {
+            privatePreRender();
+
+            $('#' + handlebarRegionId).html(handleBarHtml);
+
+            privatePostRender();
+        };
+
+        // private functions
+
+        /**
+         * automatically called before the html is appended into the DOM.
+         * prepares the handlebar templating (setting context, creating the html)
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         */
         var privatePreRender = function() {
             handlebarContext = {
                 title: 'create',
@@ -50,14 +71,12 @@ define(
             handleBarHtml = handlebarTemplate(handlebarContext);
         };
 
-        var publicRender = function() {
-            privatePreRender();
-
-            $('#' + handlebarRegionId).html(handleBarHtml);
-
-            privatePostRender();
-        };
-
+        /**
+         * automatically called after the html is appended into the DOM.
+         * sets listeners and triggers
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         */
         var privatePostRender = function() {
             $submit = $('#create-submit');
 
@@ -72,18 +91,35 @@ define(
             });
 
             // in edit mode, disable saving of new notes
-            $(document).bind('kn:edit', disableCreate);
-            $(document).bind('kn:edit:cancel', enableCreate);
-            $(document).bind('kn:data:change', enableCreate);
+            $(document).bind('kn:edit', privateDisableCreate);
+            $(document).bind('kn:edit:cancel', privateEnableCreate);
+            $(document).bind('kn:data:change', privateEnableCreate);
         };
 
-        // private functions
+        /**
+         * resets the create form by re-rendering it
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         */
+        var privateResetCreateForm = function() {
+            publicRender();
+        };
 
-        disableCreate = function() {
+        /**
+         * disables the create form by disabling the submit button
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         */
+        var privateDisableCreate = function() {
             $submit.attr('disabled', true);
         };
 
-        enableCreate = function() {
+        /**
+         * enabes the create form by enabling the submit button
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         */
+        var privateEnableCreate = function() {
             $submit.removeAttr('disabled');
         };
 

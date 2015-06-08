@@ -42,11 +42,11 @@ define(
             handlebarTemplate = handlebars.compile(handlebarSource);
 
 
-            $(document).bind('kn:sort', updateSort); // binding context "this" to updateSort()
-            $(document).bind('kn:data:change', publicRender); // binding context "this" to render()
-            $(document).bind('kn:reset:complete', publicRender); // binding context "this" to render()
+            $(document).bind('kn:sort', updateSort);
+            $(document).bind('kn:data:change', publicRender);
+            $(document).bind('kn:reset:complete', publicRender);
             $(document).bind('kn:edit:cancel', publicRender);
-            $(document).bind('kn:filter', updateFilter);// binding context "this" to render()
+            $(document).bind('kn:filter', updateFilter);
         };
 
         var publicRender = function () {
