@@ -191,6 +191,12 @@ define(
             return JSON.parse(localStorage.getItem(config.localStorageName)) || {};
         };
 
+        /**
+         * sets the active-edit-flag to true and adds the class "inactive" to all non affected edit-links
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         * @param {object} ev
+         */
         var privateDisableEdit = function(ev) {
             editActive = true;
 
@@ -198,6 +204,12 @@ define(
             $('.note').not('#note-' + ev.kn.id).find('.edit').addClass('inactive');
         };
 
+        /**
+         * sets the active-edit-flag to false and removes the class "inactive" from all edit-links
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         * @param {object} ev
+         */
         var privateEnableEdit = function(ev) {
             editActive = false;
 

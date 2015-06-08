@@ -9,4 +9,11 @@
       content: ' *';
     }
   }
+
+  .disabled {
+    cursor: not-allowed;
+    &:after {
+      content: ' ⚠';
+    }
+  }
 }

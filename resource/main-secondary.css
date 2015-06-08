@@ -33,6 +33,10 @@ body {
   cursor: pointer; }
 #sort-container .active:after {
   content: ' *'; }
+#sort-container .disabled {
+  cursor: not-allowed; }
+  #sort-container .disabled:after {
+    content: ' ⚠'; }
 
 #region-view .inactive {
   cursor: not-allowed; }
