@@ -8,7 +8,7 @@
     - responsive
   - Importance: Stars/Flashes instead of select-dropdown (Dominik)
   - default values for due-create and due-time in create form (Julian) ✓
-  - reset create form after kn:created (Julian)
+  - reset create form after kn:created (Julian) ✓
   - sort view: use handlebars correctly (Julian)
   - style picker (Dominik)
   - JSDoc comments for "every" function (Beide)

@@ -1,0 +1,36 @@
+/*body {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  top: 0;
+  background: #ccc;
+  width: 100%;
+  h1 {margin: 0; padding: 0}
+}
+
+.kn-actions {
+  display:flex;
+  flex-flow: row wrap;
+
+  .kn-sort {
+    flex: 0 0 50%;
+    order: 0;
+  }
+
+  .kn-style-picker {
+    flex: 0 0 25%;
+    order: 1;
+  }
+}*/
+body {
+  background: #333;
+  color: #fff; }
+
+#sort-container li {
+  cursor: pointer; }
+#sort-container .active:after {
+  content: ' *'; }
+
+/*# sourceMappingURL=main-secondary.css.map */

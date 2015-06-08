@@ -16,3 +16,5 @@ resource/main.css.map
 .idea/watcherTasks.xml
 
 .idea/workspace.xml
+
+*.map
