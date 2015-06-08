@@ -1,11 +1,12 @@
 // Vendor
 // Normalize.css?
 
+
 // Partials
 @import "partials/variables";
 @import "partials/mixins";
 @import "partials/layout";
-@import "partials/styles/default";
+@import "partials/styles/contrast";
 
 // Modules
 @import "modules/sort";

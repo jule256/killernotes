@@ -2,7 +2,7 @@
 define(
     [
         'jQuery',
-        'handlebars',
+        'handlebars'
     ], function ($, handlebars) {
 
         'use strict';
@@ -11,19 +11,30 @@ define(
         return function () {
 
             // configuration
-            var handlebarRegionId = 'region-filter';
-            var handlebarTemplateId = 'template-filter';
+            var styles = [
+                {
+                    name: 'Default',
+                    path: 'resource/main.css'
+                },
+                {
+                    name: 'Contrast',
+                    path: 'resource/main-secondary.css'
+                }
+            ]; // TODO: include in config
+
+            var handlebarRegionId = 'region-stylepicker';
+            var handlebarTemplateId = 'template-stylepicker';
             var handlebarSource = null;
             var handlebarTemplate = null;
             var handlebarContext = null;
             var handleBarHtml = null;
 
-            var publicConstructor = function() {
+            var publicConstructor = function () {
                 handlebarSource = $('#' + handlebarTemplateId).html();
                 handlebarTemplate = handlebars.compile(handlebarSource);
             };
 
-            var publicRender = function() {
+            var publicRender = function () {
                 privatePreRender();
 
                 $('#' + handlebarRegionId).html(handleBarHtml);
@@ -31,23 +42,17 @@ define(
                 privatePostRender();
             };
 
-            var privatePreRender = function() {
+            var privatePreRender = function () {
                 handlebarContext = {
-                    title: 'filter'
+                    title: 'stylepicker',
+                    styles: styles
                 };
                 handleBarHtml = handlebarTemplate(handlebarContext);
             };
 
-            var privatePostRender = function() {
-                $('#filter-finished').on('change', function() {
-                    $.event.trigger({
-                       type: 'kn:filter',
-                        kn: {
-                            type: "finished",
-                            filter: $(this).is(':checked')
-                        },
-                        time: new Date()
-                    });
+            var privatePostRender = function () {
+                $('#style-picker').on('change', function() {
+                    $('#main-style').attr('href', $(this).val());
                 });
             };
 

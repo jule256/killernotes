@@ -2,15 +2,21 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="resource/main.css" type="text/css">
+
+
+    <link id="main-style" rel="stylesheet" href="resource/main.css" type="text/css">
     <title>killernotes</title>
 </head>
 <body>
-<div id="region-debug"></div>
-<hr>
-<div id="region-sort"></div>
-<hr>
-<div id="region-filter"></div>
+
+<header>
+    <h1>Killernotes</h1>
+</header>
+<section class="kn-actions">
+    <div id="region-stylepicker" class="kn-style-picker"></div>
+    <div id="region-sort" class="kn-sort"></div>
+    <div id="region-filter" class="kn-filter"></div>
+</section>
 <hr>
 <div id="region-create"></div>
 <hr>
@@ -18,11 +24,17 @@
 <hr>
 <div id="region-reset"></div>
 <hr>
+<div id="region-debug"></div>
 <script data-main="javascript/main" src="vendor/requirejs/require.js"></script>
 <!-- handlebar templates -->
 <script id="template-sort" type="text/x-handlebars-template">
     <h1>{{title}}</h1>
-    {{#sortlist sortOptions}}{{title}}{{/sortlist}}
+    <ul id="sort-container">
+        {{#each sortOptions}}
+            <li id="sort-{{name}}">{{title}}</li>
+        {{/each}}
+    </ul>
+
 </script>
 <script id="template-create" type="text/x-handlebars-template">
     <h1>{{title}}</h1>
@@ -62,6 +74,14 @@
 <script id="template-reset" type="text/x-handlebars-template">
     <h1>{{title}}</h1>
     <span id="reset">reset all notes</span>
+</script>
+<script id="template-stylepicker" type="text/x-handlebars-template">
+    <h1>{{title}}</h1>
+    <select id="style-picker">
+        {{#each styles}}
+            <option value="{{path}}">{{name}}</option>
+        {{/each}}
+    </select>
 </script>
 <script id="template-edit" type="text/x-handlebars-template">
 <h1>{{title}}</h1>

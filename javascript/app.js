@@ -8,8 +8,9 @@ define(
         'modules/view',
         'modules/reset',
         'modules/edit',
-        'modules/filter'
-    ], function ($, SortRef, CreateRef, StorageRef, ViewRef, ResetRef, EditRef, FilterRef) {
+        'modules/filter',
+        'modules/stylepicker'
+    ], function ($, SortRef, CreateRef, StorageRef, ViewRef, ResetRef, EditRef, FilterRef, StylePickerRef) {
 
     'use strict';
 
@@ -24,7 +25,13 @@ define(
                myReset,
                myStorage,
                myEdit,
-               myFilter;
+               myFilter,
+               myStylePicker;
+
+           // StylePicker
+           mySorter = new StylePickerRef();
+           mySorter.constructor();
+           mySorter.render();
 
            // Sorter
            mySorter = new SortRef();

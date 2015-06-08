@@ -43,7 +43,6 @@ define(
             highlightSort;
 
         var publicConstructor = function() {
-            handlebars.registerHelper('sortlist', handlebarsSortlistHelper);
             $(document).bind('kn:view:complete', highlightSort);
 
             handlebarSource = $('#' + handlebarTemplateId).html();
@@ -79,19 +78,6 @@ define(
                     });
                 });
             });
-        };
-
-        handlebarsSortlistHelper = function(items, options) {
-            var out = '<ul id="sort-container">',
-                i,
-                l = items.length;
-
-            for (i = 0; i < l; i++) {
-                // options.fn(items[i])
-                out = out + '<li id="sort-' + items[i].name + '">' + items[i].title + '</li>';
-            }
-
-            return out + "</ul>";
         };
 
         highlightSort = function(ev) {
