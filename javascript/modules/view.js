@@ -10,17 +10,17 @@ define(
     'use strict';
 
     // module
-    var returnedView = function () {
+    return function () {
 
         // configuration
-
         var sorting = config.defaultSort;
+        var showFinished = config.defaultShowFinished;
 
         // handlebar settings
 
         var handlebarRegionId = 'region-view';
         var handlebarTemplateId = 'template-view';
-        var handlebarPartialTemplateId = 'template-partial-note'
+        var handlebarPartialTemplateId = 'template-partial-note';
         var handlebarSource = null;
         var handlebarTemplate = null;
         var handlebarContext = null;
@@ -31,23 +31,33 @@ define(
             getNoteElements,
             compareNotes,
             updateSort,
+            updateFilter,
             handlebarsTimestampToDateHelper;
 
-        var pad2Digits;
-
-        this.constructor = function () {
+        var publicConstructor = function () {
             handlebars.registerPartial('note', $('#' + handlebarPartialTemplateId).html());
             handlebars.registerHelper('timestampToDate', handlebarsTimestampToDateHelper);
 
-            $(document).bind('kn:sort', updateSort.bind(this)); // binding context "this" to updateSort()
-            $(document).bind('kn:data:change', this.render.bind(this)); // binding context "this" to render()
-            $(document).bind('kn:reset:complete', this.render.bind(this)); // binding context "this" to render()
-            $(document).bind('kn:edit:cancel', this.render.bind(this)); // binding context "this" to render()
-        };
-
-        this.preRender = function () {
             handlebarSource = $('#' + handlebarTemplateId).html();
             handlebarTemplate = handlebars.compile(handlebarSource);
+
+
+            $(document).bind('kn:sort', updateSort); // binding context "this" to updateSort()
+            $(document).bind('kn:data:change', publicRender); // binding context "this" to render()
+            $(document).bind('kn:reset:complete', publicRender); // binding context "this" to render()
+            $(document).bind('kn:edit:cancel', publicRender);
+            $(document).bind('kn:filter', updateFilter);// binding context "this" to render()
+        };
+
+        var publicRender = function () {
+            privatePreRender();
+
+            $('#' + handlebarRegionId).html(handleBarHtml);
+
+            privatePostRender();
+        };
+
+        var privatePreRender = function () {
             handlebarContext = {
                 title: 'view',
                 noteElements: getNoteElements()
@@ -55,20 +65,12 @@ define(
             handleBarHtml = handlebarTemplate(handlebarContext);
         };
 
-        this.render = function () {
-            this.preRender();
-
-            $('#' + handlebarRegionId).html(handleBarHtml);
-
-            this.postRender();
-        };
-
-        this.postRender = function () {
+        var privatePostRender = function () {
             var noteElements = retrieveNotes();
 
             // add edit click functionality
             $.each(noteElements, function (key, value) {
-                $('#note-' + key + ' .edit').on('click', function (ev) {
+                $('#note-' + key + ' .edit').on('click', function () {
                     $.event.trigger({
                         type: 'kn:edit',
                         kn: {
@@ -90,8 +92,6 @@ define(
             });
         };
 
-        // private functions
-
         getNoteElements = function () {
             var noteElements = retrieveNotes(),
                 cleanedElements = [],
@@ -101,13 +101,16 @@ define(
             $.each(noteElements, function (key, value) {
                 date = new Date(value.createdate);
 
-                cleanedElements.push({
-                    title: value.title || '<no title>',
-                    note: value.note || '<no content>', // @todo new-line-to-break
-                    createdate: value.createdate, // date.toDateString(),
-                    duedate: value.duedate,
-                    importance: value.importance
-                });
+                if(!value.finished || showFinished) {
+                    cleanedElements.push({
+                        title: value.title || '<no title>',
+                        note: value.note || '<no content>', // @todo new-line-to-break
+                        createdate: value.createdate, // date.toDateString(),
+                        duedate: value.duedate,
+                        importance: value.importance,
+                        finished: value.finished
+                    });
+                }
             });
 
             // sort objects in array by current active sorting
@@ -132,7 +135,14 @@ define(
 
         updateSort = function(ev) {
             sorting = ev.kn.sort.name;
-            this.render();
+
+            publicRender();
+        };
+
+        updateFilter = function(ev) {
+
+            showFinished = ev.kn.filter;
+            publicRender();
         };
 
         retrieveNotes = function() {
@@ -154,8 +164,10 @@ define(
                 dateObj.getFullYear() + ' ' +
                 auxiliary.pad2Digits(dateObj.getHours()) + ':' + auxiliary.pad2Digits(dateObj.getMinutes());
         };
+
+        return {
+            constructor: publicConstructor,
+            render: publicRender
+        };
     };
-
-    return returnedView;
-
 });

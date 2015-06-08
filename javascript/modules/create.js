@@ -12,7 +12,7 @@ define(
     // @todo form default values for duedate/duetime
 
     // module
-    var returnedCreate = function () {
+    return function () {
 
         // configuration
 
@@ -33,13 +33,15 @@ define(
         var disableCreate,
             enableCreate;
 
-        this.constructor = function() {
+        var publicConstructor = function() {
             handlebars.registerHelper('formelement', auxiliary.handlebarsFormElementHelper);
-        };
 
-        this.preRender = function() {
             handlebarSource = $('#' + handlebarTemplateId).html();
             handlebarTemplate = handlebars.compile(handlebarSource);
+
+        };
+
+        var privatePreRender = function() {
             handlebarContext = {
                 title: 'create',
                 mode: 'create',
@@ -48,18 +50,18 @@ define(
             handleBarHtml = handlebarTemplate(handlebarContext);
         };
 
-        this.render = function() {
-            this.preRender();
+        var publicRender = function() {
+            privatePreRender();
 
             $('#' + handlebarRegionId).html(handleBarHtml);
 
-            this.postRender();
+            privatePostRender();
         };
 
-        this.postRender = function() {
+        var privatePostRender = function() {
             $submit = $('#create-submit');
 
-            $submit.on('click', function(ev) {
+            $submit.on('click', function() {
                 $.event.trigger({
                     type: 'kn:create',
                     kn: {
@@ -84,7 +86,10 @@ define(
         enableCreate = function() {
             $submit.removeAttr('disabled');
         };
-    };
 
-    return returnedCreate;
+        return {
+            constructor: publicConstructor,
+            render: publicRender
+        };
+    };
 });

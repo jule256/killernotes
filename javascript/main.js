@@ -35,7 +35,7 @@ require(
     console.info(
         'jQuery version: ' + $.fn.jquery + ', ' +
         'Handlebars version: ' + handlebars.VERSION + ', ' +
-        'Killernotes version: ' + Killernotes.VERSION
+        'Killernotes version: ' + Killernotes.getVersion()
     );
 
 });

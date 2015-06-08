@@ -13,54 +13,60 @@ define(
 
     'use strict';
 
-    var returnedApp = function () {
+   return function () {
 
-        this.start = function() {
-            var mySorter,
-                myCreate,
-                myView,
-                myReset,
-                myStorage,
-                myEdit,
-                myFilter;
+       var version = 0.2;
 
-            // filter
-            mySorter = new SortRef();
-            mySorter.constructor();
-            mySorter.render();
+       var publicStart = function () {
+           var mySorter,
+               myCreate,
+               myView,
+               myReset,
+               myStorage,
+               myEdit,
+               myFilter;
 
-            // edit
-            myFilter = new FilterRef();
-            myFilter.constructor();
-            myFilter.render();
+           // Sorter
+           mySorter = new SortRef();
+           mySorter.constructor();
+           mySorter.render();
 
-            // create
-            myCreate = new CreateRef();
-            myCreate.constructor();
-            myCreate.render();
+           // filter
+           myFilter = new FilterRef();
+           myFilter.constructor();
+           myFilter.render();
 
-            // view
-            myView = new ViewRef();
-            myView.constructor();
-            myView.render();
+           // create
+           myCreate = new CreateRef();
+           myCreate.constructor();
+           myCreate.render();
 
-            // reset
-            myReset = new ResetRef();
-            myReset.constructor();
-            myReset.render();
+           // view
+           myView = new ViewRef();
+           myView.constructor();
+           myView.render();
 
-            // storage
-            myStorage = new StorageRef();
-            myStorage.constructor();
+           // reset
+           myReset = new ResetRef();
+           myReset.constructor();
+           myReset.render();
 
-            // edit
-            myEdit = new EditRef();
-            myEdit.constructor();
-        };
+           // storage
+           myStorage = new StorageRef();
+           myStorage.constructor();
 
-        this.VERSION = 0.1;
-    };
+           // edit
+           myEdit = new EditRef();
+           myEdit.constructor();
+       };
 
-    return returnedApp;
+       var publicGetVersion = function () {
+           return version;
+       };
 
+       return {
+           start: publicStart,
+           getVersion: publicGetVersion
+       };
+   };
 });

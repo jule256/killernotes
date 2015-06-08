@@ -9,7 +9,7 @@ define(
     'use strict';
 
     // module
-    var returnedStorage = function () {
+   return function () {
 
         // configuration
 
@@ -18,7 +18,7 @@ define(
             resetNotes,
             getExistingData;
 
-        this.constructor = function() {
+        var publicConstructor = function() {
             if (typeof(Storage) === 'undefined') {
                 throw Error('local storage not supported, this app will not run in your browser');
             }
@@ -85,7 +85,9 @@ define(
         getExistingData = function() {
             return JSON.parse(localStorage.getItem(config.localStorageName)) || {};
         };
-    };
 
-    return returnedStorage;
+       return {
+           constructor: publicConstructor
+       };
+    };
 });

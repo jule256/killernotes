@@ -10,7 +10,7 @@ define(
     'use strict';
 
     // module
-    var returnedEdit = function () {
+    return function () {
 
         // configuration
 
@@ -30,37 +30,41 @@ define(
 
         // private functions
         var prepareEditForm,
-            renderEditForm,
             transformFormOptions;
 
-        this.constructor = function () {
-            $(document).bind('kn:edit', prepareEditForm.bind(this)); // binding context "this" to prepareEditForm()
+        var publicConstructor = function () {
+            $(document).bind('kn:edit', prepareEditForm); // binding context "this" to prepareEditForm()
+
+            handlebarSource = $('#' + handlebarTemplateId).html();
+            handlebarTemplate = handlebars.compile(handlebarSource);
+
         };
 
         // private functions
 
         prepareEditForm = function (ev) {
+            console.log(ev);
             data = ev.kn.data;
             id = ev.kn.id;
 
-            this.render();
+            publicRender();
         };
 
-        this.preRender = function () {
-            handlebarSource = $('#' + handlebarTemplateId).html();
-            handlebarTemplate = handlebars.compile(handlebarSource);
+        var privatePreRender = function () {
+
             handlebarContext = {
                 title: 'edit',
                 mode: 'edit',
                 formElements: transformFormOptions(config.formOptions, data)
             };
+
             handleBarHtml = handlebarTemplate(handlebarContext);
         };
 
-        this.render = function() {
+        var publicRender = function() {
             var noteContainer;
 
-            this.preRender();
+            privatePreRender();
 
             // find the container of the to-be-edited note
             noteContainer = $('#note-' + id);
@@ -71,12 +75,12 @@ define(
             // replace view by edit form
             noteContainer.html(handleBarHtml);
 
-            this.postRender();
-        }
+            privatePostRender();
+        };
 
-        this.postRender = function () {
+        var privatePostRender = function () {
 
-            $('#edit-submit').on('click', function (ev) {
+            $('#edit-submit').on('click', function () {
                 $.event.trigger({
                     type: 'kn:edit:save',
                     kn: {
@@ -87,7 +91,7 @@ define(
                 });
             });
 
-            $('#edit-cancel').on('click', function (ev) {
+            $('#edit-cancel').on('click', function () {
                 $.event.trigger({
                     type: 'kn:edit:cancel',
                     kn: {},
@@ -133,6 +137,7 @@ define(
                         }
                         // @todo maybe add some fallback here to tackle missconfiguration of the config
                     }
+
                     else {
                         // this field has no dependee -> set its value straight from data
                         returnData[i].value = data[formOption.name];
@@ -142,7 +147,10 @@ define(
 
             return returnData;
         };
-    };
 
-    return returnedEdit;
+        return {
+            constructor: publicConstructor,
+            render: publicRender
+        };
+    };
 });

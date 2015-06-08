@@ -27,7 +27,7 @@ define(
     ];
 
     // module
-    var returnedSort = function () {
+    return function () {
 
         // handlebar settings
 
@@ -42,14 +42,16 @@ define(
         var handlebarsSortlistHelper,
             highlightSort;
 
-        this.constructor = function() {
+        var publicConstructor = function() {
             handlebars.registerHelper('sortlist', handlebarsSortlistHelper);
             $(document).bind('kn:view:complete', highlightSort);
-        };
 
-        this.preRender = function() {
             handlebarSource = $('#' + handlebarTemplateId).html();
             handlebarTemplate = handlebars.compile(handlebarSource);
+
+        };
+
+        var privatePreRender = function() {
             handlebarContext = {
                 title: 'sort',
                 sortOptions: sortOptions
@@ -57,17 +59,17 @@ define(
             handleBarHtml = handlebarTemplate(handlebarContext);
         };
 
-        this.render = function() {
-            this.preRender();
+        var publicRender = function() {
+            privatePreRender();
 
             $('#' + handlebarRegionId).html(handleBarHtml);
 
-            this.postRender();
+            privatePostRender();
         };
 
-        this.postRender = function() {
+        var privatePostRender = function() {
             $.each(sortOptions, function(key, sortOption) {
-                $('#sort-' + sortOption.name).on('click', function(ev) {
+                $('#sort-' + sortOption.name).on('click', function() {
                     $.event.trigger({
                         type: 'kn:sort',
                         kn: {
@@ -93,14 +95,13 @@ define(
         };
 
         highlightSort = function(ev) {
-            $('#sort-container li').removeClass('active');
+            $('#sort-container').find('li').removeClass('active');
             $('#sort-' + ev.kn.sort).addClass('active');
         };
 
-
-
+        return {
+            constructor: publicConstructor,
+            render: publicRender
+        };
     };
-
-    return returnedSort;
-
 });

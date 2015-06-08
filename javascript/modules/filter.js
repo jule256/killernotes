@@ -5,12 +5,12 @@ define(
         'handlebars',
         'config',
         'auxiliary'
-    ], function ($, handlebars, config, auxiliary) {
+    ], function ($, handlebars) {
 
         'use strict';
 
         // module
-        var returnedFilter = function () {
+        return function () {
 
             // configuration
 
@@ -22,37 +22,32 @@ define(
             var handlebarContext = null;
             var handleBarHtml = null;
 
-            // private functions
-            var getFormElementHtml,
-                handlebarsFormElementHelper,
-                extractCreateData;
-
-            this.constructor = function() {
-
-            };
-
-            this.preRender = function() {
+            var publicConstructor = function() {
                 handlebarSource = $('#' + handlebarTemplateId).html();
                 handlebarTemplate = handlebars.compile(handlebarSource);
+            };
+
+            var publicRender = function() {
+                privatePreRender();
+
+                $('#' + handlebarRegionId).html(handleBarHtml);
+
+                privatePostRender();
+            };
+
+            var privatePreRender = function() {
                 handlebarContext = {
                     title: 'filter'
                 };
                 handleBarHtml = handlebarTemplate(handlebarContext);
             };
 
-            this.render = function() {
-                this.preRender();
-
-                $('#' + handlebarRegionId).html(handleBarHtml);
-
-                this.postRender();
-            };
-
-            this.postRender = function() {
-                $('#filter-finished').on('change', function(ev) {
+            var privatePostRender = function() {
+                $('#filter-finished').on('change', function() {
                     $.event.trigger({
                        type: 'kn:filter',
                         kn: {
+                            type: "finished",
                             filter: $(this).is(':checked')
                         },
                         time: new Date()
@@ -60,10 +55,9 @@ define(
                 });
             };
 
-            // private functions
-
+            return {
+                constructor: publicConstructor,
+                render: publicRender
+            };
         };
-
-        return returnedFilter;
-
     });

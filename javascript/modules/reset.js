@@ -10,7 +10,7 @@ define(
     // configuration
 
     // module
-    var returnedReset = function () {
+   return function () {
 
         // handlebar settings
 
@@ -23,29 +23,29 @@ define(
 
         // private functions
 
-        this.constructor = function() {
+        var publicConstructor = function() {
+            handlebarSource = $('#' + handlebarTemplateId).html();
+            handlebarTemplate = handlebars.compile(handlebarSource);
 
         };
 
-        this.preRender = function() {
-            handlebarSource = $('#' + handlebarTemplateId).html();
-            handlebarTemplate = handlebars.compile(handlebarSource);
+       var publicRender = function() {
+           privatePreRender();
+
+           $('#' + handlebarRegionId).html(handleBarHtml);
+
+           privatePostRender();
+       };
+
+        var privatePreRender = function() {
             handlebarContext = {
                 title: 'reset'
             };
             handleBarHtml = handlebarTemplate(handlebarContext);
         };
 
-        this.render = function() {
-            this.preRender();
-
-            $('#' + handlebarRegionId).html(handleBarHtml);
-
-            this.postRender();
-        };
-
-        this.postRender = function() {
-            $('#reset').on('click', function(ev) {
+        var privatePostRender = function() {
+            $('#reset').on('click', function() {
                 $.event.trigger({
                     type: 'kn:reset',
                     kn: {},
@@ -53,8 +53,10 @@ define(
                 });
             });
         };
+
+        return {
+            constructor: publicConstructor,
+            render: publicRender
+        };
     };
-
-    return returnedReset;
-
 });
