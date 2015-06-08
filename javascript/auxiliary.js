@@ -72,7 +72,7 @@ define(
                     break;
                 case 'checkbox':
                     valueHtml = typeof formElement.value === 'undefined' ? '' : formElement.value ? 'checked' : '';
-                    html.push('<input type="checkbox" id="create-' + formElement.name + '"' + valueHtml + '>');
+                    html.push('<input type="checkbox" id="' + mode + '-' + formElement.name + '"' + valueHtml + '>');
                     break;
                 default:
                     html.push('<span id="' + mode + '-' + formElement.name + '">');
@@ -142,11 +142,9 @@ define(
                         }
                         // @todo maybe add some fallback here to tackle missconfiguration of the config
                     }
-
                     else if (formElement.type === 'checkbox') {
                         data[formElement.name] = $('#' + mode + '-' + formElement.name).is(':checked');
                     }
-
                     else {
                         // this field has no dependee -> get its value straight from DOM
                         data[formElement.name] = $('#' + mode + '-' + formElement.name).val();
