@@ -21,7 +21,6 @@ define(
 
         // handlebar settings
 
-        var handlebarRegionId = 'region-debug';
         var handlebarTemplateId = 'template-edit';
         var handlebarSource = null;
         var handlebarTemplate = null;
@@ -29,37 +28,24 @@ define(
         var handleBarHtml = null;
 
         // private functions
-        var prepareEditForm,
-            transformFormOptions;
 
+        /**
+         * constructor
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         */
         var publicConstructor = function () {
-            $(document).bind('kn:edit', prepareEditForm); // binding context "this" to prepareEditForm()
+            $(document).bind('kn:edit', privatePrepareEditForm);
 
             handlebarSource = $('#' + handlebarTemplateId).html();
             handlebarTemplate = handlebars.compile(handlebarSource);
-
         };
 
-        // private functions
-
-        prepareEditForm = function (ev) {
-            data = ev.kn.data;
-            id = ev.kn.id;
-
-            publicRender();
-        };
-
-        var privatePreRender = function () {
-
-            handlebarContext = {
-                title: 'edit',
-                mode: 'edit',
-                formElements: transformFormOptions(config.formOptions, data)
-            };
-
-            handleBarHtml = handlebarTemplate(handlebarContext);
-        };
-
+        /**
+         * appends the created html into the designated region of the DOM
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         */
         var publicRender = function() {
             var noteContainer;
 
@@ -77,6 +63,43 @@ define(
             privatePostRender();
         };
 
+        // private functions
+
+        /**
+         * extracts the data of the to-be-edited note and calls the render function
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         * @param {object} ev
+         */
+        var privatePrepareEditForm = function (ev) {
+            data = ev.kn.data;
+            id = ev.kn.id;
+
+            publicRender();
+        };
+
+        /**
+         * automatically called before the html is appended into the DOM.
+         * prepares the handlebar templating (setting context, creating the html)
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         */
+        var privatePreRender = function () {
+            handlebarContext = {
+                title: 'edit',
+                mode: 'edit',
+                formElements: transformFormElements(config.formElements, data)
+            };
+
+            handleBarHtml = handlebarTemplate(handlebarContext);
+        };
+
+        /**
+         * automatically called after the html is appended into the DOM.
+         * sets listeners and triggers
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         */
         var privatePostRender = function () {
 
             $('#edit-submit').on('click', function () {
@@ -99,47 +122,44 @@ define(
             });
         };
 
-        // private functions
-
         /**
          * merges the form data of the to-be-edited note into the form structure from config
          *
          * @author Julian Mollik <jule@creative-coding.net>
-         * @param {Array} formOptions
+         * @param {Array} formElements
          * @param {Object} data
          * @returns {Array}
          */
-        transformFormOptions = function(formOptions, data) {
-            var returnData = $.extend({}, formOptions), // shallow clone
+        var transformFormElements = function(formElements, data) {
+            var returnData = $.extend({}, formElements), // shallow clone
                 i,
-                formOption,
+                formElement,
                 dateObj,
                 date,
                 time;
 
-            for (i = 0; i < formOptions.length; i++) {
-                formOption = formOptions[i];
-                if (typeof formOption.dependant === 'undefined') {
-                    if (typeof formOption.dependee !== 'undefined') {
-                        if (formOption.type === 'date' && formOptions[formOption.dependee].type === 'time') {
+            for (i = 0; i < formElements.length; i++) {
+                formElement = formElements[i];
+                if (typeof formElement.dependant === 'undefined') {
+                    if (typeof formElement.dependee !== 'undefined') {
+                        if (formElement.type === 'date' && formElements[formElement.dependee].type === 'time') {
                             // this is a date field and the dependee is a time field -> separate the two values
-                            dateObj = new Date(data[formOption.name]);
+                            dateObj = new Date(data[formElement.name]);
                             date = auxiliary.formatDateDate(dateObj);
                             time = auxiliary.formatDateTime(dateObj);
 
                             returnData[i].value = date;
-                            returnData[formOption.dependee].value = time;
+                            returnData[formElement.dependee].value = time;
                         }
                         // @todo maybe add some fallback here to tackle missconfiguration of the config
                     }
 
                     else {
                         // this field has no dependee -> set its value straight from data
-                        returnData[i].value = data[formOption.name];
+                        returnData[i].value = data[formElement.name];
                     }
                 }
             }
-
             return returnData;
         };
 

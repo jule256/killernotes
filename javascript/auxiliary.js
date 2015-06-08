@@ -130,14 +130,14 @@ define(
             var data = {},
                 date,
                 time,
-                formOptions = config.formOptions;
-            $.each(formOptions, function(key, formElement) {
+                formElements = config.formElements;
+            $.each(formElements, function(key, formElement) {
                 if (typeof formElement.dependant === 'undefined') {
                     if (typeof formElement.dependee !== 'undefined') {
-                        if (formElement.type === 'date' && formOptions[formElement.dependee].type === 'time') {
+                        if (formElement.type === 'date' && formElements[formElement.dependee].type === 'time') {
                             // this is a date field and the dependee is a time field -> merge the two values
                             date = $('#' + mode + '-' + formElement.name).val();
-                            time = $('#' + mode + '-' + formOptions[formElement.dependee].name).val();
+                            time = $('#' + mode + '-' + formElements[formElement.dependee].name).val();
                             data[formElement.name] = Date.parse(date + ' ' + time);
                         }
                         // @todo maybe add some fallback here to tackle missconfiguration of the config

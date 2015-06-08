@@ -66,7 +66,7 @@ define(
             handlebarContext = {
                 title: 'create',
                 mode: 'create',
-                formElements: config.formOptions
+                formElements: config.formElements
             };
             handleBarHtml = handlebarTemplate(handlebarContext);
         };

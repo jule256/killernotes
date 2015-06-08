@@ -9,10 +9,10 @@
   - Importance: Stars/Flashes instead of select-dropdown (Dominik)
   - default values for due-create and due-time in create form (Julian) ✓
   - reset create form after kn:created (Julian) ✓
-  - sort view: use handlebars correctly (Julian)
+  - sort view: use handlebars correctly (Dominik)
   - style picker (Dominik)
   - JSDoc comments for "every" function (Beide)
-  - get variable-names straight: formElement/s vs. formOptions/s (Julian)
+  - get variable-names straight: formElement/s vs. formOptions/s (Julian) ✓
   - find a better solution for the Date zero-padding problem (???)
   - don't allow edit-mode if another note is already in edit mode (Julian)
   - maybe make preRender() and postRender() private, since they should not be called from outside ✓
