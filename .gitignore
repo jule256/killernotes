@@ -1,1 +1,2 @@
 .idea/*
+*.map // do not add scss map files to repository

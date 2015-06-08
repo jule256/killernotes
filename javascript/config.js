@@ -39,14 +39,16 @@ define([], function () {
                 name: 'duedate',
                 title: 'Duedate',
                 type: 'date',
-                dependee: 4 // defines that this item uses formOptions[4]
+                dependee: 4, // defines that this item uses formOptions[4]
+                value: 'tomorrow' // will be converted to current-date plus 24h during runtime
             },
             {
                 id: 4,
                 name: 'duetime',
                 title: 'Duetime',
                 type: 'time',
-                dependant: 3 // defines that this item is used by formOptions[3]
+                dependant: 3, // defines that this item is used by formOptions[3]
+                value: 'now' // will be converted to current time during runtime
             },
             {
                 id: 5,

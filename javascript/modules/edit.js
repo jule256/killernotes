@@ -43,7 +43,6 @@ define(
         // private functions
 
         prepareEditForm = function (ev) {
-            console.log(ev);
             data = ev.kn.data;
             id = ev.kn.id;
 
@@ -125,13 +124,9 @@ define(
                         if (formOption.type === 'date' && formOptions[formOption.dependee].type === 'time') {
                             // this is a date field and the dependee is a time field -> separate the two values
                             dateObj = new Date(data[formOption.name]);
-                            date =
-                                dateObj.getFullYear() + '-' +
-                                auxiliary.pad2Digits(dateObj.getMonth() + 1) + '-' +
-                                auxiliary.pad2Digits(dateObj.getDate());
-                            time =
-                                auxiliary.pad2Digits(dateObj.getHours()) + ':' +
-                                auxiliary.pad2Digits(dateObj.getMinutes()) + ':00.000';
+                            date = auxiliary.formatDateDate(dateObj);
+                            time = auxiliary.formatDateTime(dateObj);
+
                             returnData[i].value = date;
                             returnData[formOption.dependee].value = time;
                         }

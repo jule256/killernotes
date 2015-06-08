@@ -39,6 +39,9 @@ define(
             var html = [],
                 valueHtml;
 
+            // handle magic strings for default date functionality
+            formElement = returnedAuxiliary.handleMagicStrings(formElement);
+
             switch(formElement.type) {
                 case 'input':
                     valueHtml = typeof formElement.value === 'undefined' ? '' : ' value="' + formElement.value + '"';
@@ -78,6 +81,40 @@ define(
             }
 
             return html.join("\n");
+        },
+
+        /**
+         * analyizes the value key of the given formElement. If the value key contains a "magic string" the value key's
+         * value is changed to the according value
+         *
+         * currently implemented:
+         *     - now -> 'hh:mm'
+         *     - tomorrow -> 'yyyy-mm-dd' (current datetime plus 24 hours)
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         * @param {object} formElement
+         * @returns {object}
+         */
+        handleMagicStrings: function(formElement) {
+            var todayDateObj,    // dates will be set in according case (including duplicated code) to avoid expensive
+                tomorrowDateObj; // "new Date()" operations which are not necessary if the switch goes to "default"
+
+            switch (formElement.value) {
+                case 'now':
+                    todayDateObj = new Date();
+                    formElement.value = returnedAuxiliary.formatDateTime(todayDateObj);
+                    break;
+                case 'tomorrow':
+                    todayDateObj = new Date();
+                    tomorrowDateObj = new Date();
+                    tomorrowDateObj.setDate(todayDateObj.getDate() + 1);
+                    formElement.value = returnedAuxiliary.formatDateDate(tomorrowDateObj);
+                    break;
+                default:
+                    // do nothing ...
+            }
+
+            return formElement;
         },
 
         /**
@@ -128,6 +165,31 @@ define(
          */
         pad2Digits: function(number) {
             return ('00' + number).slice(-2);
+        },
+
+        /**
+         * returns the hh:mm:00.000 of given date object
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         * @param {Date} dateObj
+         * @returns {string}
+         */
+        formatDateTime: function(dateObj) {
+            return returnedAuxiliary.pad2Digits(dateObj.getHours()) + ':' +
+                returnedAuxiliary.pad2Digits(dateObj.getMinutes()) + ':00.000';
+        },
+
+        /**
+         * returns the yyyy-MM-dd of given date object
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         * @param {Date} dateObj
+         * @returns {string}
+         */
+        formatDateDate: function(dateObj) {
+            return dateObj.getFullYear() + '-' +
+                returnedAuxiliary.pad2Digits(dateObj.getMonth() + 1) + '-' +
+                returnedAuxiliary.pad2Digits(dateObj.getDate());
         },
 
         loadTemplate: function(path) {
