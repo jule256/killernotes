@@ -2,8 +2,9 @@
 define(
     [
         'jQuery',
+        'handlebars',
         'config'
-    ], function ($, config) {
+    ], function ($, handlebars, config) {
 
     'use strict';
 
@@ -104,6 +105,11 @@ define(
                         }
                         // @todo maybe add some fallback here to tackle missconfiguration of the config
                     }
+
+                    else if (formElement.type === 'checkbox') {
+                        data[formElement.name] = $('#' + mode + '-' + formElement.name).is(':checked');
+                    }
+
                     else {
                         // this field has no dependee -> get its value straight from DOM
                         data[formElement.name] = $('#' + mode + '-' + formElement.name).val();
@@ -122,6 +128,12 @@ define(
          */
         pad2Digits: function(number) {
             return ('00' + number).slice(-2);
+        },
+
+        loadTemplate: function(path) {
+            $.get(path, function(contents) {
+                return handlebars.compile(contents);
+            });
         }
     };
 
