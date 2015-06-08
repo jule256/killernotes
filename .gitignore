@@ -1,5 +1,18 @@
-.idea/*
-*.map // do not add scss map files to repository
+.idea/watcherTasks.xml
+resource/main.css.map
+
+.idea/inspectionProfiles/profiles_settings.xml
+
+.idea/inspectionProfiles/Project_Default.xml
+
+.idea/misc.xml
+
+.idea/modules.xml
+
+.idea/project-01.iml
+
+.idea/vcs.xml
+
 .idea/watcherTasks.xml
 
-resource/main.css.map
+.idea/workspace.xml
