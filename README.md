@@ -18,7 +18,7 @@
   - maybe make preRender() and postRender() private, since they should not be called from outside ✓
   - standardize event naming (maybe 'kn:`<type`>:`<action`>') (Julian)
   - add JSCS and JSHint configuration (Julian)
-  - disable sorting during edit mode (Julian) → /work in progress/
+  - disable sorting during edit mode (Julian) → _work in progress_
   - Exception Handling: Errorview & Loglevels (Dominik)
   - save data on server
   - templates should only be compiled once, store/precompile handlebar templates (Dominik)
