@@ -14,7 +14,7 @@
   - JSDoc comments for "every" function (Beide)
   - get variable-names straight: formElement/s vs. formOptions/s (Julian) ✓
   - find a better solution for the Date zero-padding problem (???)
-  - don't allow edit-mode if another note is already in edit mode (Julian)
+  - don't allow edit-mode if another note is already in edit mode (Julian) ✓
   - maybe make preRender() and postRender() private, since they should not be called from outside ✓
   - standardize event naming (maybe 'kn:`<type`>:`<action`>') (Julian)
   - add JSCS and JSHint configuration (Julian)
@@ -26,6 +26,7 @@
   
 ### bugs
   - note editing always sets `finished:false` ✓
+  - ⚠ check for dangling events: Everytime the view is newly rendered, new events are generated in privatePostRender()
 
 ### @ideas
   - Additional features

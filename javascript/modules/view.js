@@ -15,6 +15,7 @@ define(
         // configuration
         var sorting = config.defaultSort;
         var showFinished = config.defaultShowFinished;
+        var editActive = false;
 
         // handlebar settings
 
@@ -26,29 +27,30 @@ define(
         var handlebarContext = null;
         var handleBarHtml = null;
 
-        // private functions
-        var retrieveNotes,
-            getNoteElements,
-            compareNotes,
-            updateSort,
-            updateFilter,
-            handlebarsTimestampToDateHelper;
-
+        /**
+         * constructor
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         */
         var publicConstructor = function () {
             handlebars.registerPartial('note', $('#' + handlebarPartialTemplateId).html());
-            handlebars.registerHelper('timestampToDate', handlebarsTimestampToDateHelper);
+            handlebars.registerHelper('timestampToDate', privateHandlebarsTimestampToDateHelper);
 
             handlebarSource = $('#' + handlebarTemplateId).html();
             handlebarTemplate = handlebars.compile(handlebarSource);
 
-
-            $(document).bind('kn:sort', updateSort);
+            $(document).bind('kn:sort', privateUpdateSort);
             $(document).bind('kn:data:change', publicRender);
             $(document).bind('kn:reset:complete', publicRender);
             $(document).bind('kn:edit:cancel', publicRender);
-            $(document).bind('kn:filter', updateFilter);
+            $(document).bind('kn:filter', privateUpdateFilter);
         };
 
+        /**
+         * appends the created html into the designated region of the DOM
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         */
         var publicRender = function () {
             privatePreRender();
 
@@ -57,28 +59,45 @@ define(
             privatePostRender();
         };
 
+        // private functions
+
+        /**
+         * automatically called before the html is appended into the DOM.
+         * prepares the handlebar templating (setting context, creating the html)
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         */
         var privatePreRender = function () {
             handlebarContext = {
                 title: 'view',
-                noteElements: getNoteElements()
+                noteElements: privateGetNoteElements()
             };
             handleBarHtml = handlebarTemplate(handlebarContext);
         };
 
+        /**
+         * automatically called after the html is appended into the DOM.
+         * sets listeners and triggers
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         */
         var privatePostRender = function () {
-            var noteElements = retrieveNotes();
+            var noteElements = privateRetrieveNotes();
 
             // add edit click functionality
             $.each(noteElements, function (key, value) {
                 $('#note-' + key + ' .edit').on('click', function () {
-                    $.event.trigger({
-                        type: 'kn:edit',
-                        kn: {
-                            id: key,
-                            data: value
-                        },
-                        time: new Date()
-                    });
+                    if (!editActive) {
+                        // only trigger event if there is no other edit-process in progress
+                        $.event.trigger({
+                            type: 'kn:edit',
+                            kn: {
+                                id: key,
+                                data: value
+                            },
+                            time: new Date()
+                        });
+                    }
                 });
             });
 
@@ -90,10 +109,20 @@ define(
                 },
                 time: new Date()
             });
+
+            $(document).bind('kn:edit', privateDisableEdit);
+            $(document).bind('kn:edit:cancel', privateEnableEdit);
+            $(document).bind('kn:edit:save', privateEnableEdit);
         };
 
-        getNoteElements = function () {
-            var noteElements = retrieveNotes(),
+        /**
+         * prepares the note-data so it can be used by the handlebars context
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         * @returns {Array}
+         */
+        var privateGetNoteElements = function () {
+            var noteElements = privateRetrieveNotes(),
                 cleanedElements = [],
                 date;
 
@@ -105,7 +134,7 @@ define(
                     cleanedElements.push({
                         title: value.title || '<no title>',
                         note: value.note || '<no content>', // @todo new-line-to-break
-                        createdate: value.createdate, // date.toDateString(),
+                        createdate: value.createdate,
                         duedate: value.duedate,
                         importance: value.importance,
                         finished: value.finished
@@ -114,12 +143,20 @@ define(
             });
 
             // sort objects in array by current active sorting
-            cleanedElements.sort(compareNotes);
+            cleanedElements.sort(privateCompareNotes);
 
             return cleanedElements;
         };
 
-        compareNotes = function (note1, note2) {
+        /**
+         * compares the given two note objects by the currently active sorting. Usable by the Array.sort() function
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         * @param {object} note1
+         * @param {object} note2
+         * @returns {number}
+         */
+        var privateCompareNotes = function (note1, note2) {
             switch(sorting) {
                 case 'importance':
                     return note2.importance - note1.importance;
@@ -133,20 +170,40 @@ define(
             }
         };
 
-        updateSort = function(ev) {
+        var privateUpdateSort = function(ev) {
             sorting = ev.kn.sort.name;
 
             publicRender();
         };
 
-        updateFilter = function(ev) {
-
+        var privateUpdateFilter = function(ev) {
             showFinished = ev.kn.filter;
             publicRender();
         };
 
-        retrieveNotes = function() {
+        /**
+         * gets the notes from localStorage and returns them as JSON-object
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         * @returns {object}
+         */
+        var privateRetrieveNotes = function() {
             return JSON.parse(localStorage.getItem(config.localStorageName)) || {};
+        };
+
+        var privateDisableEdit = function(ev) {
+            editActive = true;
+
+            // add "inactive" class to all other edit-note links
+            $('.note').not('#note-' + ev.kn.id).find('.edit').addClass('inactive');
+        };
+
+        var privateEnableEdit = function(ev) {
+            editActive = false;
+
+            // remove "inactive" class of all edit links
+            // note: since the view gets re-rendered on cancel AND on save, the following line is actually not needed
+            $('.note').find('.edit').removeClass('inactive');
         };
 
         /**
@@ -156,7 +213,7 @@ define(
          * @param {Number} timestamp
          * @returns {string}
          */
-        handlebarsTimestampToDateHelper = function(timestamp) {
+        var privateHandlebarsTimestampToDateHelper = function(timestamp) {
             var dateObj = new Date(timestamp);
             return '' +
                 auxiliary.pad2Digits(dateObj.getDate()) + '/' +

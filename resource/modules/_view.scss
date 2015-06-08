@@ -1,0 +1,9 @@
+// Module: View
+#region-view { // maybe use "view-container" like in _sort.scss (for consistency reasons)
+  .inactive {
+    cursor: not-allowed;
+    &:after {
+      content: ' ⚠';
+    }
+  }
+}

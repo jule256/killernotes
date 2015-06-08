@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*body {
   margin: 0;
   padding: 0;
@@ -32,5 +33,10 @@ body {
   cursor: pointer; }
 #sort-container .active:after {
   content: ' *'; }
+
+#region-view .inactive {
+  cursor: not-allowed; }
+  #region-view .inactive:after {
+    content: ' ⚠'; }
 
 /*# sourceMappingURL=main-secondary.css.map */
