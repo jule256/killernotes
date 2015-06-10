@@ -28,7 +28,7 @@
   - note editing always sets `finished:false` ✓
   - ⚠ check for dangling events: Everytime the view is newly rendered, new events are generated in privatePostRender()
   - disabled buttons still work
-  -
+
 ### @ideas
   - Additional features
     - delete note
