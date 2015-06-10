@@ -1,3 +1,5 @@
+// Module: stylepicker
+
 .kn-style-picker {
   margin-right: $defaultNormalSpacing;
 
@@ -9,7 +11,7 @@
     border: 0;
 
     color: $buttonForegroundColor;
-    font-size: 0.8em;
+    @include smallFont;
 
     &:focus {
       background: $buttonBackgroundColorHover;

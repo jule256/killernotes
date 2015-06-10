@@ -56,7 +56,7 @@
         {{> note}}
         {{/each}}
     {{else}}
-        <div>no notes found, try creating one</div>
+        <div class="kn-empty">No notes found, try creating one</div>
     {{/if}}
 </script>
 <script id="template-partial-note" type="text/x-handlebars-template">
@@ -65,7 +65,7 @@
         <div class="kn-note-info">
             <ul>
                 <li class="kn-note-duedate" title="due"><i class="fa fa-calendar-o"></i> <time>{{timestampToDate duedate}}</time></li>
-                <li class="kn-note-createdate" title="created"><i class="fa fa-plus"></i> <time>{{timestampToDate createdate}}</time></li>
+                <li class="kn-note-createdate" title="created"><i class="fa fa-plus-square-o"></i> <time>{{timestampToDate createdate}}</time></li>
             </ul>
         </div>
         <div class="kn-note-text">
@@ -86,7 +86,7 @@
                     {{/times}}
                 </span>
             </h3>
-            <div class="kn-note-description">{{note}}</div>
+            <p class="kn-note-description">{{note}}</p>
         </div>
         <div class="kn-note-actions">
             <a class="kn-note-edit button-link"><i class="fa fa-pencil"> Edit</i></a>
@@ -99,7 +99,7 @@
     </span>
 </script>
 <script id="template-reset" type="text/x-handlebars-template">
-    <a id="reset" class="kn-reset button-link">reset all notes</a>
+    <a id="reset" class="kn-reset button-link">Remove all notes</a>
 </script>
 <script id="template-stylepicker" type="text/x-handlebars-template">
     <select id="style-picker">

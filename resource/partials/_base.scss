@@ -1,13 +1,72 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800);
-
 body {
   background: $mainBackgroundColor;
 
-  font-family: "Open Sans", sans-serif;
+  font-family: $mainFont;
   color: $mainForegroundColor;
 }
 
 h1, h2, h3 {
   margin: 0;
   padding: 0;
+}
+
+h1 {
+  font-size: $heading1FontSize;
+  font-weight: $heading1Weight;
+}
+
+h2 {
+  font-size: $heading2FontSize;
+  font-weight: $heading2Weight;
+}
+
+h3 {
+  font-size: $heading3FontSize;
+  font-weight: $heading3Weight;
+}
+
+.button-first {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.button-last {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.button-link {
+
+  padding: ($defaultNarrowSpacing / 2) $defaultNarrowSpacing;
+
+  background-color: $buttonBackgroundColor;
+
+  @include smallFont;
+  color: $buttonForegroundColor;
+  text-decoration: none;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  @include border-radius($defaultRadius);
+
+  transition-duration: 0.33s;
+
+  &:hover, &:focus {
+    background-color: $buttonBackgroundColorHover;
+    cursor: pointer;
+    outline: none;
+
+  }
+
+  &.active {
+    background-color: $buttonBackgroundColorActive;
+  }
+
+  &.disabled, &.disable:hover {
+    cursor: not-allowed !important;
+    background-color: $buttonBackgroundColorDisabled;
+  }
 }

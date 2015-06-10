@@ -1,5 +1,6 @@
+//Mixins
 
-@mixin border-radius($radius) {
+@mixin border-radius($radius: $defaultRadius) {
   -webkit-border-radius: $radius;
   -moz-border-radius: $radius;
   -ms-border-radius: $radius;
@@ -12,4 +13,9 @@
   $solid-color: mix($opaque, $background, $percent);
   #{$attribute}: $solid-color;
   #{$attribute}: $color;
+}
+
+@mixin smallFont($fontSize: $smallFontSize, $fontWeight: 300) {
+  font-weight: $fontWeight;
+  font-size: $fontSize;
 }

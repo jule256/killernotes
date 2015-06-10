@@ -1,23 +1,38 @@
+// Style: Default
+
 //Maincolors
 $mainBackgroundColor: #fff;
 $mainForegroundColor: #333;
 $highlightColor: #93806C;
-$highlightColor2: #0f0;
+$highlightColor2: #2e8b57;
+$alternateForegroundColor: #fff;
 
-//buttons
-$buttonBackgroundColor: #bbb;
-$buttonBackgroundColorHover: #aaa;
-$buttonBackgroundColorActive: #2e8b57;
-$buttonBackgroundColorDisabled: #eee;
-$buttonForegroundColor: #fff;
+//Buttons
+$buttonBackgroundColor: rgba($highlightColor, 0.5);
+$buttonBackgroundColorHover: rgba($highlightColor, 0.75);
+$buttonBackgroundColorActive: rgba($highlightColor2, 0.75);
+$buttonBackgroundColorDisabled: rgba($highlightColor, 0.25);
+$buttonForegroundColor: $alternateForegroundColor;
 
-//
+//Spacing
 $defaultWideSpacing: 50px;
 $defaultNormalSpacing: 25px;
 $defaultNarrowSpacing: 10px;
-$defaultRadius: 2px;
 
-//fonts
-$h1Size: 1.5em;
-$h2Size: 1.2em;
-$smallerFontSize: 0.8em;
+//Font
+$mainFont: "Helvetica Neue", "Helvetica", sans-serif;
+$heading1FontSize: 1.5em;
+$heading2FontSize: 1.2em;
+$heading3FontSize: 1.1em;
+$heading1Weight: 700;
+$heading2Weight: 400;
+$heading3Weight: 300;
+$smallFontSize: 0.8em;
+
+//Additional
+$defaultRadius: 2px;
+$finishedBackground: rgba($highlightColor2, 0.5);
+$unfinishedBackground: rgba($highlightColor, 0.5);
+$importanceColor: $mainForegroundColor;
+$headerBackgroundColor: rgba($highlightColor, 0.1);
+$footerBackgroundColor: rgba($highlightColor, 0.33);

@@ -1,23 +1,41 @@
+// Module: view
+
 .kn-view {
 
   h2 {
-    margin-bottom: 10px;
+    margin-bottom: $defaultNarrowSpacing;
 
-    font-size: 1.2em;
+    font-size: $heading2FontSize;
   }
 
   h3 {
-    margin-bottom: 5px;
+    margin-bottom: $defaultNarrowSpacing / 2;
 
     display: flex;
     align-items: center;
 
-    font-size: 1.2em;
-    font-weight: 300;
-
     .kn-note-importance {
-      flex: 1;
       text-align: right;
+      color: $importanceColor;
+
+      &.importance-0 {
+        opacity: .2 * 0;
+      }
+      &.importance-1 {
+        opacity: .2 * 1;
+      }
+      &.importance-2 {
+        opacity: .2 * 2;
+      }
+      &.importance-3 {
+        opacity: .2 * 3;
+      }
+      &.importance-4 {
+        opacity: .2 * 4;
+      }
+      &.importance-5 {
+        opacity: .2 * 5;
+      }
     }
 
     .kn-note-title {
@@ -44,26 +62,38 @@
   }
 
   .kn-note-info {
+    flex: 0 0 150px;
     ul {
       margin: 0;
       padding: $defaultNarrowSpacing;
 
-      flex: 0 0 175px;
-
       list-style-type: none;
 
-      @include border-radius($defaultRadius);
+      @include border-radius;
+      @include smallFont;
 
-      font-size: $smallerFontSize;
+      li {
+        display: flex;
+        align-items: baseline;
+        i {
+          flex: 0 0 $defaultNarrowSpacing * 2;
+          text-align: left;
+        }
+
+        &:not(:last-child) {
+          padding-bottom: $defaultNarrowSpacing;
+        }
+      }
     }
+
   }
 
   .finished-false .kn-note-info ul {
-    @include alpha-attribute('background-color', rgba($highlightColor, 0.1), white);
+    background-color: $unfinishedBackground;
   }
 
   .finished-true .kn-note-info ul {
-    @include alpha-attribute('background-color', rgba($highlightColor2, 0.1), white);
+    background-color: $finishedBackground;
   }
 
   .kn-note-text {
@@ -75,7 +105,11 @@
     flex: 0 0 100px;
     justify-content: flex-end;
 
-
     text-align: right;
+  }
+
+  .kn-note-description {
+    margin: 0;
+    @include smallFont;
   }
 }

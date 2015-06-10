@@ -24,7 +24,7 @@ header {
   flex-flow: row wrap;
   align-items: center;
 
-  @include alpha-attribute('background-color', rgba($highlightColor, 0.1), white);
+  background-color: $headerBackgroundColor;
 
   .kn-header-titles {
     order: 0;
@@ -42,11 +42,11 @@ header {
 
     h1 {
       text-transform: capitalize;
-      font-size: $h1Size;
+      font-size: $heading1FontSize;
     }
 
     h2 {
-      font-size: $h2Size;
+      font-size: $heading2FontSize;
       font-weight: 300;
       text-transform: lowercase;
     }
@@ -65,7 +65,7 @@ header {
 footer {
   padding: $defaultNormalSpacing $defaultWideSpacing;
 
-  @include alpha-attribute('background-color', rgba($highlightColor, 0.33), white);
+  background-color: $footerBackgroundColor;
 }
 
 .kn-notes-actions {
