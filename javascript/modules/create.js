@@ -91,9 +91,12 @@ define(
             });
 
             $('.kn-notes-create').on('click', function() {
-               $('.kn-create-form').toggle();
-                $(this).find('i').toggleClass('fa-minus');
-                $(this).find('i').toggleClass('fa-plus');
+                var noteIcon = $(this).find('i');
+                $(noteIcon).toggleClass('fa-minus');
+                $(noteIcon).toggleClass('fa-plus');
+                $(this).toggleClass('active');
+
+                $('.kn-create-form').toggle();
             });
 
             // in edit mode, disable saving of new notes

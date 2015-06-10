@@ -46,7 +46,6 @@ define(
 
             var privatePostRender = function() {
                 $('#filter-finished').on('change', function() {
-
                     $.event.trigger({
                        type: 'kn:filter',
                         kn: {

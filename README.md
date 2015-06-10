@@ -21,13 +21,14 @@
   - disable sorting during edit mode (Julian) → _work in progress_
   - Exception Handling: Errorview & Loglevels (Dominik)
   - save data on server
-  - templates should only be compiled once, store/precompile handlebar templates (Dominik)
+  - store/precompile handlebar templates (Dominik)
   - form generator: good or bad? (???)
   
 ### bugs
   - note editing always sets `finished:false` ✓
   - ⚠ check for dangling events: Everytime the view is newly rendered, new events are generated in privatePostRender()
-
+  - disabled buttons still work
+  -
 ### @ideas
   - Additional features
     - delete note
@@ -35,4 +36,5 @@
     - jquery datepicker (firefox, safari, ...)
     - background depending on duedate/importance
     - save filtersettings
-    - custom style
+    - custom styles
+    - include fontawesome & normalize.css with scss
