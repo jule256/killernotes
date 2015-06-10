@@ -1,0 +1,19 @@
+.kn-style-picker {
+  margin-right: $defaultNormalSpacing;
+
+  select {
+    height: 28px;
+
+    background: $buttonBackgroundColor;
+
+    border: 0;
+
+    color: $buttonForegroundColor;
+    font-size: 0.8em;
+
+    &:focus {
+      background: $buttonBackgroundColorHover;
+      outline: none;
+    }
+  }
+}

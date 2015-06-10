@@ -1,5 +1,24 @@
+//Maincolors
+$mainBackgroundColor: #000;
+$mainForegroundColor: #fff;
+$highlightColor: #93806C;
+$highlightColor2: #0f0;
 
-body {
-  background: #333;
-  color: #fff;
-}
+//buttons
+$buttonBackgroundColor: #bbb;
+$buttonBackgroundColorHover: #aaa;
+$buttonBackgroundColorActive: #2e8b57;
+$buttonBackgroundColorDisabled: #eee;
+$buttonForegroundColor: #fff;
+
+//
+$defaultWideSpacing: 50px;
+$defaultNormalSpacing: 25px;
+$defaultNarrowSpacing: 10px;
+$defaultRadius: 2px;
+
+
+//fonts
+$h1Size: 1.5em;
+$h2Size: 1.2em;
+$smallerFontSize: 0.8em;

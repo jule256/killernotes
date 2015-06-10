@@ -35,6 +35,7 @@ define(
         var publicConstructor = function () {
             handlebars.registerPartial('note', $('#' + handlebarPartialTemplateId).html());
             handlebars.registerHelper('timestampToDate', privateHandlebarsTimestampToDateHelper);
+            handlebars.registerHelper('times', privateHandlebarsForLoop);
 
             handlebarSource = $('#' + handlebarTemplateId).html();
             handlebarTemplate = handlebars.compile(handlebarSource);
@@ -86,7 +87,7 @@ define(
 
             // add edit click functionality
             $.each(noteElements, function (key, value) {
-                $('#note-' + key + ' .edit').on('click', function () {
+                $('#note-' + key + ' .kn-note-edit').on('click', function () {
                     if (!editActive) {
                         // only trigger event if there is no other edit-process in progress
                         $.event.trigger({
@@ -200,8 +201,8 @@ define(
         var privateDisableEdit = function(ev) {
             editActive = true;
 
-            // add "inactive" class to all other edit-note links
-            $('.note').not('#note-' + ev.kn.id).find('.edit').addClass('inactive');
+            // add "disabled" class to all other edit-note links
+            $('.kn-note').not('#note-' + ev.kn.id).find('.kn-note-edit').addClass('disabled');
         };
 
         /**
@@ -210,12 +211,12 @@ define(
          * @author Julian Mollik <jule@creative-coding.net>
          * @param {object} ev
          */
-        var privateEnableEdit = function(ev) {
+        var privateEnableEdit = function() {
             editActive = false;
 
-            // remove "inactive" class of all edit links
+            // remove "disabled" class of all edit links
             // note: since the view gets re-rendered on cancel AND on save, the following line is actually not needed
-            $('.note').find('.edit').removeClass('inactive');
+            $('.kn-note').find('.kn-note-edit').removeClass('disabled');
         };
 
         /**
@@ -232,6 +233,13 @@ define(
                 auxiliary.pad2Digits(dateObj.getMonth() + 1) + '/' +
                 dateObj.getFullYear() + ' ' +
                 auxiliary.pad2Digits(dateObj.getHours()) + ':' + auxiliary.pad2Digits(dateObj.getMinutes());
+        };
+
+        var privateHandlebarsForLoop = function(n, block) {
+            var result = '';
+            for (var i = 0; i < n; ++i)
+                result += block.fn(i);
+            return result;
         };
 
         return {

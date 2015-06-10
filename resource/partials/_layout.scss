@@ -1,26 +1,91 @@
-/*body {
-  margin: 0;
+body {
+  min-height: 100vh;
+
   padding: 0;
+  margin: 0;
+
+  display: flex;
+  flex-direction: column;
 }
+
+main {
+  flex: 1;
+}
+/*
+h2 {
+  margin:  0 0 $defaultNarrowSpacing;
+  font-size: 1.1em;
+}*/
 
 header {
-  top: 0;
-  background: #ccc;
-  width: 100%;
-  h1 {margin: 0; padding: 0}
+  padding: $defaultNormalSpacing $defaultWideSpacing;
+
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+
+  @include alpha-attribute('background-color', rgba($highlightColor, 0.1), white);
+
+  .kn-header-titles {
+    order: 0;
+
+    display: flex;
+    flex-flow: row wrap;
+    align-items: baseline;
+
+    h1, h2 {
+      margin: 0 $defaultNarrowSpacing 0 0;
+      padding: 0;
+
+      @include alpha-attribute('color', rgba($mainForegroundColor, 0.5), white);
+    }
+
+    h1 {
+      text-transform: capitalize;
+      font-size: $h1Size;
+    }
+
+    h2 {
+      font-size: $h2Size;
+      font-weight: 300;
+      text-transform: lowercase;
+    }
+  }
+
+  .kn-header-actions {
+    text-align: right;
+    justify-content: flex-end;
+    align-items: center;
+    flex: 1;
+
+    display: flex;
+  }
 }
 
-.kn-actions {
-  display:flex;
-  flex-flow: row wrap;
+footer {
+  padding: $defaultNormalSpacing $defaultWideSpacing;
 
-  .kn-sort {
-    flex: 0 0 50%;
-    order: 0;
-  }
+  @include alpha-attribute('background-color', rgba($highlightColor, 0.33), white);
+}
 
-  .kn-style-picker {
-    flex: 0 0 25%;
-    order: 1;
-  }
-}*/
+.kn-notes-actions {
+  padding: $defaultNormalSpacing $defaultWideSpacing;
+
+  display: flex;
+  align-items: center;
+}
+
+.kn-filter {
+  flex: 1;
+  text-align: right;
+}
+
+.kn-create-form {
+  margin:  0 $defaultWideSpacing $defaultNormalSpacing;
+
+  display:none;
+}
+
+.kn-view {
+  margin: $defaultNormalSpacing $defaultWideSpacing;
+}

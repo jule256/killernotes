@@ -1,19 +1,25 @@
 // Module: Sort
-#sort-container {
-  li {
-    cursor:pointer;
-  }
+.kn-sort {
+  ul {
+    display:flex;
 
-  .active {
-    &:after {
-      content: ' *';
-    }
-  }
+    list-style-type: none;
 
-  .disabled {
-    cursor: not-allowed;
-    &:after {
-      content: ' ⚠';
+    margin: 0 $defaultNormalSpacing;
+    padding: 0;
+
+    >li {
+
+      &:first-child {
+        @extend .button-first
+      }
+      &:last-child {
+        @extend .button-last
+      }
+
+      &:not(:first-child):not(:last-child) {
+        @include border-radius(0);
+      }
     }
   }
 }

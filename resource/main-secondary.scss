@@ -1,12 +1,15 @@
 // Vendor
 // Normalize.css?
 
-
 // Partials
+@import "partials/styles/contrast";
+
 @import "partials/variables";
 @import "partials/mixins";
+@import "partials/helpers";
+
+@import "partials/base";
 @import "partials/layout";
-@import "partials/styles/contrast";
 
 // Modules
 @import "modules/sort";
@@ -14,3 +17,6 @@
 @import "modules/reset";
 @import "modules/view";
 @import "modules/create";
+@import "modules/filter";
+@import "modules/stylepicker";
+

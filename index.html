@@ -2,47 +2,55 @@
 <html>
 <head>
     <meta charset="utf-8">
-
-
+    <link rel="stylesheet" href="vendor/normalize/normalize.css" type="text/css">
+    <link rel="stylesheet" href="vendor/fontawesome/css/font-awesome.min.css">
     <link id="main-style" rel="stylesheet" href="resource/main.css" type="text/css">
     <title>killernotes</title>
 </head>
-<body>
+<body class="site">
 
 <header>
-    <h1>Killernotes</h1>
+    <div class="kn-header-titles">
+        <h1>Killernotes</h1>
+        <h2>It's a killer app</h2>
+    </div>
+    <div class="kn-header-actions">
+        <div id="region-stylepicker" class="kn-style-picker"></div>
+        <a href="#" class="button-link"><i class="fa fa-github"></i> View on GitHub</a>
+    </div>
 </header>
-<section class="kn-actions">
-    <div id="region-stylepicker" class="kn-style-picker"></div>
-    <div id="region-sort" class="kn-sort"></div>
-    <div id="region-filter" class="kn-filter"></div>
-</section>
-<hr>
-<div id="region-create"></div>
-<hr>
-<div id="region-view"></div>
-<hr>
-<div id="region-reset"></div>
+<main>
+    <section class="kn-notes-actions">
+        <a class="kn-notes-create button-link"><i class="fa fa-plus"></i></a>
+        <div id="region-sort" class="kn-sort"></div>
+        <div id="region-filter" class="kn-filter"></div>
+    </section>
+    <section id="region-create" class="kn-create-form">
+    </section>
+    <section id="region-view" class="kn-view">
+    </section>
+</main>
+<footer>
+    <div id="region-reset"></div>
+</footer>
 <script data-main="javascript/main" src="vendor/requirejs/require.js"></script>
 <!-- handlebar templates -->
 <script id="template-sort" type="text/x-handlebars-template">
-    <h1>{{title}}</h1>
     <ul id="sort-container">
         {{#each sortOptions}}
-            <li id="sort-{{name}}">{{title}}</li>
+            <li id="sort-{{name}}" class="button-link">{{title}} <i class="fa fa-sort"></i></li>
         {{/each}}
     </ul>
 
 </script>
 <script id="template-create" type="text/x-handlebars-template">
-    <h1>{{title}}</h1>
+    <h2>Create new note</h2>
     <div>
     {{#formelement formElements}}{{/formelement}}
     </div>
     <input type="button" id="create-submit" value="save">
 </script>
 <script id="template-view" type="text/x-handlebars-template">
-    <h1>{{title}}</h1>
     {{#if noteElements}}
         {{#each noteElements}}
         {{> note}}
@@ -52,29 +60,48 @@
     {{/if}}
 </script>
 <script id="template-partial-note" type="text/x-handlebars-template">
-    <div class="note" id="note-{{createdate}}">
-        <h2>{{title}} ({{timestampToDate duedate}})</h2>
-        <div>{{note}}</div>
-        <div>created: {{timestampToDate createdate}}</div>
-        <div class="imortance-{{importance}}">{{importance}}</div>
-        <div>
-            {{#if finished}}
-                finished
-            {{/if}}
+    <article class="kn-note finished-{{finished}}" id="note-{{createdate}}">
+
+        <div class="kn-note-info">
+            <ul>
+                <li class="kn-note-duedate" title="due"><i class="fa fa-calendar-o"></i> <time>{{timestampToDate duedate}}</time></li>
+                <li class="kn-note-createdate" title="created"><i class="fa fa-plus"></i> <time>{{timestampToDate createdate}}</time></li>
+            </ul>
         </div>
-        <div class="edit">edit note</div>
-    </div>
+        <div class="kn-note-text">
+            <h3>
+                <span class="kn-note-state">
+                    {{#if finished}}
+                        <i class="fa fa-check-square-o"></i>
+                    {{else}}
+                        <i class="fa fa-square-o"></i>
+                    {{/if}}
+                </span>
+                <span class="kn-note-title">
+                    {{title}}
+                </span>
+                <span class="kn-note-importance importance-{{importance}}">
+                    {{#times importance}}
+                        <i class="fa fa-bolt"></i>
+                    {{/times}}
+                </span>
+            </h3>
+            <div class="kn-note-description">{{note}}</div>
+        </div>
+        <div class="kn-note-actions">
+            <a class="kn-note-edit button-link"><i class="fa fa-pencil"> Edit</i></a>
+        </div>
+    </article>
 </script>
 <script id="template-filter" type="text/x-handlebars-template">
-    <h1>{{title}}</h1>
-    <input type="checkbox" id="filter-finished"> <label for="filter-finished">Show finished</label>
+    <span class="kn-filter-finished button-link">
+        <input type="checkbox" id="filter-finished"> <label for="filter-finished">Show finished</label>
+    </span>
 </script>
 <script id="template-reset" type="text/x-handlebars-template">
-    <h1>{{title}}</h1>
-    <span id="reset">reset all notes</span>
+    <a id="reset" class="kn-reset button-link">reset all notes</a>
 </script>
 <script id="template-stylepicker" type="text/x-handlebars-template">
-    <h1>{{title}}</h1>
     <select id="style-picker">
         {{#each styles}}
             <option value="{{path}}">{{name}}</option>
@@ -82,14 +109,14 @@
     </select>
 </script>
 <script id="template-edit" type="text/x-handlebars-template">
-<h1>{{title}}</h1>
-<div>
+    <h1>{{title}}</h1>
     <div>
-        {{#formelement formElements}}{{/formelement}}
+        <div>
+            {{#formelement formElements}}{{/formelement}}
+        </div>
     </div>
-</div>
-<input type="button" id="edit-submit" value="save">
-<input type="button" id="edit-cancel" value="cancel">
+    <input type="button" id="edit-submit" value="save">
+    <input type="button" id="edit-cancel" value="cancel">
 </script>
 
 </body>

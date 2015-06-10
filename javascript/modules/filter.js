@@ -2,7 +2,7 @@
 define(
     [
         'jQuery',
-        'handlebars',
+        'handlebars'
     ], function ($, handlebars) {
 
         'use strict';
@@ -28,6 +28,12 @@ define(
 
                 $('#' + handlebarRegionId).html(handleBarHtml);
 
+                var filterFinished =  $('#filter-finished');
+
+                if($(filterFinished).is(':checked')) {
+                    $(filterFinished).parent().addClass('active');
+                }
+
                 privatePostRender();
             };
 
@@ -40,6 +46,7 @@ define(
 
             var privatePostRender = function() {
                 $('#filter-finished').on('change', function() {
+
                     $.event.trigger({
                        type: 'kn:filter',
                         kn: {
@@ -48,6 +55,8 @@ define(
                         },
                         time: new Date()
                     });
+
+                    $(this).parent().toggleClass('active');
                 });
             };
 
