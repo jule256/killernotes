@@ -45,10 +45,15 @@
 </script>
 <script id="template-create" type="text/x-handlebars-template">
     <h2>Create new note</h2>
-    <div>
-    {{#formelement formElements}}{{/formelement}}
-    </div>
-    <input type="button" id="create-submit" value="save">
+    <form>
+        {{#each formElements}}
+            <div>
+                {{formElement .}}
+            </div>
+        {{/each}}
+        <input type="button" id="create-submit" value="save">
+    </form>
+
 </script>
 <script id="template-view" type="text/x-handlebars-template">
     {{#if noteElements}}
@@ -65,7 +70,7 @@
         <div class="kn-note-info">
             <ul>
                 <li class="kn-note-duedate" title="due"><i class="fa fa-calendar-o"></i> <time>{{timestampToDate duedate}}</time></li>
-                <li class="kn-note-createdate" title="created"><i class="fa fa-plus-square-o"></i> <time>{{timestampToDate createdate}}</time></li>
+                <li class="kn-note-createdate" title="created"><i class="fa fa-plus-circle"></i> <time>{{timestampToDate createdate}}</time></li>
             </ul>
         </div>
         <div class="kn-note-text">
@@ -111,13 +116,68 @@
 <script id="template-edit" type="text/x-handlebars-template">
     <h1>{{title}}</h1>
     <div>
+        {{#each formElements}}
         <div>
-            {{#formelement formElements}}{{/formelement}}
+            {{formElement .}}
         </div>
+        {{/each}}
+        <input type="button" id="edit-submit" value="save">
+        <input type="button" id="edit-cancel" value="cancel">
     </div>
-    <input type="button" id="edit-submit" value="save">
-    <input type="button" id="edit-cancel" value="cancel">
 </script>
 
+<!-- Form fields templates -->
+<script id="template-form-input" type="text/x-handlebars-template">
+    <label for="{{formId}}-{{name}}">
+        {{title}}
+    </label>
+    <input type="text"
+           id="{{formId}}-{{name}}"
+           value="{{value}}"
+           class="kn-form-input kn-form-{{formId}}-{{name}}">
+</script>
+<script id="template-form-text" type="text/x-handlebars-template">
+    <label for="{{formId}}-{{name}}">
+        {{title}}
+    </label>
+    <textarea id="{{formId}}-{{name}}" class="kn-form-text kn-form-{{formId}}-{{name}}">{{value}}</textarea>
+</script>
+<script id="template-form-checkbox" type="text/x-handlebars-template">
+    <label for="{{formId}}-{{name}}">
+        {{title}}
+    </label>
+    <input type="checkbox"
+           id="{{formId}}-{{name}}"
+           {{value}}
+           class="kn-form-checkbox kn-form-{{formId}}-{{name}}">
+</script>
+<script id="template-form-select" type="text/x-handlebars-template">
+    <label for="{{formId}}-{{name}}">
+        {{title}}
+    </label>
+    <select id="{{formId}}-{{name}}" class="kn-form-select kn-form-{{formId}}-{{name}}">
+        {{#each options}}
+            <option value="{{key}}" {{selected}}>{{value}}</option>
+        {{/each}}
+    </select>
+</script>
+<script id="template-form-date" type="text/x-handlebars-template">
+    <label for="{{formId}}-{{name}}">
+        {{title}}
+    </label>
+    <input type="date"
+           id="{{formId}}-{{name}}"
+           value="{{value}}"
+           class="kn-form-date kn-form-{{formId}}-{{name}}">
+</script>
+<script id="template-form-time" type="text/x-handlebars-template">
+    <label for="{{formId}}-{{name}}">
+        {{title}}
+    </label>
+    <input type="time"
+           id="{{formId}}-{{name}}"
+           value="{{value}}"
+           class="kn-form-time kn-form-{{formId}}-{{name}}">
+</script>
 </body>
 </html>

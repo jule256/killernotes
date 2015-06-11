@@ -11,80 +11,74 @@ define(
     // define "static" functions
     var returnedAuxiliary = {
 
-        handlebarsFormElementHelper: function(formElements, options) {
-            var html = [],
-                mode = options.data.root.mode;
-
-            $.each(formElements, function(key, formElement) {
-                html.push('<label for="' + mode + '-' + formElement.name + '">');
-                html.push(formElement.title);
-                html.push('</label>');
-                html.push('<div>');
-                html.push(returnedAuxiliary.getFormElementHtml(formElement, mode));
-                html.push('</div>');
-            });
-
-            return html.join("\n");
-        },
-
         /**
-         * retrieves a formElement-object and returns the html-code usable for displaying that formElement
+         * Handlbar helper to generate form-fields. Templates can be defined for each formtype by the designer
          *
-         * @author Julian Mollik <jule@creative-coding.net>
-         * @param {Object} formElement
-         * @param {string} mode (should be either "create" or "edit")
-         * @returns {string}
+         * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
+         * @param formElement
+         * @param options
+         * @returns {*}
          */
-        getFormElementHtml: function(formElement, mode) {
-            var html = [],
-                valueHtml;
+        handlebarsFormElementHelper: function(formElement, options) {
+            var formElementContext = {},
+                mode = options.data.root.mode,
+                typeTemplate = returnedAuxiliary.getFormTypeTemplate(formElement.type);
+            //TODO: Templates should only be loaded once (not a problem if we precompile them)
 
-            // handle magic strings for default date functionality
             formElement = returnedAuxiliary.handleMagicStrings(formElement);
 
+            formElementContext = {
+                id: formElement.id,
+                formId: mode,
+                title: formElement.title,
+                name: formElement.name
+            };
+
             switch(formElement.type) {
-                case 'input':
-                    valueHtml = typeof formElement.value === 'undefined' ? '' : ' value="' + formElement.value + '"';
-                    html.push('<input type="text" id="' + mode + '-' + formElement.name + '"' + valueHtml + '>');
-                    break;
-                case 'text':
-                    valueHtml = typeof formElement.value === 'undefined' ? '' : formElement.value;
-                    html.push('<textarea id="' + mode + '-' + formElement.name + '">' + valueHtml + '</textarea>');
+                case 'checkbox':
+                    formElementContext.value = typeof formElement.value === 'undefined' ? '' : formElement.value ? 'checked' : '';
                     break;
                 case 'select':
-                    html.push('<select id="' + mode + '-' + formElement.name + '">');
-                    $.each(formElement.options, function(key, value) {
-                        valueHtml = '';
-                        if (typeof formElement.value !== 'undefined' && +formElement.value === +key) {
-                            valueHtml = ' selected="selected"';
-                        }
-                        html.push('<option value="' + key + '"' + valueHtml + '>' + value + '</option>');
-                    });
-                    html.push('</select>');
+                    formElementContext.options = returnedAuxiliary.handleSelectOptions(formElement);
                     break;
+                case 'input':
+                case 'text':
                 case 'date':
-                    valueHtml = typeof formElement.value === 'undefined' ? '' : ' value="' + formElement.value + '"';
-                    html.push('<input type="date" id="' + mode + '-' + formElement.name + '"' + valueHtml + '>');
-                    break;
                 case 'time':
-                    valueHtml = typeof formElement.value === 'undefined' ? '' : ' value="' + formElement.value + '"';
-                    html.push('<input type="time" id="' + mode + '-' + formElement.name + '"' + valueHtml + '>');
-                    break;
-                case 'checkbox':
-                    valueHtml = typeof formElement.value === 'undefined' ? '' : formElement.value ? 'checked' : '';
-                    html.push('<input type="checkbox" id="' + mode + '-' + formElement.name + '"' + valueHtml + '>');
-                    break;
                 default:
-                    html.push('<span id="' + mode + '-' + formElement.name + '">');
-                    html.push('unknown form element type: ' + formElement.type);
-                    html.push('</span>');
+                    formElementContext.value = typeof formElement.value === 'undefined' ? '' : formElement.value;
             }
 
-            return html.join("\n");
+            return new handlebars.SafeString(typeTemplate(formElementContext));
         },
 
         /**
-         * analyizes the value key of the given formElement. If the value key contains a "magic string" the value key's
+         * Handles the select-options
+         *
+         * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
+         * @param formElement
+         * @param formElementContext
+         */
+        handleSelectOptions: function(formElement) {
+            var options = [];
+
+            $.each(formElement.options, function (key, value) {
+                var selected = typeof formElement.value !== 'undefined' && +formElement.value === +key
+                    ? 'selected'
+                    : '';
+
+                options.push({
+                    key: key,
+                    value: value,
+                    selected: selected
+                });
+            });
+
+            return options;
+        },
+
+        /**
+         * analyzes the value key of the given formElement. If the value key contains a "magic string" the value key's
          * value is changed to the according value
          *
          * currently implemented:
@@ -190,10 +184,16 @@ define(
                 returnedAuxiliary.pad2Digits(dateObj.getDate());
         },
 
-        loadTemplate: function(path) {
-            $.get(path, function(contents) {
-                return handlebars.compile(contents);
-            });
+        /**
+         * compiles the template for the specified type
+         *
+         * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
+         * @param {string} type
+         * @returns {function}
+         */
+        getFormTypeTemplate: function(type) {
+            var handlebarSource = $('#template-form-' + type).html();
+            return handlebars.compile(handlebarSource);
         }
     };
 

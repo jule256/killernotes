@@ -33,7 +33,8 @@ define(
          * @author Julian Mollik <jule@creative-coding.net>
          */
         var publicConstructor = function() {
-            handlebars.registerHelper('formelement', auxiliary.handlebarsFormElementHelper);
+            handlebars.registerHelper('formElement', auxiliary.handlebarsFormElementHelper);
+
 
             handlebarSource = $('#' + handlebarTemplateId).html();
             handlebarTemplate = handlebars.compile(handlebarSource);
