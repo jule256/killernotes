@@ -25,7 +25,7 @@
         <div id="region-sort" class="kn-sort"></div>
         <div id="region-filter" class="kn-filter"></div>
     </section>
-    <section id="region-create" class="kn-create-form">
+    <section id="region-create" class="kn-form-create">
     </section>
     <section id="region-view" class="kn-view">
     </section>
@@ -44,15 +44,16 @@
 
 </script>
 <script id="template-create" type="text/x-handlebars-template">
-    <h2>Create new note</h2>
-    <form>
+
+    <div class="kn-form">
+        <h3>Create new note</h3>
         {{#each formElements}}
-            <div>
                 {{formElement .}}
-            </div>
         {{/each}}
-        <input type="button" id="create-submit" value="save">
-    </form>
+        <div class="kn-form-actions">
+            <a id="create-submit" class="button-link"><i class="fa fa-floppy-o"></i> save</a>
+        </div>
+    </div>
 
 </script>
 <script id="template-view" type="text/x-handlebars-template">
@@ -86,7 +87,7 @@
                     {{title}}
                 </span>
                 <span class="kn-note-importance importance-{{importance}}">
-                    {{#times importance}}
+                    {{#times 1 importance}}
                         <i class="fa fa-bolt"></i>
                     {{/times}}
                 </span>
@@ -114,70 +115,93 @@
     </select>
 </script>
 <script id="template-edit" type="text/x-handlebars-template">
-    <h1>{{title}}</h1>
-    <div>
+    <div class="kn-form kn-form-edit">
+        <h3>Edit note</h3>
         {{#each formElements}}
-        <div>
             {{formElement .}}
-        </div>
         {{/each}}
-        <input type="button" id="edit-submit" value="save">
-        <input type="button" id="edit-cancel" value="cancel">
+
+        <div class="kn-form-actions">
+            <a id="edit-submit" class="button-link"><i class="fa fa-floppy-o"></i> save</a>
+            <a id="edit-cancel" class="button-link"><i class="fa fa-times"></i> cancel</a>
+        </div>
     </div>
 </script>
 
 <!-- Form fields templates -->
 <script id="template-form-input" type="text/x-handlebars-template">
-    <label for="{{formId}}-{{name}}">
-        {{title}}
-    </label>
-    <input type="text"
-           id="{{formId}}-{{name}}"
-           value="{{value}}"
-           class="kn-form-input kn-form-{{formId}}-{{name}}">
+    <div class="kn-form-input kn-form-{{formId}}-{{name}}">
+        <label for="{{formId}}-{{name}}">
+            {{title}}
+        </label>
+        <input type="text"
+               id="{{formId}}-{{name}}"
+               value="{{value}}"
+                placeholder="{{title}}">
+    </div>
 </script>
 <script id="template-form-text" type="text/x-handlebars-template">
-    <label for="{{formId}}-{{name}}">
-        {{title}}
-    </label>
-    <textarea id="{{formId}}-{{name}}" class="kn-form-text kn-form-{{formId}}-{{name}}">{{value}}</textarea>
+    <div class="kn-form-text kn-form-{{formId}}-{{name}}">
+        <label for="{{formId}}-{{name}}">
+            {{title}}
+        </label>
+        <textarea id="{{formId}}-{{name}}" placeholder="{{title}}">{{value}}</textarea>
+    </div>
 </script>
 <script id="template-form-checkbox" type="text/x-handlebars-template">
-    <label for="{{formId}}-{{name}}">
-        {{title}}
-    </label>
-    <input type="checkbox"
-           id="{{formId}}-{{name}}"
-           {{value}}
-           class="kn-form-checkbox kn-form-{{formId}}-{{name}}">
+    <div class="kn-form-checkbox kn-form-{{formId}}-{{name}}">
+        <label for="{{formId}}-{{name}}">
+            {{title}}
+        </label>
+        <input type="checkbox"
+               id="{{formId}}-{{name}}"
+               {{value}}>
+    </div>
 </script>
 <script id="template-form-select" type="text/x-handlebars-template">
-    <label for="{{formId}}-{{name}}">
-        {{title}}
-    </label>
-    <select id="{{formId}}-{{name}}" class="kn-form-select kn-form-{{formId}}-{{name}}">
-        {{#each options}}
-            <option value="{{key}}" {{selected}}>{{value}}</option>
-        {{/each}}
-    </select>
+    <div class="kn-form-select kn-form-{{formId}}-{{name}}">
+        <label for="{{formId}}-{{name}}">
+            {{title}}
+        </label>
+        <select id="{{formId}}-{{name}}">
+            {{#each options}}
+                <option value="{{key}}" {{selected}}>{{value}}</option>
+            {{/each}}
+        </select>
+    </div>
 </script>
 <script id="template-form-date" type="text/x-handlebars-template">
-    <label for="{{formId}}-{{name}}">
-        {{title}}
-    </label>
-    <input type="date"
-           id="{{formId}}-{{name}}"
-           value="{{value}}"
-           class="kn-form-date kn-form-{{formId}}-{{name}}">
+    <div class="kn-form-date kn-form-{{formId}}-{{name}}">
+        <label for="{{formId}}-{{name}}">
+            {{title}}
+        </label>
+        <input type="date"
+               id="{{formId}}-{{name}}"
+               value="{{value}}">
+    </div>
 </script>
 <script id="template-form-time" type="text/x-handlebars-template">
-    <label for="{{formId}}-{{name}}">
-        {{title}}
-    </label>
-    <input type="time"
-           id="{{formId}}-{{name}}"
-           value="{{value}}"
-           class="kn-form-time kn-form-{{formId}}-{{name}}">
+    <div class="kn-form-time kn-form-{{formId}}-{{name}}">
+        <label for="{{formId}}-{{name}}">
+            {{title}}
+        </label>
+        <input type="time"
+               id="{{formId}}-{{name}}"
+               value="{{value}}">
+    </div>
+</script>
+<script id="template-form-rating" type="text/x-handlebars-template">
+    <div class="kn-form-{{formId}}-{{name}} kn-form-rating">
+        <label for="{{formId}}-{{name}}">
+            {{title}}
+        </label>
+        <span class="kn-rating">
+            {{#times 1 max}}
+                <i class="fa fa-bolt rating-item" data-value="{{.}}"> </i>
+            {{/times}}
+            <input type="hidden" value="{{value}}" id="{{formId}}-{{name}}" />
+        </span>
+    </div>
 </script>
 </body>
 </html>

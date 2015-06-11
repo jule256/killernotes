@@ -35,7 +35,7 @@ define(
         var publicConstructor = function () {
             handlebars.registerPartial('note', $('#' + handlebarPartialTemplateId).html());
             handlebars.registerHelper('timestampToDate', privateHandlebarsTimestampToDateHelper);
-            handlebars.registerHelper('times', privateHandlebarsForLoop);
+            handlebars.registerHelper('times', auxiliary.handlebarsForLoop);
 
             handlebarSource = $('#' + handlebarTemplateId).html();
             handlebarTemplate = handlebars.compile(handlebarSource);
@@ -233,13 +233,6 @@ define(
                 auxiliary.pad2Digits(dateObj.getMonth() + 1) + '/' +
                 dateObj.getFullYear() + ' ' +
                 auxiliary.pad2Digits(dateObj.getHours()) + ':' + auxiliary.pad2Digits(dateObj.getMinutes());
-        };
-
-        var privateHandlebarsForLoop = function(n, block) {
-            var result = '';
-            for (var i = 0; i < n; ++i)
-                result += block.fn(i);
-            return result;
         };
 
         return {

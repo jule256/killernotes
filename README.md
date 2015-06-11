@@ -6,7 +6,7 @@
   - CSS Layouting (Dominik)
     - basic
     - responsive
-  - Importance: Stars/Flashes instead of select-dropdown (Dominik)
+  - Importance: Stars/Flashes instead of select-dropdown (Dominik) ✓
   - default values for due-create and due-time in create form (Julian) ✓
   - reset create form after kn:created (Julian) ✓
   - sort view: use handlebars correctly (Dominik) ✓
@@ -28,6 +28,7 @@
   - note editing always sets `finished:false` ✓
   - ⚠ check for dangling events: Everytime the view is newly rendered, new events are generated in privatePostRender()
   - disabled buttons still work
+  - note can be safed without duedate/time
 
 ### @ideas
   - Additional features

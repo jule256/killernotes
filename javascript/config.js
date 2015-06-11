@@ -16,45 +16,48 @@ define([], function () {
             },
             {
                 id: 1,
-                name: 'note',
-                title: 'Note',
-                type: 'text'
+                name: 'importance',
+                title: 'Importance',
+                type: 'rating',
+                max: 5
             },
             {
                 id: 2,
-                name: 'importance',
-                title: 'Importance',
-                type: 'select',
-                options: {
-                    0: '0 stars',
-                    1: '1 star',
-                    2: '2 stars',
-                    3: '3 stars',
-                    4: '4 stars',
-                    5: '5 stars'
-                }
-            },
-            {
-                id: 3,
                 name: 'duedate',
-                title: 'Duedate',
+                title: 'Due',
                 type: 'date',
-                dependee: 4, // defines that this item uses formElements[4]
+                dependee: 3, // defines that this item uses formElements[4]
                 value: 'tomorrow' // will be converted to current-date plus 24h during runtime
             },
             {
-                id: 4,
+                id: 3,
                 name: 'duetime',
                 title: 'Duetime',
                 type: 'time',
-                dependant: 3, // defines that this item is used by formElements[3]
+                dependant: 2, // defines that this item is used by formElements[3]
                 value: 'now' // will be converted to current time during runtime
             },
             {
-                id: 5,
+                id: 4,
                 name: 'finished',
                 title: 'Finished?',
                 type: 'checkbox'
+            },
+            {
+                id: 5,
+                name: 'note',
+                title: 'Note',
+                type: 'text'
+            }
+        ],
+        styles: [
+            {
+                name: 'Default',
+                path: 'resource/main.css'
+            },
+            {
+                name: 'Fancy',
+                path: 'resource/main-secondary.css'
             }
         ]
     };

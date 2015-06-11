@@ -19,6 +19,52 @@ h3 {
   font-size: 1.1em;
   font-weight: 300; }
 
+.kn-form {
+  padding: 10px;
+  display: flex;
+  flex-flow: row wrap;
+  background-color: rgba(147, 128, 108, 0.1);
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  border-radius: 2px; }
+  .kn-form > div {
+    padding: 10px 0 0; }
+  .kn-form h3, .kn-form .kn-form-text, .kn-form .kn-form-create-submit, .kn-form .kn-form-input, .kn-form .kn-form-rating, .kn-form .kn-form-checkbox {
+    flex: 0 0 100%; }
+  .kn-form .kn-form-time label, .kn-form .kn-form-input label, .kn-form .kn-form-text label {
+    display: none; }
+  .kn-form .kn-form-date, .kn-form .kn-form-rating, .kn-form .kn-form-checkbox {
+    display: flex;
+    flex-flow: row;
+    align-items: center; }
+    .kn-form .kn-form-date label, .kn-form .kn-form-rating label, .kn-form .kn-form-checkbox label {
+      flex: 0 0 100px; }
+    .kn-form .kn-form-date input, .kn-form .kn-form-rating input, .kn-form .kn-form-checkbox input {
+      width: 225px; }
+  .kn-form .kn-form-input, .kn-form .kn-form-text {
+    display: flex;
+    flex-flow: column; }
+    .kn-form .kn-form-input input, .kn-form .kn-form-input textarea, .kn-form .kn-form-text input, .kn-form .kn-form-text textarea {
+      padding: 5px; }
+    .kn-form .kn-form-input textarea, .kn-form .kn-form-text textarea {
+      height: 100px; }
+  .kn-form .kn-form-actions {
+    flex: 0 0 100%;
+    display: flex;
+    flex-flow: column; }
+    .kn-form .kn-form-actions a {
+      flex: 0 0 100%;
+      text-align: center; }
+    .kn-form .kn-form-actions a:not(:last-child) {
+      margin-bottom: 5px; }
+  .kn-form .kn-rating {
+    cursor: pointer;
+    color: #999999;
+    color: rgba(51, 51, 51, 0.5); }
+    .kn-form .kn-rating .active {
+      color: #333; }
+
 .button-first, .kn-sort ul > li:first-child {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0; }
@@ -111,9 +157,8 @@ footer {
   flex: 1;
   text-align: right; }
 
-.kn-create-form {
-  margin: 0 50px 25px;
-  display: none; }
+.kn-form-create {
+  margin: 0 50px 25px; }
 
 .kn-view {
   margin: 25px 50px; }
@@ -198,6 +243,11 @@ footer {
   margin: 0;
   font-weight: 300;
   font-size: 0.8em; }
+
+.kn-form-create {
+  display: none; }
+  .kn-form-create .kn-form-create-finished {
+    display: none; }
 
 .kn-filter .kn-filter-finished label {
   cursor: pointer; }

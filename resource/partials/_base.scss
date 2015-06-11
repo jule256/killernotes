@@ -25,6 +25,84 @@ h3 {
   font-weight: $heading3Weight;
 }
 
+.kn-form {
+  padding: $defaultNarrowSpacing;
+
+  display: flex;
+  flex-flow: row wrap;
+
+  background-color: $formBackgroundColor;
+  @include border-radius($defaultRadius);
+
+  >div {
+    padding: $defaultNarrowSpacing 0 0;
+  }
+
+  h3, .kn-form-text, .kn-form-create-submit, .kn-form-input, .kn-form-rating, .kn-form-checkbox {
+    flex: 0 0 100%;
+  }
+
+  .kn-form-time, .kn-form-input, .kn-form-text {
+    label {
+      display:none;
+    }
+  }
+
+  .kn-form-date, .kn-form-rating, .kn-form-checkbox {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+
+    label {
+      flex: 0 0 100px;
+    }
+    input {
+      width: 225px;
+    }
+  }
+
+  .kn-form-input, .kn-form-text {
+    display: flex;
+    flex-flow: column;
+
+    input, textarea {
+      padding: 5px;
+    }
+
+    textarea {
+      height: 100px;
+    }
+  }
+
+  .kn-form-actions {
+
+    flex: 0 0 100%;
+
+    display: flex;
+    flex-flow: column;
+
+    a {
+      flex: 0 0 100%;
+      text-align: center
+    }
+    a:not(:last-child) {
+      margin-bottom: 5px;
+    }
+  }
+
+  .kn-rating {
+    cursor: pointer;
+    @include alpha-attribute('color', rgba($importanceColor, 0.5), white);
+    .active {
+      color: $importanceColor;
+    }
+  }
+}
+
+
+
+
+
 .button-first {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;

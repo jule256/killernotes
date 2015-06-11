@@ -120,6 +120,8 @@ define(
                     time: new Date()
                 });
             });
+
+            auxiliary.ratingHelper('#edit-importance');
         };
 
         /**

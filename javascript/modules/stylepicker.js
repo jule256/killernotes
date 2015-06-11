@@ -2,8 +2,9 @@
 define(
     [
         'jQuery',
+        'config',
         'handlebars'
-    ], function ($, handlebars) {
+    ], function ($, config, handlebars) {
 
         'use strict';
 
@@ -11,17 +12,6 @@ define(
         return function () {
 
             // configuration
-            var styles = [
-                {
-                    name: 'Default',
-                    path: 'resource/main.css'
-                },
-                {
-                    name: 'Contrast',
-                    path: 'resource/main-secondary.css'
-                }
-            ]; // TODO: include in config
-
             var handlebarRegionId = 'region-stylepicker';
             var handlebarTemplateId = 'template-stylepicker';
             var handlebarSource = null;
@@ -45,7 +35,7 @@ define(
             var privatePreRender = function () {
                 handlebarContext = {
                     title: 'stylepicker',
-                    styles: styles
+                    styles: config.styles
                 };
                 handleBarHtml = handlebarTemplate(handlebarContext);
             };

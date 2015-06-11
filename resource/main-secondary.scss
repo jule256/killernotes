@@ -2,10 +2,10 @@
 // Normalize.css?
 
 // Partials
-@import "partials/styles/contrast";
-
 @import "partials/variables";
 @import "partials/mixins";
+
+@import "partials/styles/contrast";
 
 @import "partials/base";
 @import "partials/layout";

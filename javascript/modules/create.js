@@ -34,7 +34,7 @@ define(
          */
         var publicConstructor = function() {
             handlebars.registerHelper('formElement', auxiliary.handlebarsFormElementHelper);
-
+            handlebars.registerHelper('times', auxiliary.handlebarsForLoop);
 
             handlebarSource = $('#' + handlebarTemplateId).html();
             handlebarTemplate = handlebars.compile(handlebarSource);
@@ -97,8 +97,11 @@ define(
                 $(noteIcon).toggleClass('fa-plus');
                 $(this).toggleClass('active');
 
-                $('.kn-create-form').toggle();
+                $('.kn-form-create').toggle();
             });
+
+            //add rating event
+            auxiliary.ratingHelper();
 
             // in edit mode, disable saving of new notes
             $(document).bind('kn:edit', privateDisableCreate);

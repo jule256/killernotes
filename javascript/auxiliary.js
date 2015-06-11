@@ -20,7 +20,7 @@ define(
          * @returns {*}
          */
         handlebarsFormElementHelper: function(formElement, options) {
-            var formElementContext = {},
+            var formElementContext,
                 mode = options.data.root.mode,
                 typeTemplate = returnedAuxiliary.getFormTypeTemplate(formElement.type);
             //TODO: Templates should only be loaded once (not a problem if we precompile them)
@@ -41,6 +41,8 @@ define(
                 case 'select':
                     formElementContext.options = returnedAuxiliary.handleSelectOptions(formElement);
                     break;
+                case 'rating':
+                    formElementContext.max = formElement.max;
                 case 'input':
                 case 'text':
                 case 'date':
@@ -57,7 +59,6 @@ define(
          *
          * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
          * @param formElement
-         * @param formElementContext
          */
         handleSelectOptions: function(formElement) {
             var options = [];
@@ -193,7 +194,61 @@ define(
          */
         getFormTypeTemplate: function(type) {
             var handlebarSource = $('#template-form-' + type).html();
-            return handlebars.compile(handlebarSource);
+            if(handlebarSource) {
+                return handlebars.compile(handlebarSource);
+            }
+
+            return function() {};
+        },
+
+        /**
+         * Handlebar helper to loop over numbers from to and apply to block from template
+         *
+         * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
+         * @param {number} from
+         * @param {number} to
+         * @param block
+         * @returns {string}
+         */
+        handlebarsForLoop: function(from, to, block) {
+            var result = '';
+            for (var i = from; i <= to; ++i)
+                result += block.fn(i);
+            return result;
+        },
+
+        /**
+         * TODO: i think it's in the wrong place here
+         *
+         * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
+         */
+        ratingHelper: function(id) {
+
+            if(id) {
+                var value = $(id).val();
+                if (value > 0) {
+                    $('.kn-form-rating .rating-item').each(function () {
+                        if ($(this).attr('data-value') <= value) {
+                            $(this).addClass('active');
+                        } else {
+                            $(this).removeClass('active');
+                        }
+                    });
+                }
+            }
+
+            $('.rating-item').on('click', function() {
+                var value = $(this).attr('data-value');
+                $(this).parent().find('input').val(value);
+
+                $(this).parent().children('.rating-item').each(function() {
+                   if($(this).attr('data-value') <= value) {
+                       $(this).addClass('active');
+                   } else {
+                        $(this).removeClass('active');
+                   }
+                });
+            });
         }
     };
 
