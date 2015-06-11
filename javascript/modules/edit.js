@@ -88,7 +88,7 @@ define(
             handlebarContext = {
                 title: 'edit',
                 mode: 'edit',
-                formElements: transformFormElements(config.formElements, data)
+                formElements: privateTransformFormElements(config.formElements, data)
             };
 
             handleBarHtml = handlebarTemplate(handlebarContext);
@@ -132,7 +132,7 @@ define(
          * @param {Object} data
          * @returns {Array}
          */
-        var transformFormElements = function(formElements, data) {
+        var privateTransformFormElements = function(formElements, data) {
             var returnData = $.extend({}, formElements), // shallow clone
                 i,
                 formElement,

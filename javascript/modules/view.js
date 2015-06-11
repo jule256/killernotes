@@ -85,8 +85,24 @@ define(
         var privatePostRender = function () {
             var noteElements = privateRetrieveNotes();
 
-            // add edit click functionality
             $.each(noteElements, function (key, value) {
+
+                // add change state functionality
+                $('#note-' + key + ' .kn-note-state i').on('click', function() {
+                    value.finished = !value.finished;
+
+                    $.event.trigger({
+                        type: 'kn:edit:save',
+
+                        kn: {
+                            id: key,
+                            data: value
+                        },
+                        time: new Date()
+                    });
+                });
+
+                // add edit click functionality
                 $('#note-' + key + ' .kn-note-edit').on('click', function () {
                     if (!editActive) {
                         // only trigger event if there is no other edit-process in progress
@@ -101,6 +117,8 @@ define(
                     }
                 });
             });
+
+
 
             // inform other modules that view rendering is complete
             $.event.trigger({

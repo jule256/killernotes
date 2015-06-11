@@ -43,8 +43,11 @@
     }
 
     .kn-note-state {
-      margin-right: $defaultNarrowSpacing;
+      flex: 0 0 $defaultNormalSpacing;
       text-align: left;
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 

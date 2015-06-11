@@ -14,18 +14,19 @@ define(
         // configuration
 
         // private functions
-        var storeNote,
-            resetNotes,
-            getExistingData;
+        var privateStoreNote,
+            privateResetNotes,
+            privateGetExistingData,
+            privateEditNoteState;
 
         var publicConstructor = function() {
             if (typeof(Storage) === 'undefined') {
                 throw Error('local storage not supported, this app will not run in your browser');
             }
 
-            $(document).bind('kn:create', storeNote);
-            $(document).bind('kn:reset', resetNotes);
-            $(document).bind('kn:edit:save', storeNote);
+            $(document).bind('kn:create', privateStoreNote);
+            $(document).bind('kn:reset', privateResetNotes);
+            $(document).bind('kn:edit:save', privateStoreNote);
         };
 
         // private functions
@@ -36,14 +37,15 @@ define(
          * @author Julian Mollik <jule@creative-coding.net>
          * @param {object} ev
          */
-        storeNote = function(ev) {
+        privateStoreNote = function(ev) {
+
             var existingData,
                 newNote = typeof ev.kn.id === 'undefined',
                 key = newNote ? Date.now() : ev.kn.id,
                 data = ev.kn.data;
 
             // retrieve existing data
-            existingData = getExistingData();
+            existingData = privateGetExistingData();
 
             // enhance data with create date
             // since the key is the created date, we can set the createdate to the key, regardless if edit or new mode
@@ -66,7 +68,7 @@ define(
             });
         };
 
-        resetNotes = function() {
+        privateResetNotes = function() {
             localStorage.removeItem(config.localStorageName);
 
             // trigger event so other modules can react
@@ -82,7 +84,7 @@ define(
          * @author Julian Mollik <jule@creative-coding.net>
          * @returns {object}
          */
-        getExistingData = function() {
+        privateGetExistingData = function() {
             return JSON.parse(localStorage.getItem(config.localStorageName)) || {};
         };
 
