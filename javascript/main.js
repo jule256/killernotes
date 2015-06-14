@@ -19,13 +19,12 @@ require(
         'jQuery',
         'handlebars',
         'app'
-    ], function ($, handlebars, App) {
+    ], function($, handlebars, App) {
 
     'use strict';
 
     var Killernotes = new App();
     Killernotes.start();
-
 
     /*
     var module1 = new module1ref(),

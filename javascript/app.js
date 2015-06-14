@@ -10,23 +10,22 @@ define(
         'modules/edit',
         'modules/filter',
         'modules/stylepicker'
-    ], function ($, SortRef, CreateRef, StorageRef, ViewRef, ResetRef, EditRef, FilterRef, StylePickerRef) {
+    ], function($, SortRef, CreateRef, StorageRef, ViewRef, ResetRef, EditRef, FilterRef, StylePickerRef) {
 
     'use strict';
 
-   return function () {
+   return function() {
 
        var version = 0.2;
 
-       var publicStart = function () {
+       var publicStart = function() {
            var mySorter,
                myCreate,
                myView,
                myReset,
                myStorage,
                myEdit,
-               myFilter,
-               myStylePicker;
+               myFilter;
 
            // StylePicker
            mySorter = new StylePickerRef();
@@ -67,7 +66,7 @@ define(
            myEdit.constructor();
        };
 
-       var publicGetVersion = function () {
+       var publicGetVersion = function() {
            return version;
        };
 

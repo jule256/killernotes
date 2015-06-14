@@ -1,9 +1,9 @@
-/* globals define:true, console:true */
+/* globals define:true, console:true, document:true */
 define(
     [
         'jQuery',
         'handlebars'
-    ], function ($, handlebars) {
+    ], function($, handlebars) {
 
     'use strict';
 
@@ -27,7 +27,7 @@ define(
     ];
 
     // module
-    return function () {
+    return function() {
 
         // handlebar settings
 
@@ -51,8 +51,6 @@ define(
 
             handlebarSource = $('#' + handlebarTemplateId).html();
             handlebarTemplate = handlebars.compile(handlebarSource);
-
-
         };
 
         /**
@@ -115,7 +113,7 @@ define(
             $('#sort-' + ev.kn.sort).addClass('active');
         };
 
-        var privateDisableSort = function(ev) {
+        var privateDisableSort = function(/*ev*/) {
 
             console.log('privateDisableSort');
 
@@ -126,7 +124,7 @@ define(
         // CONTINUE HERE -> refactor disabled-classes (inactive -> disabled)
         //               -> implement sorting flag
 
-        var privateEnableSort = function(ev) {
+        var privateEnableSort = function(/*ev*/) {
 
             console.log('privateEnableSort');
 

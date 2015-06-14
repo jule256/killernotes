@@ -1,16 +1,16 @@
-/* globals define:true, console:true */
+/* globals define:true, console:true, document:true */
 define(
     [
         'jQuery',
         'handlebars',
         'config',
         'auxiliary'
-    ], function ($, handlebars, config, auxiliary) {
+    ], function($, handlebars, config, auxiliary) {
 
     'use strict';
 
     // module
-    return function () {
+    return function() {
 
         // configuration
 
@@ -124,6 +124,9 @@ define(
          * @author Julian Mollik <jule@creative-coding.net>
          */
         var privateDisableCreate = function() {
+
+            console.log('privateDisableCreate()');
+
             $submit.attr('disabled', true);
         };
 

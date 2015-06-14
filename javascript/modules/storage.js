@@ -1,23 +1,22 @@
-/* globals define:true, console:true */
+/* globals define:true, console:true, document:true, localStorage:true */
 define(
     [
         'jQuery',
         'handlebars',
         'config'
-    ], function ($, handlebars, config) {
+    ], function($, handlebars, config) {
 
     'use strict';
 
     // module
-   return function () {
+   return function() {
 
         // configuration
 
         // private functions
         var privateStoreNote,
             privateResetNotes,
-            privateGetExistingData,
-            privateEditNoteState;
+            privateGetExistingData;
 
         var publicConstructor = function() {
             if (typeof(Storage) === 'undefined') {
@@ -78,7 +77,7 @@ define(
                 time: new Date()
             });
         };
-        
+
         /**
          * reads the local storage and returns its data as object (empty if not found)
          * @author Julian Mollik <jule@creative-coding.net>

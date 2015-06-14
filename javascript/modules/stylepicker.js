@@ -4,12 +4,12 @@ define(
         'jQuery',
         'config',
         'handlebars'
-    ], function ($, config, handlebars) {
+    ], function($, config, handlebars) {
 
         'use strict';
 
         // module
-        return function () {
+        return function() {
 
             // configuration
             var handlebarRegionId = 'region-stylepicker';
@@ -19,12 +19,12 @@ define(
             var handlebarContext = null;
             var handleBarHtml = null;
 
-            var publicConstructor = function () {
+            var publicConstructor = function() {
                 handlebarSource = $('#' + handlebarTemplateId).html();
                 handlebarTemplate = handlebars.compile(handlebarSource);
             };
 
-            var publicRender = function () {
+            var publicRender = function() {
                 privatePreRender();
 
                 $('#' + handlebarRegionId).html(handleBarHtml);
@@ -32,7 +32,7 @@ define(
                 privatePostRender();
             };
 
-            var privatePreRender = function () {
+            var privatePreRender = function() {
                 handlebarContext = {
                     title: 'stylepicker',
                     styles: config.styles
@@ -40,7 +40,7 @@ define(
                 handleBarHtml = handlebarTemplate(handlebarContext);
             };
 
-            var privatePostRender = function () {
+            var privatePostRender = function() {
                 $('#style-picker').on('change', function() {
                     $('#main-style').attr('href', $(this).val());
                 });

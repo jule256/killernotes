@@ -1,16 +1,16 @@
-/* globals define:true, console:true */
+/* globals define:true, console:true, document:true, localStorage:true */
 define(
     [
         'jQuery',
         'handlebars',
         'config',
         'auxiliary'
-    ], function ($, handlebars, config, auxiliary) {
+    ], function($, handlebars, config, auxiliary) {
 
     'use strict';
 
     // module
-    return function () {
+    return function() {
 
         // configuration
         var sorting = config.defaultSort;
@@ -32,7 +32,7 @@ define(
          *
          * @author Julian Mollik <jule@creative-coding.net>
          */
-        var publicConstructor = function () {
+        var publicConstructor = function() {
             handlebars.registerPartial('note', $('#' + handlebarPartialTemplateId).html());
             handlebars.registerHelper('timestampToDate', privateHandlebarsTimestampToDateHelper);
             handlebars.registerHelper('times', auxiliary.handlebarsForLoop);
@@ -52,7 +52,7 @@ define(
          *
          * @author Julian Mollik <jule@creative-coding.net>
          */
-        var publicRender = function () {
+        var publicRender = function() {
             privatePreRender();
 
             $('#' + handlebarRegionId).html(handleBarHtml);
@@ -68,7 +68,7 @@ define(
          *
          * @author Julian Mollik <jule@creative-coding.net>
          */
-        var privatePreRender = function () {
+        var privatePreRender = function() {
             handlebarContext = {
                 title: 'view',
                 noteElements: privateGetNoteElements()
@@ -82,10 +82,10 @@ define(
          *
          * @author Julian Mollik <jule@creative-coding.net>
          */
-        var privatePostRender = function () {
+        var privatePostRender = function() {
             var noteElements = privateRetrieveNotes();
 
-            $.each(noteElements, function (key, value) {
+            $.each(noteElements, function(key, value) {
 
                 // add change state functionality
                 $('#note-' + key + ' .kn-note-state i').on('click', function() {
@@ -103,7 +103,10 @@ define(
                 });
 
                 // add edit click functionality
-                $('#note-' + key + ' .kn-note-edit').on('click', function () {
+                $('#note-' + key + ' .kn-note-edit').on('click', function() {
+
+                    console.log('edit click');
+
                     if (!editActive) {
                         // only trigger event if there is no other edit-process in progress
                         $.event.trigger({
@@ -117,8 +120,6 @@ define(
                     }
                 });
             });
-
-
 
             // inform other modules that view rendering is complete
             $.event.trigger({
@@ -140,16 +141,16 @@ define(
          * @author Julian Mollik <jule@creative-coding.net>
          * @returns {Array}
          */
-        var privateGetNoteElements = function () {
+        var privateGetNoteElements = function() {
             var noteElements = privateRetrieveNotes(),
                 cleanedElements = [],
                 date;
 
             // parse createdate to a more human readable format
-            $.each(noteElements, function (key, value) {
+            $.each(noteElements, function(key, value) {
                 date = new Date(value.createdate);
 
-                if(!value.finished || showFinished) {
+                if (!value.finished || showFinished) {
                     cleanedElements.push({
                         title: value.title || '<no title>',
                         note: value.note || '<no content>', // @todo new-line-to-break
@@ -175,8 +176,8 @@ define(
          * @param {object} note2
          * @returns {number}
          */
-        var privateCompareNotes = function (note1, note2) {
-            switch(sorting) {
+        var privateCompareNotes = function(note1, note2) {
+            switch (sorting) {
                 case 'importance':
                     return note2.importance - note1.importance;
                 case 'createdate':
@@ -227,7 +228,6 @@ define(
          * sets the active-edit-flag to false and removes the class "inactive" from all edit-links
          *
          * @author Julian Mollik <jule@creative-coding.net>
-         * @param {object} ev
          */
         var privateEnableEdit = function() {
             editActive = false;

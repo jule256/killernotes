@@ -3,12 +3,12 @@ define(
     [
         'jQuery',
         'handlebars'
-    ], function ($, handlebars) {
+    ], function($, handlebars) {
 
         'use strict';
 
         // module
-        return function () {
+        return function() {
 
             // configuration
             var handlebarRegionId = 'region-filter';
@@ -30,7 +30,7 @@ define(
 
                 var filterFinished =  $('#filter-finished');
 
-                if($(filterFinished).is(':checked')) {
+                if ($(filterFinished).is(':checked')) {
                     $(filterFinished).parent().addClass('active');
                 }
 
@@ -49,7 +49,7 @@ define(
                     $.event.trigger({
                        type: 'kn:filter',
                         kn: {
-                            type: "finished",
+                            type: 'finished',
                             filter: $(this).is(':checked')
                         },
                         time: new Date()

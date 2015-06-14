@@ -1,16 +1,16 @@
-/* globals define:true, console:true */
+/* globals define:true, console:true, document:true */
 define(
     [
         'jQuery',
         'handlebars',
         'config',
         'auxiliary'
-    ], function ($, handlebars, config, auxiliary) {
+    ], function($, handlebars, config, auxiliary) {
 
     'use strict';
 
     // module
-    return function () {
+    return function() {
 
         // configuration
 
@@ -34,7 +34,7 @@ define(
          *
          * @author Julian Mollik <jule@creative-coding.net>
          */
-        var publicConstructor = function () {
+        var publicConstructor = function() {
             $(document).bind('kn:edit', privatePrepareEditForm);
 
             handlebarSource = $('#' + handlebarTemplateId).html();
@@ -71,7 +71,7 @@ define(
          * @author Julian Mollik <jule@creative-coding.net>
          * @param {object} ev
          */
-        var privatePrepareEditForm = function (ev) {
+        var privatePrepareEditForm = function(ev) {
             data = ev.kn.data;
             id = ev.kn.id;
 
@@ -84,7 +84,7 @@ define(
          *
          * @author Julian Mollik <jule@creative-coding.net>
          */
-        var privatePreRender = function () {
+        var privatePreRender = function() {
             handlebarContext = {
                 title: 'edit',
                 mode: 'edit',
@@ -100,9 +100,9 @@ define(
          *
          * @author Julian Mollik <jule@creative-coding.net>
          */
-        var privatePostRender = function () {
+        var privatePostRender = function() {
 
-            $('#edit-submit').on('click', function () {
+            $('#edit-submit').on('click', function() {
                 $.event.trigger({
                     type: 'kn:edit:save',
                     kn: {
@@ -113,7 +113,7 @@ define(
                 });
             });
 
-            $('#edit-cancel').on('click', function () {
+            $('#edit-cancel').on('click', function() {
                 $.event.trigger({
                     type: 'kn:edit:cancel',
                     kn: {},

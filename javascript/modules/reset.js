@@ -3,14 +3,14 @@ define(
     [
         'jQuery',
         'handlebars'
-    ], function ($, handlebars) {
+    ], function($, handlebars) {
 
     'use strict';
 
     // configuration
 
     // module
-   return function () {
+   return function() {
 
         // handlebar settings
 

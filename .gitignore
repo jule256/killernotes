@@ -1,4 +1,5 @@
 .idea/watcherTasks.xml
+
 resource/main.css.map
 
 .idea/inspectionProfiles/profiles_settings.xml
@@ -7,14 +8,16 @@ resource/main.css.map
 
 .idea/misc.xml
 
+.idea/jsLinters/*
+
 .idea/modules.xml
 
 .idea/project-01.iml
 
 .idea/vcs.xml
 
-.idea/watcherTasks.xml
-
 .idea/workspace.xml
 
 *.map
+
+node_modules

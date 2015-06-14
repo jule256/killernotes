@@ -39,3 +39,29 @@
     - save filtersettings
     - custom styles
     - include fontawesome & normalize.css with scss
+    
+### code style
+#### JSHint
+To configure JSHint in Jetbrains WebStorm go to `Preferences` → `Languages & Frameworks` → `JavaScript` → `Code Quality Tools` → `JSHint` and make sure the checkbox "enable" and the checkbox "Use config files" are checked. WebStorm should automatically use the file `.jshintrc` file in the project's root.
+
+⚠ Note that dot-files might not be visible in OS X's finder.
+
+#### JSCS
+To use JSCS the according node-module has to be installed:
+
+```sh
+machine:/ user$ cd path/to/the/project/killernotes/
+machine:killernotes user$ npm install jscs
+```
+
+This creates a `node_modules` folder in the project's root. Make sure not to commit this folder to GIT.
+
+To configure JSCS in Jetbrains WebStorm go to `Preferences` → `Languages & Frameworks` → `JavaScript` → `Code Quality Tools` → `JSCS` and make sure the checkbox "enable" is checked. The "Node Interpreter" input filed should be prepopulated with `/usr/local/bin/node`. Enter `path/to/the/project/killernotes/node_modules/jscs` in the input field "JSCS Package".
+
+Check the "Search for config(s)" radiobutton and WebStorm should automatically use the file `.jscsrc` file in the project's root.
+
+⚠ Note that dot-files might not be visible in OS X's finder.
+
+##### not active:
+`"requireMultipleVarDecl": true`
+

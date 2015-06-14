@@ -4,7 +4,7 @@ define(
         'jQuery',
         'handlebars',
         'config'
-    ], function ($, handlebars, config) {
+    ], function($, handlebars, config) {
 
     'use strict';
 
@@ -15,8 +15,8 @@ define(
          * Handlbar helper to generate form-fields. Templates can be defined for each formtype by the designer
          *
          * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
-         * @param formElement
-         * @param options
+         * @param {*} formElement
+         * @param {*} options
          * @returns {*}
          */
         handlebarsFormElementHelper: function(formElement, options) {
@@ -34,19 +34,22 @@ define(
                 name: formElement.name
             };
 
-            switch(formElement.type) {
+            switch (formElement.type) {
                 case 'checkbox':
-                    formElementContext.value = typeof formElement.value === 'undefined' ? '' : formElement.value ? 'checked' : '';
+                    formElementContext.value =
+                        typeof formElement.value === 'undefined' ? '' : formElement.value ? 'checked' : '';
                     break;
                 case 'select':
                     formElementContext.options = returnedAuxiliary.handleSelectOptions(formElement);
                     break;
                 case 'rating':
                     formElementContext.max = formElement.max;
+                    /* falls through */
                 case 'input':
                 case 'text':
                 case 'date':
                 case 'time':
+                    /* falls through */
                 default:
                     formElementContext.value = typeof formElement.value === 'undefined' ? '' : formElement.value;
             }
@@ -58,15 +61,14 @@ define(
          * Handles the select-options
          *
          * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
-         * @param formElement
+         * @param {object} formElement
          */
         handleSelectOptions: function(formElement) {
             var options = [];
 
-            $.each(formElement.options, function (key, value) {
-                var selected = typeof formElement.value !== 'undefined' && +formElement.value === +key
-                    ? 'selected'
-                    : '';
+            $.each(formElement.options, function(key, value) {
+                var selected = typeof formElement.value !== 'undefined' &&
+                    +formElement.value === +key ? 'selected' : '';
 
                 options.push({
                     key: key,
@@ -118,7 +120,7 @@ define(
          * ready for saving into storage
          *
          * @author Julian Mollik <jule@creative-coding.net>
-         * @param mode
+         * @param {String} mode
          * @returns {object}
          */
         extractData: function(mode) {
@@ -194,7 +196,7 @@ define(
          */
         getFormTypeTemplate: function(type) {
             var handlebarSource = $('#template-form-' + type).html();
-            if(handlebarSource) {
+            if (handlebarSource) {
                 return handlebars.compile(handlebarSource);
             }
 
@@ -207,13 +209,14 @@ define(
          * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
          * @param {number} from
          * @param {number} to
-         * @param block
+         * @param {*} block
          * @returns {string}
          */
         handlebarsForLoop: function(from, to, block) {
             var result = '';
-            for (var i = from; i <= to; ++i)
+            for (var i = from; i <= to; ++i) {
                 result += block.fn(i);
+            }
             return result;
         },
 
@@ -224,10 +227,10 @@ define(
          */
         ratingHelper: function(id) {
 
-            if(id) {
+            if (id) {
                 var value = $(id).val();
                 if (value > 0) {
-                    $('.kn-form-rating .rating-item').each(function () {
+                    $('.kn-form-rating .rating-item').each(function() {
                         if ($(this).attr('data-value') <= value) {
                             $(this).addClass('active');
                         } else {
@@ -242,9 +245,10 @@ define(
                 $(this).parent().find('input').val(value);
 
                 $(this).parent().children('.rating-item').each(function() {
-                   if($(this).attr('data-value') <= value) {
+                   if ($(this).attr('data-value') <= value) {
                        $(this).addClass('active');
-                   } else {
+                   }
+                   else {
                         $(this).removeClass('active');
                    }
                 });

@@ -1,5 +1,5 @@
 /* global define:true, console:true */
-define([], function () {
+define([], function() {
 
     'use strict';
 
