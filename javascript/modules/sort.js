@@ -7,30 +7,32 @@ define(
 
     'use strict';
 
-    // configuration
-    var sortOptions = [
-        {
-            id: 1,
-            name: 'duedate',
-            title: 'By Duedate'
-        },
-        {
-            id: 2,
-            name: 'createdate',
-            title: 'By created Date'
-        },
-        {
-            id: 3,
-            name: 'importance',
-            title: 'By Importance'
-        }
-    ];
-
     // module
     return function() {
 
-        // handlebar settings
+        // configuration
+        var sortOptions = [
+            {
+                id: 1,
+                name: 'duedate',
+                title: 'By Duedate'
+            },
+            {
+                id: 2,
+                name: 'createdate',
+                title: 'By created Date'
+            },
+            {
+                id: 3,
+                name: 'importance',
+                title: 'By Importance'
+            }
+        ];
 
+        // class variables
+        var editRef = null;
+
+        // handlebar settings
         var handlebarRegionId = 'region-sort';
         var handlebarTemplateId = 'template-sort';
         var handlebarSource = null;
@@ -66,6 +68,16 @@ define(
             privatePostRender();
         };
 
+        /**
+         * registeres the given editRefParam in this class to be able to query if for "is edit active"
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         * @param {object} editRefParam
+         */
+        var publicRegisterEdit = function(editRefParam) {
+            editRef = editRefParam;
+        };
+
         // private functions
 
         /**
@@ -91,13 +103,16 @@ define(
         var privatePostRender = function() {
             $.each(sortOptions, function(key, sortOption) {
                 $('#sort-' + sortOption.name).on('click', function() {
-                    $.event.trigger({
-                        type: 'kn:sort',
-                        kn: {
-                            sort: sortOption
-                        },
-                        time: new Date()
-                    });
+                    if (!privateIsEditActive()) {
+                        // only trigger event if there is no other edit-process in progress
+                        $.event.trigger({
+                            type: 'kn:sort',
+                            kn: {
+                                sort: sortOption
+                            },
+                            time: new Date()
+                        });
+                    }
                 });
             });
         };
@@ -114,27 +129,33 @@ define(
         };
 
         var privateDisableSort = function(/*ev*/) {
-
-            console.log('privateDisableSort');
-
             // add "disabled" class to all sort li elements
             $('#sort-container').find('li').addClass('disabled');
         };
 
-        // CONTINUE HERE -> refactor disabled-classes (inactive -> disabled)
-        //               -> implement sorting flag
-
         var privateEnableSort = function(/*ev*/) {
-
-            console.log('privateEnableSort');
-
             // remove "disabled" class of all sort li elements
             $('#sort-container').find('li').removeClass('disabled');
         };
 
+        /**
+         * checks if the editRef is set (should always be the case) and returns the result of editRef's isEditActive()
+         * function
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         * @returns {boolean}
+         */
+        var privateIsEditActive = function() {
+            if (editRef === null) {
+                throw Error ('editRef is not set');
+            }
+            return editRef.isEditActive();
+        };
+
         return {
             constructor: publicConstructor,
-            render: publicRender
+            render: publicRender,
+            registerEdit: publicRegisterEdit
         };
     };
 });

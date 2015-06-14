@@ -63,6 +63,16 @@ define(
             privatePostRender();
         };
 
+        /**
+         * returns true if the edit form is currently shown by taking the classvariable 'id' as indicator
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         * @returns {boolean}
+         */
+        var publicIsEditActive = function() {
+            return id !== null;
+        };
+
         // private functions
 
         /**
@@ -111,6 +121,7 @@ define(
                     },
                     time: new Date()
                 });
+                id = null; // reset id (indicating that edit-mode is over)
             });
 
             $('#edit-cancel').on('click', function() {
@@ -119,6 +130,7 @@ define(
                     kn: {},
                     time: new Date()
                 });
+                id = null; // reset id (indicating that edit-mode is over)
             });
 
             auxiliary.ratingHelper('#edit-importance');
@@ -167,7 +179,8 @@ define(
 
         return {
             constructor: publicConstructor,
-            render: publicRender
+            render: publicRender,
+            isEditActive: publicIsEditActive
         };
     };
 });

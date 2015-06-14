@@ -23,7 +23,7 @@ define(
             var formElementContext,
                 mode = options.data.root.mode,
                 typeTemplate = returnedAuxiliary.getFormTypeTemplate(formElement.type);
-            //TODO: Templates should only be loaded once (not a problem if we precompile them)
+            // @todo Templates should only be loaded once (not a problem if we precompile them)
 
             formElement = returnedAuxiliary.handleMagicStrings(formElement);
 
@@ -221,7 +221,7 @@ define(
         },
 
         /**
-         * TODO: i think it's in the wrong place here
+         * @todo I think it's in the wrong place here
          *
          * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
          */

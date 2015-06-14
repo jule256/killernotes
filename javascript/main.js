@@ -26,11 +26,6 @@ require(
     var Killernotes = new App();
     Killernotes.start();
 
-    /*
-    var module1 = new module1ref(),
-        module2 = new module2ref();
-    console.log(module1.getName() === module2.getModule1Name());
-    /**/
     console.info(
         'jQuery version: ' + $.fn.jquery + ', ' +
         'Handlebars version: ' + handlebars.VERSION + ', ' +

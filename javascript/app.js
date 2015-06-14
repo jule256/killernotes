@@ -16,10 +16,11 @@ define(
 
    return function() {
 
-       var version = 0.2;
+       var version = 0.3;
 
        var publicStart = function() {
-           var mySorter,
+           var myStylepicker,
+               mySort,
                myCreate,
                myView,
                myReset,
@@ -28,28 +29,36 @@ define(
                myFilter;
 
            // StylePicker
-           mySorter = new StylePickerRef();
-           mySorter.constructor();
-           mySorter.render();
+           myStylepicker = new StylePickerRef();
+           myStylepicker.constructor();
+           myStylepicker.render();
 
-           // Sorter
-           mySorter = new SortRef();
-           mySorter.constructor();
-           mySorter.render();
-
-           // filter
-           myFilter = new FilterRef();
-           myFilter.constructor();
-           myFilter.render();
+           // edit
+           myEdit = new EditRef();
+           myEdit.constructor();
 
            // create
            myCreate = new CreateRef();
            myCreate.constructor();
+           myCreate.registerEdit(myEdit);
            myCreate.render();
+
+           // sort
+           mySort = new SortRef();
+           mySort.constructor();
+           mySort.registerEdit(myEdit);
+           mySort.render();
+
+           // filter
+           myFilter = new FilterRef();
+           myFilter.constructor();
+           myFilter.registerEdit(myEdit);
+           myFilter.render();
 
            // view
            myView = new ViewRef();
            myView.constructor();
+           myView.registerEdit(myEdit);
            myView.render();
 
            // reset
@@ -60,10 +69,6 @@ define(
            // storage
            myStorage = new StorageRef();
            myStorage.constructor();
-
-           // edit
-           myEdit = new EditRef();
-           myEdit.constructor();
        };
 
        var publicGetVersion = function() {

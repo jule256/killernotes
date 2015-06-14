@@ -15,10 +15,11 @@ define(
         // configuration
         var sorting = config.defaultSort;
         var showFinished = config.defaultShowFinished;
-        var editActive = false;
+
+        // class variables
+        var editRef = null;
 
         // handlebar settings
-
         var handlebarRegionId = 'region-view';
         var handlebarTemplateId = 'template-view';
         var handlebarPartialTemplateId = 'template-partial-note';
@@ -60,6 +61,16 @@ define(
             privatePostRender();
         };
 
+        /**
+         * registeres the given editRefParam in this class to be able to query if for "is edit active"
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         * @param {object} editRefParam
+         */
+        var publicRegisterEdit = function(editRefParam) {
+            editRef = editRefParam;
+        };
+
         // private functions
 
         /**
@@ -89,25 +100,24 @@ define(
 
                 // add change state functionality
                 $('#note-' + key + ' .kn-note-state i').on('click', function() {
-                    value.finished = !value.finished;
+                    if (!privateIsEditActive()) {
+                        // only trigger event if there is no other edit-process in progress
+                        value.finished = !value.finished;
+                        $.event.trigger({
+                            type: 'kn:edit:save',
 
-                    $.event.trigger({
-                        type: 'kn:edit:save',
-
-                        kn: {
-                            id: key,
-                            data: value
-                        },
-                        time: new Date()
-                    });
+                            kn: {
+                                id: key,
+                                data: value
+                            },
+                            time: new Date()
+                        });
+                    }
                 });
 
                 // add edit click functionality
                 $('#note-' + key + ' .kn-note-edit').on('click', function() {
-
-                    console.log('edit click');
-
-                    if (!editActive) {
+                    if (!privateIsEditActive()) {
                         // only trigger event if there is no other edit-process in progress
                         $.event.trigger({
                             type: 'kn:edit',
@@ -212,29 +222,33 @@ define(
         };
 
         /**
-         * sets the active-edit-flag to true and adds the class "inactive" to all non affected edit-links
+         * visually disables all non affected edit-links by adding the css class 'disabled'
          *
          * @author Julian Mollik <jule@creative-coding.net>
          * @param {object} ev
          */
         var privateDisableEdit = function(ev) {
-            editActive = true;
-
             // add "disabled" class to all other edit-note links
             $('.kn-note').not('#note-' + ev.kn.id).find('.kn-note-edit').addClass('disabled');
+
+            // add "disabled" class to all other finish-note links
+            $('.kn-note').not('#note-' + ev.kn.id).find('.kn-note-state').addClass('disabled');
         };
 
         /**
-         * sets the active-edit-flag to false and removes the class "inactive" from all edit-links
+         * visually enables all all edit links by removing the class "disabled"
          *
          * @author Julian Mollik <jule@creative-coding.net>
          */
         var privateEnableEdit = function() {
-            editActive = false;
 
-            // remove "disabled" class of all edit links
+            // remove "disabled" class of all edit-note links
             // note: since the view gets re-rendered on cancel AND on save, the following line is actually not needed
             $('.kn-note').find('.kn-note-edit').removeClass('disabled');
+
+            // remove "disabled" class to all finish-note links
+            // note: since the view gets re-rendered on cancel AND on save, the following line is actually not needed
+            $('.kn-note').find('.kn-note-state').removeClass('disabled');
         };
 
         /**
@@ -253,9 +267,24 @@ define(
                 auxiliary.pad2Digits(dateObj.getHours()) + ':' + auxiliary.pad2Digits(dateObj.getMinutes());
         };
 
+        /**
+         * checks if the editRef is set (should always be the case) and returns the result of editRef's isEditActive()
+         * function
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         * @returns {boolean}
+         */
+        var privateIsEditActive = function() {
+            if (editRef === null) {
+                throw Error ('editRef is not set');
+            }
+            return editRef.isEditActive();
+        };
+
         return {
             constructor: publicConstructor,
-            render: publicRender
+            render: publicRender,
+            registerEdit: publicRegisterEdit
         };
     };
 });

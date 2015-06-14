@@ -15,11 +15,11 @@ define(
         // configuration
 
         // class variables
-
         var $submit = null; // store jquery-element to avoid multiple DOM-queries
+        var $createToggle = null; // store jquery-element to avoid multiple DOM-queries
+        var editRef = null;
 
         // handlebars settings
-
         var handlebarRegionId = 'region-create';
         var handlebarTemplateId = 'template-create';
         var handlebarSource = null;
@@ -55,6 +55,16 @@ define(
             privatePostRender();
         };
 
+        /**
+         * registeres the given editRefParam in this class to be able to query if for "is edit active"
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         * @param {object} editRefParam
+         */
+        var publicRegisterEdit = function(editRefParam) {
+            editRef = editRefParam;
+        };
+
         // private functions
 
         /**
@@ -79,28 +89,38 @@ define(
          * @author Julian Mollik <jule@creative-coding.net>
          */
         var privatePostRender = function() {
+
+            // query DOM once, use often
             $submit = $('#create-submit');
+            $createToggle = $('.kn-notes-create');
 
             $submit.on('click', function() {
-                $.event.trigger({
-                    type: 'kn:create',
-                    kn: {
-                        data: auxiliary.extractData('create')
-                    },
-                    time: new Date()
-                });
+                if (!privateIsEditActive()) {
+                    // only allow submit if edit is not active
+                    $.event.trigger({
+                        type: 'kn:create',
+                        kn: {
+                            data: auxiliary.extractData('create')
+                        },
+                        time: new Date()
+                    });
+                }
             });
 
-            $('.kn-notes-create').on('click', function() {
-                var noteIcon = $(this).find('i');
-                $(noteIcon).toggleClass('fa-minus');
-                $(noteIcon).toggleClass('fa-plus');
-                $(this).toggleClass('active');
+            $createToggle.on('click', function() {
+                if (!privateIsEditActive()) {
+                    // only show create-form if edit is not active
+                    var noteIcon = $(this).find('i');  // @todo Dominik "i" is depricated, use "em" instead
+                                                       //       see http://html5doctor.com/i-b-em-strong-element/
+                    $(noteIcon).toggleClass('fa-minus');
+                    $(noteIcon).toggleClass('fa-plus');
+                    $(this).toggleClass('active');
 
-                $('.kn-form-create').toggle();
+                    $('.kn-form-create').toggle();
+                }
             });
 
-            //add rating event
+            // add rating event
             auxiliary.ratingHelper();
 
             // in edit mode, disable saving of new notes
@@ -119,29 +139,45 @@ define(
         };
 
         /**
-         * disables the create form by disabling the submit button
+         * disables the create form by disabling the submit button and visually disabling the form-toggle by adding
+         * the css class 'disabled'
          *
          * @author Julian Mollik <jule@creative-coding.net>
          */
         var privateDisableCreate = function() {
-
-            console.log('privateDisableCreate()');
-
             $submit.attr('disabled', true);
+            $createToggle.addClass('disabled'); // @todo Dominik "not-allowed" cursor is overruled by "pointer" curser
         };
 
         /**
-         * enabes the create form by enabling the submit button
+         * enabes the create form by enabling the submit button and visually enabling the form-toggle by removing
+         * the css class 'disabled'
          *
          * @author Julian Mollik <jule@creative-coding.net>
          */
         var privateEnableCreate = function() {
             $submit.removeAttr('disabled');
+            $createToggle.removeClass('disabled'); // @todo Dominik fix "not-allowed" cursor
+        };
+
+        /**
+         * checks if the editRef is set (should always be the case) and returns the result of editRef's isEditActive()
+         * function
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         * @returns {boolean}
+         */
+        var privateIsEditActive = function() {
+            if (editRef === null) {
+                throw Error ('editRef is not set');
+            }
+            return editRef.isEditActive();
         };
 
         return {
             constructor: publicConstructor,
-            render: publicRender
+            render: publicRender,
+            registerEdit: publicRegisterEdit
         };
     };
 });
