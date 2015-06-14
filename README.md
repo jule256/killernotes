@@ -2,33 +2,33 @@
 
 ### @todo:
 
-  - form evaluation (Julian)
+  - ⚠ form evaluation (Julian)
   - CSS Layouting (Dominik)
     - basic
     - responsive
-  - Importance: Stars/Flashes instead of select-dropdown (Dominik) ✓
-  - default values for due-create and due-time in create form (Julian) ✓
-  - reset create form after kn:created (Julian) ✓
+  - ~~Importance: Stars/Flashes instead of select-dropdown~~ (Dominik) ✓
+  - ~~default values for due-create and due-time in create form~~ (Julian) ✓
+  - ~~reset create form after kn:created~~ (Julian) ✓
   - sort view: use handlebars correctly (Dominik) ✓
   - style picker (Dominik) ✓
   - JSDoc comments for "every" function (Beide)
-  - get variable-names straight: formElement/s vs. formOptions/s (Julian) ✓
-  - find a better solution for the Date zero-padding problem (???)
-  - don't allow edit-mode if another note is already in edit mode (Julian) ✓
-  - maybe make preRender() and postRender() private, since they should not be called from outside ✓
-  - standardize event naming (maybe 'kn:`<type`>:`<action`>') (Julian)
-  - add JSCS and JSHint configuration (Julian)
-  - disable sorting during edit mode (Julian) → _work in progress_
+  - ~~get variable-names straight: formElement/s vs. formOptions/s~~ (Julian) ✓
+  - find a better solution for the Date zero-padding problem ✓
+  - ~~don't allow edit-mode if another note is already in edit mode~~ (Julian) ✓
+  - ~~maybe make preRender() and postRender() private, since they should not be called from outside~~ ✓
+  - ⚠ standardize event naming (maybe 'kn:`<type`>:`<action`>') (Julian)
+  - ~~add JSCS and JSHint configuration~~ (Julian) ✓
+  - ⚠ disable sorting during edit mode (Julian) → _work in progress_
   - Exception Handling: Errorview & Loglevels (Dominik)
   - save data on server
   - store/precompile handlebar templates (Dominik)
-  - form generator: good or bad? (???)
+  - ~~form generator: good or bad? good!~~ ✓
   
 ### bugs
-  - note editing always sets `finished:false` ✓
+  - ~~note editing always sets `finished:false`~~ ✓
   - ⚠ check for dangling events: Everytime the view is newly rendered, new events are generated in privatePostRender()
-  - disabled buttons still work
-  - note can be safed without duedate/time
+  - ⚠ disabled buttons still work (Julian)
+  - ⚠ note can be safed without duedate/time (Julian)
 
 ### @ideas
   - Additional features
