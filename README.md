@@ -28,10 +28,13 @@
 ### bugs
   - ~~note editing always sets `finished:false`~~ ✓
   - ⚠ check for dangling events: Everytime the view is newly rendered, new events are generated in privatePostRender()
-  - ⚠ disabled buttons still work (Julian)
+  - ~~disabled buttons still work~~ (Julian) ✓
   - ⚠ note can be safed without duedate/time (Julian)
   - ⚠ finish-filter: only works if click is on label `.filter-finished` and not if on on span `.kn-filter-finished` (Dominik)
   - ⚠ finish-filter: `.disabled` does not work correctly (cursor, bg-color), e.g. if edit mode is active (Dominik)
+  - ⚠ after create: create form gets not reset and create-form-toggle does not work
+  - ⚠ edit & create: the hidden "Importance" input has no default value (should be 0) (Dominik)
+  - ⚠ fancy css: date and time input is white on white (Dominik)
 
 ### @ideas
   - Additional features

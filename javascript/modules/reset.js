@@ -12,16 +12,15 @@ define(
     // module
    return function() {
 
-        // handlebar settings
+        // @todo JSDoc for all functions
 
+        // handlebar settings
         var handlebarRegionId = 'region-reset';
         var handlebarTemplateId = 'template-reset';
         var handlebarSource = null;
         var handlebarTemplate = null;
         var handlebarContext = null;
         var handleBarHtml = null;
-
-        // private functions
 
         var publicConstructor = function() {
             handlebarSource = $('#' + handlebarTemplateId).html();

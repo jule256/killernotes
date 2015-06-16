@@ -32,6 +32,7 @@ define(
          * constructor
          *
          * @author Julian Mollik <jule@creative-coding.net>
+         * @constructor
          */
         var publicConstructor = function() {
             handlebars.registerPartial('note', $('#' + handlebarPartialTemplateId).html());
@@ -46,6 +47,7 @@ define(
             $(document).bind('kn:reset:complete', publicRender);
             $(document).bind('kn:edit:cancel', publicRender);
             $(document).bind('kn:filter', privateUpdateFilter);
+            $(document).bind('kn:edit:validation:failed', privateShowError);
         };
 
         /**
@@ -78,6 +80,7 @@ define(
          * prepares the handlebar templating (setting context, creating the html)
          *
          * @author Julian Mollik <jule@creative-coding.net>
+         * @private
          */
         var privatePreRender = function() {
             handlebarContext = {
@@ -92,6 +95,7 @@ define(
          * sets listeners and triggers
          *
          * @author Julian Mollik <jule@creative-coding.net>
+         * @private
          */
         var privatePostRender = function() {
             var noteElements = privateRetrieveNotes();
@@ -150,6 +154,7 @@ define(
          *
          * @author Julian Mollik <jule@creative-coding.net>
          * @returns {Array}
+         * @private
          */
         var privateGetNoteElements = function() {
             var noteElements = privateRetrieveNotes(),
@@ -185,6 +190,7 @@ define(
          * @param {object} note1
          * @param {object} note2
          * @returns {number}
+         * @private
          */
         var privateCompareNotes = function(note1, note2) {
             switch (sorting) {
@@ -216,6 +222,7 @@ define(
          *
          * @author Julian Mollik <jule@creative-coding.net>
          * @returns {object}
+         * @private
          */
         var privateRetrieveNotes = function() {
             return JSON.parse(localStorage.getItem(config.localStorageName)) || {};
@@ -226,6 +233,7 @@ define(
          *
          * @author Julian Mollik <jule@creative-coding.net>
          * @param {object} ev
+         * @private
          */
         var privateDisableEdit = function(ev) {
             // add "disabled" class to all other edit-note links
@@ -239,9 +247,9 @@ define(
          * visually enables all all edit links by removing the class "disabled"
          *
          * @author Julian Mollik <jule@creative-coding.net>
+         * @private
          */
         var privateEnableEdit = function() {
-
             // remove "disabled" class of all edit-note links
             // note: since the view gets re-rendered on cancel AND on save, the following line is actually not needed
             $('.kn-note').find('.kn-note-edit').removeClass('disabled');
@@ -273,12 +281,47 @@ define(
          *
          * @author Julian Mollik <jule@creative-coding.net>
          * @returns {boolean}
+         * @private
          */
         var privateIsEditActive = function() {
             if (editRef === null) {
                 throw Error ('editRef is not set');
             }
             return editRef.isEditActive();
+        };
+
+        /**
+         * takes the error messages from the given ev.kn, adds them to the according error-div in the DOM and
+         * visually displays the error
+         *
+         * @todo is duplicated code. Same code appears in privateShowError() of create.js
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         * @param {object} ev
+         * @private
+         */
+        var privateShowError = function(ev) {
+            var allMessages = ev.kn.messages,
+                mode = ev.kn.mode,
+                i,
+                concatinatedMessage,
+                $formField,
+                $errorDiv;
+
+            $.each(allMessages, function(key, messages) {
+                $formField = $('#' + mode + '-' + key);
+                $errorDiv = $('#' + mode + '-' + key + '-error');
+
+                // add error class to form-field
+                $formField.addClass('error');
+                concatinatedMessage = [];
+                for (i = 0; i < messages.length; i++) {
+                    concatinatedMessage.push(messages[i]);
+                }
+
+                $errorDiv.removeClass('hide'); // @todo or fancy effect?
+                $errorDiv.html(concatinatedMessage.join('<br />'));
+            });
         };
 
         return {

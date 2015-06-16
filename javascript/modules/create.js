@@ -4,8 +4,9 @@ define(
         'jQuery',
         'handlebars',
         'config',
-        'auxiliary'
-    ], function($, handlebars, config, auxiliary) {
+        'auxiliary',
+        'validate'
+    ], function($, handlebars, config, auxiliary, validate) {
 
     'use strict';
 
@@ -31,6 +32,7 @@ define(
          * constructor
          *
          * @author Julian Mollik <jule@creative-coding.net>
+         * @constructor
          */
         var publicConstructor = function() {
             handlebars.registerHelper('formElement', auxiliary.handlebarsFormElementHelper);
@@ -40,6 +42,7 @@ define(
             handlebarTemplate = handlebars.compile(handlebarSource);
 
             $(document).bind('kn:create', privateResetCreateForm);
+            $(document).bind('kn:create:validation:failed', privateShowError);
         };
 
         /**
@@ -72,6 +75,7 @@ define(
          * prepares the handlebar templating (setting context, creating the html)
          *
          * @author Julian Mollik <jule@creative-coding.net>
+         * @private
          */
         var privatePreRender = function() {
             handlebarContext = {
@@ -87,23 +91,40 @@ define(
          * sets listeners and triggers
          *
          * @author Julian Mollik <jule@creative-coding.net>
+         * @private
          */
         var privatePostRender = function() {
+            var data,
+                validation;
 
             // query DOM once, use often
             $submit = $('#create-submit');
             $createToggle = $('.kn-notes-create');
 
             $submit.on('click', function() {
+                data = auxiliary.extractData('create');
+                validation = validate.validateFormData(data);
+
                 if (!privateIsEditActive()) {
                     // only allow submit if edit is not active
-                    $.event.trigger({
-                        type: 'kn:create',
-                        kn: {
-                            data: auxiliary.extractData('create')
-                        },
-                        time: new Date()
-                    });
+                    if (validation.failed) {
+                        $.event.trigger({
+                            type: 'kn:create:validation:failed',
+                            kn: {
+                                messages: validation.messages,
+                                mode: 'create'
+                            }
+                        });
+                    }
+                    else {
+                        $.event.trigger({
+                            type: 'kn:create',
+                            kn: {
+                                data: data
+                            },
+                            time: new Date()
+                        });
+                    }
                 }
             });
 
@@ -133,6 +154,7 @@ define(
          * resets the create form by re-rendering it
          *
          * @author Julian Mollik <jule@creative-coding.net>
+         * @private
          */
         var privateResetCreateForm = function() {
             publicRender();
@@ -143,6 +165,7 @@ define(
          * the css class 'disabled'
          *
          * @author Julian Mollik <jule@creative-coding.net>
+         * @private
          */
         var privateDisableCreate = function() {
             $submit.attr('disabled', true);
@@ -154,6 +177,7 @@ define(
          * the css class 'disabled'
          *
          * @author Julian Mollik <jule@creative-coding.net>
+         * @private
          */
         var privateEnableCreate = function() {
             $submit.removeAttr('disabled');
@@ -166,12 +190,47 @@ define(
          *
          * @author Julian Mollik <jule@creative-coding.net>
          * @returns {boolean}
+         * @private
          */
         var privateIsEditActive = function() {
             if (editRef === null) {
                 throw Error ('editRef is not set');
             }
             return editRef.isEditActive();
+        };
+
+        /**
+         * takes the error messages from the given ev.kn, adds them to the according error-div in the DOM and
+         * visually displays the error
+         *
+         * @todo is duplicated code. Same code appears in privateShowError() of view.js
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         * @param {object} ev
+         * @private
+         */
+        var privateShowError = function(ev) {
+            var allMessages = ev.kn.messages,
+                mode = ev.kn.mode,
+                i,
+                concatinatedMessage,
+                $formField,
+                $errorDiv;
+
+            $.each(allMessages, function(key, messages) {
+                $formField = $('#' + mode + '-' + key);
+                $errorDiv = $('#' + mode + '-' + key + '-error');
+
+                // add error class to form-field
+                $formField.addClass('error');
+                concatinatedMessage = [];
+                for (i = 0; i < messages.length; i++) {
+                    concatinatedMessage.push(messages[i]);
+                }
+
+                $errorDiv.removeClass('hide'); // @todo or fancy effect?
+                $errorDiv.html(concatinatedMessage.join('<br />'));
+            });
         };
 
         return {

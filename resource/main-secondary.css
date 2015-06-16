@@ -47,6 +47,12 @@ h3 {
     flex-flow: column; }
     .kn-form .kn-form-input input, .kn-form .kn-form-input textarea, .kn-form .kn-form-text input, .kn-form .kn-form-text textarea {
       padding: 5px; }
+    .kn-form .kn-form-input input.error, .kn-form .kn-form-text input.error {
+      background-color: red; }
+    .kn-form .kn-form-input .hide, .kn-form .kn-form-text .hide {
+      display: none; }
+    .kn-form .kn-form-input .message, .kn-form .kn-form-text .message {
+      color: deeppink; }
     .kn-form .kn-form-input textarea, .kn-form .kn-form-text textarea {
       height: 100px; }
   .kn-form .kn-form-actions {

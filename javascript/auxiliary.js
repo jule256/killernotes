@@ -220,6 +220,14 @@ define(
             return result;
         },
 
+        isString: function(value) {
+            return typeof value === 'string' || value instanceof String;
+        },
+
+        isArray: function(value) {
+            return value.prop && value.prop.constructor === Array;
+        },
+
         /**
          * @todo I think it's in the wrong place here
          *

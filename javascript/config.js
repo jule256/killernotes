@@ -12,19 +12,35 @@ define([], function() {
                 id: 0,
                 name: 'title',
                 title: 'Title',
-                type: 'input'
+                type: 'input',
+                validator: {
+                    notEmpty: true,
+                    length: {
+                        min: 3,
+                        max: 30
+                    }
+                }
             },
             {
                 id: 1,
                 name: 'finished',
                 title: 'Finished?',
-                type: 'checkbox'
+                type: 'checkbox',
+                validator: {
+
+                }
             },
             {
                 id: 2,
                 name: 'importance',
                 title: 'Importance',
                 type: 'rating',
+                validator: {
+                    values: {
+                        // whitelist should consist of strings because eqeqeq-comparison will be used
+                        whitelist: [ '0', '1', '2', '3', '4', '5' ]
+                    }
+                },
                 max: 5
             },
             {
@@ -33,7 +49,11 @@ define([], function() {
                 title: 'Due',
                 type: 'date',
                 dependee: 4, // defines that this item uses formElements[4]
-                value: 'tomorrow' // will be converted to current-date plus 24h during runtime
+                value: 'tomorrow', // will be converted to current-date plus 24h during runtime
+                validator: {
+                    notEmpty: true,
+                    datetime: true
+                }
             },
             {
                 id: 4,
@@ -41,13 +61,22 @@ define([], function() {
                 title: 'Duetime',
                 type: 'time',
                 dependant: 3, // defines that this item is used by formElements[3]
-                value: 'now' // will be converted to current time during runtime
+                value: 'now', // will be converted to current time during runtime
+                validator: {
+                    // since 'time' is a dependee, its value will be validated by its dependant
+                }
             },
             {
                 id: 5,
                 name: 'note',
                 title: 'Note',
-                type: 'text'
+                type: 'text',
+                validator: {
+                    length: {
+                        min: 3,
+                        max: 30
+                    }
+                }
             }
         ],
         styles: [

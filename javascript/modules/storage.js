@@ -9,7 +9,7 @@ define(
     'use strict';
 
     // module
-   return function() {
+    return function() {
 
         // configuration
 
@@ -35,6 +35,7 @@ define(
          *
          * @author Julian Mollik <jule@creative-coding.net>
          * @param {object} ev
+         * @private
          */
         privateStoreNote = function(ev) {
 
@@ -82,6 +83,7 @@ define(
          * reads the local storage and returns its data as object (empty if not found)
          * @author Julian Mollik <jule@creative-coding.net>
          * @returns {object}
+         * @private
          */
         privateGetExistingData = function() {
             return JSON.parse(localStorage.getItem(config.localStorageName)) || {};

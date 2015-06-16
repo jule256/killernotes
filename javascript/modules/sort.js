@@ -44,6 +44,7 @@ define(
          * constructor
          *
          * @author Julian Mollik <jule@creative-coding.net>
+         * @constructor
          */
         var publicConstructor = function() {
             $(document).bind('kn:view:complete', privateHighlightSort);
@@ -85,6 +86,7 @@ define(
          * prepares the handlebar templating (setting context, creating the html)
          *
          * @author Julian Mollik <jule@creative-coding.net>
+         * @private
          */
         var privatePreRender = function() {
             handlebarContext = {
@@ -99,6 +101,7 @@ define(
          * sets listeners and triggers
          *
          * @author Julian Mollik <jule@creative-coding.net>
+         * @private
          */
         var privatePostRender = function() {
             $.each(sortOptions, function(key, sortOption) {
@@ -122,6 +125,7 @@ define(
          *
          * @author Julian Mollik <jule@creative-coding.net>
          * @param {object} ev
+         * @private
          */
         var privateHighlightSort = function(ev) {
             $('#sort-container').find('li').removeClass('active');
@@ -144,6 +148,7 @@ define(
          *
          * @author Julian Mollik <jule@creative-coding.net>
          * @returns {boolean}
+         * @private
          */
         var privateIsEditActive = function() {
             if (editRef === null) {

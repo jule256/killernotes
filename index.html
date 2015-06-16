@@ -139,6 +139,7 @@
                id="{{formId}}-{{name}}"
                value="{{value}}"
                 placeholder="{{title}}">
+        <div class="hide message" id="{{formId}}-{{name}}-error"></div>
     </div>
 </script>
 <script id="template-form-text" type="text/x-handlebars-template">
@@ -147,6 +148,7 @@
             {{title}}
         </label>
         <textarea id="{{formId}}-{{name}}" placeholder="{{title}}">{{value}}</textarea>
+        <div class="hide message" id="{{formId}}-{{name}}-error"></div>
     </div>
 </script>
 <script id="template-form-checkbox" type="text/x-handlebars-template">
@@ -157,6 +159,7 @@
         <input type="checkbox"
                id="{{formId}}-{{name}}"
                {{value}}>
+        <div class="hide message" id="{{formId}}-{{name}}-error"></div>
     </div>
 </script>
 <script id="template-form-select" type="text/x-handlebars-template">
@@ -169,6 +172,7 @@
                 <option value="{{key}}" {{selected}}>{{value}}</option>
             {{/each}}
         </select>
+        <div class="hide message" id="{{formId}}-{{name}}-error"></div>
     </div>
 </script>
 <script id="template-form-date" type="text/x-handlebars-template">
@@ -179,6 +183,7 @@
         <input type="date"
                id="{{formId}}-{{name}}"
                value="{{value}}">
+        <div class="hide message" id="{{formId}}-{{name}}-error"></div>
     </div>
 </script>
 <script id="template-form-time" type="text/x-handlebars-template">
@@ -189,6 +194,7 @@
         <input type="time"
                id="{{formId}}-{{name}}"
                value="{{value}}">
+        <div class="hide message" id="{{formId}}-{{name}}-error"></div>
     </div>
 </script>
 <script id="template-form-rating" type="text/x-handlebars-template">
@@ -202,6 +208,7 @@
             {{/times}}
             <input type="hidden" value="{{value}}" id="{{formId}}-{{name}}" />
         </span>
+        <div class="hide message" id="{{formId}}-{{name}}-error"></div>
     </div>
 </script>
 </body>

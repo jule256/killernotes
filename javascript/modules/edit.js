@@ -4,8 +4,9 @@ define(
         'jQuery',
         'handlebars',
         'config',
-        'auxiliary'
-    ], function($, handlebars, config, auxiliary) {
+        'auxiliary',
+        'validate'
+    ], function($, handlebars, config, auxiliary, validate) {
 
     'use strict';
 
@@ -15,24 +16,21 @@ define(
         // configuration
 
         // class variables
-
         var data = null; // the data of the currently in edit mode note
         var id = null; // the id (aka create-timestamp) of the currently in edit mode note
 
         // handlebar settings
-
         var handlebarTemplateId = 'template-edit';
         var handlebarSource = null;
         var handlebarTemplate = null;
         var handlebarContext = null;
         var handleBarHtml = null;
 
-        // private functions
-
         /**
          * constructor
          *
          * @author Julian Mollik <jule@creative-coding.net>
+         * @constructor
          */
         var publicConstructor = function() {
             $(document).bind('kn:edit', privatePrepareEditForm);
@@ -93,6 +91,7 @@ define(
          * prepares the handlebar templating (setting context, creating the html)
          *
          * @author Julian Mollik <jule@creative-coding.net>
+         * @private
          */
         var privatePreRender = function() {
             handlebarContext = {
@@ -109,19 +108,37 @@ define(
          * sets listeners and triggers
          *
          * @author Julian Mollik <jule@creative-coding.net>
+         * @private
          */
         var privatePostRender = function() {
+            var data,
+                validation;
 
             $('#edit-submit').on('click', function() {
-                $.event.trigger({
-                    type: 'kn:edit:save',
-                    kn: {
-                        id: id,
-                        data: auxiliary.extractData('edit')
-                    },
-                    time: new Date()
-                });
-                id = null; // reset id (indicating that edit-mode is over)
+                data = auxiliary.extractData('edit');
+                validation = validate.validateFormData(data);
+
+                if (validation.failed) {
+                    $.event.trigger({
+                        type: 'kn:create:validation:failed',
+                        kn: {
+                            id: id,
+                            messages: validation.messages,
+                            mode: 'edit'
+                        }
+                    });
+                }
+                else {
+                    $.event.trigger({
+                        type: 'kn:edit:save',
+                        kn: {
+                            id: id,
+                            data: data
+                        },
+                        time: new Date()
+                    });
+                    id = null; // reset id (indicating that edit-mode is over)
+                }
             });
 
             $('#edit-cancel').on('click', function() {

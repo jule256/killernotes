@@ -11,6 +11,8 @@ define(
         // module
         return function() {
 
+            // @todo JSDoc for all functions
+
             // configuration
             var handlebarRegionId = 'region-stylepicker';
             var handlebarTemplateId = 'template-stylepicker';

@@ -64,6 +64,7 @@ define(
          * prepares the handlebar templating (setting context, creating the html)
          *
          * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
+         * @private
          */
         var privatePreRender = function() {
             handlebarContext = {
@@ -77,6 +78,7 @@ define(
          * sets listeners and triggers
          *
          * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
+         * @private
          */
         var privatePostRender = function() {
 
@@ -113,6 +115,7 @@ define(
          * visually disables the filtering by adding a the 'disabled' css class
          *
          * @author Julian Mollik <jule@creative-coding.net>
+         * @private
          */
         var privateDisableFilter = function() {
             $filterFinished.addClass('disabled');
@@ -122,6 +125,7 @@ define(
          * visually enabes the filtering by removing the 'disabled' css class
          *
          * @author Julian Mollik <jule@creative-coding.net>
+         * @private
          */
         var privateEnableFilter = function() {
             $filterFinished.removeClass('disabled');
@@ -133,6 +137,7 @@ define(
          *
          * @author Julian Mollik <jule@creative-coding.net>
          * @returns {boolean}
+         * @private
          */
         var privateIsEditActive = function() {
             if (editRef === null) {
