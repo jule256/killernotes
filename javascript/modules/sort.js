@@ -49,7 +49,8 @@ define(
             $(document).bind('kn:view:complete', privateHighlightSort);
             $(document).bind('kn:edit', privateDisableSort);
             $(document).bind('kn:edit:cancel', privateEnableSort);
-            $(document).bind('kn:edit:save', privateEnableSort);
+            $(document).bind('kn:data:change', privateEnableSort);
+            $(document).bind('kn:reset:complete', privateEnableSort);
 
             handlebarSource = $('#' + handlebarTemplateId).html();
             handlebarTemplate = handlebars.compile(handlebarSource);

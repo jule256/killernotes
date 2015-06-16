@@ -83,13 +83,13 @@ define(
             // query DOM once, use often
             $filterFinished =  $('#filter-finished');
 
-            if ($($filterFinished).is(':checked')) {
-                $($filterFinished).parent().addClass('active');
+            if ($filterFinished.is(':checked')) {
+                $filterFinished.parent().find('.button-link').addClass('active');
             }
 
             $filterFinished.on('change', function() {
+                // only allow filtering if edit is not active
                 if (!privateIsEditActive()) {
-                    // only allow filtering if edit is not active
                     $.event.trigger({
                         type: 'kn:filter',
                         kn: {
@@ -99,7 +99,7 @@ define(
                         time: new Date()
                     });
 
-                    $(this).parent().toggleClass('active');
+                    $(this).parent().find('.button-link').toggleClass('active');
                 }
             });
 
@@ -107,6 +107,7 @@ define(
             $(document).bind('kn:edit', privateDisableFilter);
             $(document).bind('kn:edit:cancel', privateEnableFilter);
             $(document).bind('kn:data:change', privateEnableFilter);
+            $(document).bind('kn:reset:complete', privateEnableFilter);
         };
 
         /**
@@ -115,7 +116,7 @@ define(
          * @author Julian Mollik <jule@creative-coding.net>
          */
         var privateDisableFilter = function() {
-            $filterFinished.addClass('disabled');
+            $filterFinished.parent().find('.button-link').addClass('disabled');
         };
 
         /**
@@ -124,7 +125,7 @@ define(
          * @author Julian Mollik <jule@creative-coding.net>
          */
         var privateEnableFilter = function() {
-            $filterFinished.removeClass('disabled');
+            $filterFinished.parent().find('.button-link').removeClass('disabled');
         };
 
         /**

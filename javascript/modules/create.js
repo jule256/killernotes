@@ -110,14 +110,18 @@ define(
             $createToggle.on('click', function() {
                 if (!privateIsEditActive()) {
                     // only show create-form if edit is not active
-                    var noteIcon = $(this).find('i');  // @todo Dominik "i" is depricated, use "em" instead
-                                                       //       see http://html5doctor.com/i-b-em-strong-element/
-                    $(noteIcon).toggleClass('fa-minus');
-                    $(noteIcon).toggleClass('fa-plus');
+                    var $noteIcon = $(this).find('.kn-icon');
+                    $noteIcon.toggleClass('fa-minus');
+                    $noteIcon.toggleClass('fa-plus');
+
                     $(this).toggleClass('active');
 
                     $('.kn-form-create').toggle();
+
+                    console.log('CREATECLICK');
                 }
+
+                console.log('CREATECLICK2');
             });
 
             // add rating event
@@ -127,6 +131,7 @@ define(
             $(document).bind('kn:edit', privateDisableCreate);
             $(document).bind('kn:edit:cancel', privateEnableCreate);
             $(document).bind('kn:data:change', privateEnableCreate);
+            $(document).bind('kn:reset:complete', privateEnableCreate);
         };
 
         /**

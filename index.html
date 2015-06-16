@@ -16,13 +16,15 @@
     </div>
     <div class="kn-header-actions">
         <div id="region-stylepicker" class="kn-style-picker"></div>
-        <a href="https://github.com/jule256/killernotes" target="_blank" class="button-link"><i class="fa fa-github"></i> View on GitHub</a>
+        <a href="https://github.com/jule256/killernotes" target="_blank" class="button-link"><em class="fa fa-github"></em> View on GitHub</a>
     </div>
 </header>
 <main>
+    <section class="kn-log" id="region-log">
+    </section>
     <section class="kn-notes-actions">
         <!-- @todo Dominik why is "kn-notes-create" a class and not an ID? -->
-        <a class="kn-notes-create button-link"><i class="fa fa-plus"></i></a>
+        <a class="kn-notes-create button-link"><em class="kn-icon fa fa-plus"></em></a>
         <div id="region-sort" class="kn-sort"></div>
         <div id="region-filter" class="kn-filter"></div>
     </section>
@@ -39,7 +41,7 @@
 <script id="template-sort" type="text/x-handlebars-template">
     <ul id="sort-container">
         {{#each sortOptions}}
-            <li id="sort-{{name}}" class="button-link">{{title}} <i class="fa fa-sort"></i></li>
+            <li id="sort-{{name}}" class="button-link">{{title}} <em class="fa fa-sort"></em></li>
         {{/each}}
     </ul>
 
@@ -52,7 +54,7 @@
                 {{formElement .}}
         {{/each}}
         <div class="kn-form-actions">
-            <a id="create-submit" class="button-link"><i class="fa fa-floppy-o"></i> save</a>
+            <a id="create-submit" class="button-link"><em class="fa fa-floppy-o"></em> save</a>
         </div>
     </div>
 
@@ -71,17 +73,17 @@
 
         <div class="kn-note-info">
             <ul>
-                <li class="kn-note-duedate" title="due"><i class="fa fa-calendar-o"></i> <time>{{timestampToDate duedate}}</time></li>
-                <li class="kn-note-createdate" title="created"><i class="fa fa-plus-circle"></i> <time>{{timestampToDate createdate}}</time></li>
+                <li class="kn-note-duedate" title="due"><em class="fa fa-calendar-o"></em> <time>{{timestampToDate duedate}}</time></li>
+                <li class="kn-note-createdate" title="created"><em class="fa fa-plus-circle"></em> <time>{{timestampToDate createdate}}</time></li>
             </ul>
         </div>
         <div class="kn-note-text">
             <h3>
                 <span class="kn-note-state">
                     {{#if finished}}
-                        <i class="fa fa-check-square-o"></i>
+                        <em class="fa fa-check-square-o"></em>
                     {{else}}
-                        <i class="fa fa-square-o"></i>
+                        <em class="fa fa-square-o"></em>
                     {{/if}}
                 </span>
                 <span class="kn-note-title">
@@ -89,29 +91,34 @@
                 </span>
                 <span class="kn-note-importance importance-{{importance}}">
                     {{#times 1 importance}}
-                        <i class="fa fa-bolt"></i>
+                        <em class="fa fa-bolt"></em>
                     {{/times}}
                 </span>
             </h3>
-            <p class="kn-note-description">{{note}}</p>
+            <p class="kn-note-description">
+                {{breakLines note}}
+            </p>
         </div>
         <div class="kn-note-actions">
-            <a class="kn-note-edit button-link"><i class="fa fa-pencil"> Edit</i></a>
+            <a class="kn-note-edit button-link"><em class="fa fa-pencil"> Edit</em></a>
         </div>
     </article>
 </script>
 <script id="template-filter" type="text/x-handlebars-template">
-    <span class="kn-filter-finished button-link">
-        <input type="checkbox" id="filter-finished"> <label for="filter-finished">Show finished</label>
+    <span class="kn-filter-finished">
+        <input type="checkbox" id="filter-finished"> <label for="filter-finished" class="button-link">Show finished</label>
     </span>
 </script>
 <script id="template-reset" type="text/x-handlebars-template">
     <a id="reset" class="kn-reset button-link">Remove all notes</a>
 </script>
 <script id="template-stylepicker" type="text/x-handlebars-template">
+    <label for="style-picker">
+        Style
+    </label>
     <select id="style-picker">
         {{#each styles}}
-            <option value="{{path}}">{{name}}</option>
+            <option value="{{path}}">Style: {{name}}</option>
         {{/each}}
     </select>
 </script>
@@ -123,9 +130,15 @@
         {{/each}}
 
         <div class="kn-form-actions">
-            <a id="edit-submit" class="button-link"><i class="fa fa-floppy-o"></i> save</a>
-            <a id="edit-cancel" class="button-link"><i class="fa fa-times"></i> cancel</a>
+            <a id="edit-submit" class="button-link"><em class="fa fa-floppy-o"></em> save</a>
+            <a id="edit-cancel" class="button-link"><em class="fa fa-times"></em> cancel</a>
+            <a id="edit-delete" class="button-link delete"><em class="fa fa-trash"></em> delete</a>
         </div>
+    </div>
+</script>
+<script id="template-log" type="text/x-handlebars-template">
+    <div class="kn-log-message level-{{level}}">
+        {{message}}
     </div>
 </script>
 
@@ -198,7 +211,7 @@
         </label>
         <span class="kn-rating">
             {{#times 1 max}}
-                <i class="fa fa-bolt rating-item" data-value="{{.}}"> </i>
+                <em class="fa fa-bolt rating-item" data-value="{{.}}"> </em>
             {{/times}}
             <input type="hidden" value="{{value}}" id="{{formId}}-{{name}}" />
         </span>

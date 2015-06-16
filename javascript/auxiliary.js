@@ -221,36 +221,70 @@ define(
         },
 
         /**
+         * Replaces \r\n, \n and \r with <br> for new lines in view
+         *
+         * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
+         * @param {string} text
+         * @returns {string}
+         */
+        handlebarsBreakLines: function(text) {
+            text = handlebars.Utils.escapeExpression(text);
+            text = text.replace(/(\r\n|\n|\r)/gm, '<br>');
+            return new handlebars.SafeString(text);
+        },
+
+        /**
+         * Triggers the event to create a log message
+         *
+         * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
+         * @param {number} level
+         * @param {string} message
+         * @param {boolean} showOnUi
+         */
+        logMessage: function(level, message, showOnUi) {
+            $.event.trigger({
+                type: 'kn:log:message',
+                kn: {
+                    level: level,
+                    message: message,
+                    showOnUi: showOnUi
+                },
+                time: new Date()
+            });
+        },
+
+        /**
          * @todo I think it's in the wrong place here
          *
          * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
          */
         ratingHelper: function(id) {
 
+            var $ratingItem = $('.rating-item');
+
+            var setStateClass = function($element, value) {
+                if ($element.attr('data-value') <= value) {
+                    $element.addClass('active');
+                } else {
+                    $element.removeClass('active');
+                }
+            };
+
             if (id) {
                 var value = $(id).val();
                 if (value > 0) {
-                    $('.kn-form-rating .rating-item').each(function() {
-                        if ($(this).attr('data-value') <= value) {
-                            $(this).addClass('active');
-                        } else {
-                            $(this).removeClass('active');
-                        }
+                    $ratingItem.each(function() {
+                        setStateClass($(this), value);
                     });
                 }
             }
 
-            $('.rating-item').on('click', function() {
+            $ratingItem.on('click', function() {
                 var value = $(this).attr('data-value');
                 $(this).parent().find('input').val(value);
 
                 $(this).parent().children('.rating-item').each(function() {
-                   if ($(this).attr('data-value') <= value) {
-                       $(this).addClass('active');
-                   }
-                   else {
-                        $(this).removeClass('active');
-                   }
+                    setStateClass($(this), value);
                 });
             });
         }

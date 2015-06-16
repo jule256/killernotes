@@ -1,0 +1,25 @@
+.kn-log {
+
+  font-size: $smallFontSize;
+
+  .kn-log-message {
+    display:none;
+    padding: $defaultNarrowSpacing $defaultWideSpacing;
+  }
+
+  .level-10 {
+    background-color: $infoColor;
+  }
+
+  .level-20 {
+    background-color: $successColor;
+  }
+
+  .level-30 {
+    background-color: $warningColor;
+  }
+
+  .level-40 {
+    background-color: $errorColor;
+  }
+}

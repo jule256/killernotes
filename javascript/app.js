@@ -9,8 +9,9 @@ define(
         'modules/reset',
         'modules/edit',
         'modules/filter',
-        'modules/stylepicker'
-    ], function($, SortRef, CreateRef, StorageRef, ViewRef, ResetRef, EditRef, FilterRef, StylePickerRef) {
+        'modules/stylepicker',
+        'modules/log'
+    ], function($, SortRef, CreateRef, StorageRef, ViewRef, ResetRef, EditRef, FilterRef, StylePickerRef, LogRef) {
 
     'use strict';
 
@@ -26,7 +27,8 @@ define(
                myReset,
                myStorage,
                myEdit,
-               myFilter;
+               myFilter,
+               myLog;
 
            // StylePicker
            myStylepicker = new StylePickerRef();
@@ -69,6 +71,10 @@ define(
            // storage
            myStorage = new StorageRef();
            myStorage.constructor();
+
+           // storage
+           myLog = new LogRef();
+           myLog.constructor();
        };
 
        var publicGetVersion = function() {

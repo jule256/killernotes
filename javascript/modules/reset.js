@@ -23,12 +23,20 @@ define(
 
         // private functions
 
+       /**
+        *
+        */
         var publicConstructor = function() {
             handlebarSource = $('#' + handlebarTemplateId).html();
             handlebarTemplate = handlebars.compile(handlebarSource);
 
         };
 
+       /**
+        * appends the created html into the designated region of the DOM
+        *
+        * @author Julian Mollik <jule@creative-coding.net>
+        */
        var publicRender = function() {
            privatePreRender();
 
@@ -37,6 +45,12 @@ define(
            privatePostRender();
        };
 
+       /**
+        * automatically called before the html is appended into the DOM.
+        * prepares the handlebar templating (setting context, creating the html)
+        *
+        * @author Julian Mollik <jule@creative-coding.net>
+        */
         var privatePreRender = function() {
             handlebarContext = {
                 title: 'reset'
@@ -44,6 +58,12 @@ define(
             handleBarHtml = handlebarTemplate(handlebarContext);
         };
 
+       /**
+        * automatically called after the html is appended into the DOM.
+        * sets listeners and triggers
+        *
+        * @author Julian Mollik <jule@creative-coding.net>
+        */
         var privatePostRender = function() {
             $('#reset').on('click', function() {
                 $.event.trigger({
