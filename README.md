@@ -19,7 +19,7 @@
   - ⚠ standardize event naming (maybe 'kn:`<type`>:`<action`>') (Julian)
   - ~~add JSCS and JSHint configuration~~ (Julian) ✓
   - ~~disable sorting during edit mode~~ (Julian) ✓
-  - ~~Exception Handling: Errorview & Loglevels (Dominik) ✓
+  - ~~Exception Handling: Errorview & Loglevels (Dominik)~~ ✓
     - to be implemented in modules where it makes sense (auxiliary.logMessage)
   - < data on server
   - store/precompile handlebar templates (Dominik)
@@ -31,21 +31,21 @@
   - ⚠ check for dangling events: Everytime the view is newly rendered, new events are generated in privatePostRender()
   - ⚠ disabled buttons still work (Julian)
   - ⚠ note can be safed without duedate/time (Julian)
-  - ~~⚠ finish-filter: only works if click is on label `.filter-finished` and not if on on span `.kn-filter-finished` (Dominik) ✓
-  - ~~⚠ finish-filter: `.disabled` does not work correctly (cursor, bg-color), e.g. if edit mode is active (Dominik) ✓
-  - ~~⚠ line breaks in note-text ✓
+  - ~~⚠ finish-filter: only works if click is on label `.filter-finished` and not if on on span `.kn-filter-finished` (Dominik)~~ ✓
+  - ~~⚠ finish-filter: `.disabled` does not work correctly (cursor, bg-color), e.g. if edit mode is active (Dominik)~~ ✓
+  - ~~⚠ line breaks in note-text~~ ✓
 
 ### @ideas
   - Additional features
-    - ~~delete single note✓
+    - ~~delete single note~~✓
     - maybe fallback on Cookie if Storage is not supported on browser?
     - jquery datepicker (firefox, safari, ...)
     - background depending on duedate/importance
     - save filtersettings
     - custom styles
     - include fontawesome & normalize.css with scss
-    - ~~css tweaking: min-width of 590px to prevent line-breaking in create/sort/filter area and github-link ✓
-    - ~~css tweaking: "finished" button is not horizontally aligned with create and sort buttons ✓
+    - ~~css tweaking: min-width of 590px to prevent line-breaking in create/sort/filter area and github-link~~ ✓
+    - ~~css tweaking: "finished" button is not horizontally aligned with create and sort buttons~~ ✓
     
 ### code style
 #### JSHint
