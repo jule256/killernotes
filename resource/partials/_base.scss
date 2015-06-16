@@ -154,8 +154,16 @@ h3 {
     background-color: $buttonBackgroundColorActive;
   }
 
-  &.disabled, &.disable:hover {
+  &.disabled, &.disabled:hover {
     cursor: not-allowed !important;
     background-color: $buttonBackgroundColorDisabled;
+  }
+
+  &.delete {
+    background-color: $buttonBackgroundColorDelete;
+
+    &:hover {
+      background-color: $buttonBackgroundColorDeleteHover;
+    }
   }
 }

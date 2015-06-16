@@ -21,6 +21,7 @@ define(
 
         // handlebar settings
         var handlebarRegionId = 'region-view';
+        var handlebarRegionId = 'region-view';
         var handlebarTemplateId = 'template-view';
         var handlebarPartialTemplateId = 'template-partial-note';
         var handlebarSource = null;
@@ -38,6 +39,7 @@ define(
             handlebars.registerPartial('note', $('#' + handlebarPartialTemplateId).html());
             handlebars.registerHelper('timestampToDate', privateHandlebarsTimestampToDateHelper);
             handlebars.registerHelper('times', auxiliary.handlebarsForLoop);
+            handlebars.registerHelper('breakLines', auxiliary.handlebarsBreakLines);
 
             handlebarSource = $('#' + handlebarTemplateId).html();
             handlebarTemplate = handlebars.compile(handlebarSource);
@@ -103,7 +105,7 @@ define(
             $.each(noteElements, function(key, value) {
 
                 // add change state functionality
-                $('#note-' + key + ' .kn-note-state i').on('click', function() {
+                $('#note-' + key + ' .kn-note-state').on('click', function() {
                     if (!privateIsEditActive()) {
                         // only trigger event if there is no other edit-process in progress
                         value.finished = !value.finished;
@@ -146,7 +148,9 @@ define(
 
             $(document).bind('kn:edit', privateDisableEdit);
             $(document).bind('kn:edit:cancel', privateEnableEdit);
+            $(document).bind('kn:reset:complete', privateEnableEdit);
             $(document).bind('kn:edit:save', privateEnableEdit);
+            $(document).bind('kn:edit:delete', privateEnableEdit);
         };
 
         /**
@@ -168,7 +172,7 @@ define(
                 if (!value.finished || showFinished) {
                     cleanedElements.push({
                         title: value.title || '<no title>',
-                        note: value.note || '<no content>', // @todo new-line-to-break
+                        note: value.note || '<no content>',
                         createdate: value.createdate,
                         duedate: value.duedate,
                         importance: value.importance,
@@ -236,11 +240,13 @@ define(
          * @private
          */
         var privateDisableEdit = function(ev) {
+            var $note = $('.kn-note');
+
             // add "disabled" class to all other edit-note links
-            $('.kn-note').not('#note-' + ev.kn.id).find('.kn-note-edit').addClass('disabled');
+            $note.not('#note-' + ev.kn.id).find('.kn-note-edit').addClass('disabled');
 
             // add "disabled" class to all other finish-note links
-            $('.kn-note').not('#note-' + ev.kn.id).find('.kn-note-state').addClass('disabled');
+            $note.not('#note-' + ev.kn.id).find('.kn-note-state').addClass('disabled');
         };
 
         /**
@@ -250,13 +256,15 @@ define(
          * @private
          */
         var privateEnableEdit = function() {
+            var $note = $('.kn-note');
+
             // remove "disabled" class of all edit-note links
             // note: since the view gets re-rendered on cancel AND on save, the following line is actually not needed
-            $('.kn-note').find('.kn-note-edit').removeClass('disabled');
+            $note.find('.kn-note-edit').removeClass('disabled');
 
             // remove "disabled" class to all finish-note links
             // note: since the view gets re-rendered on cancel AND on save, the following line is actually not needed
-            $('.kn-note').find('.kn-note-state').removeClass('disabled');
+            $note.find('.kn-note-state').removeClass('disabled');
         };
 
         /**

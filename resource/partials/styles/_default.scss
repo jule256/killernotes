@@ -5,13 +5,22 @@ $mainBackgroundColor: #fff;
 $mainForegroundColor: #333;
 $highlightColor: #93806C;
 $highlightColor2: #2e8b57;
+$highlightColor3: red;
 $alternateForegroundColor: #fff;
+
+//Infocolors
+$errorColor: rgba(red, 0.1);
+$warningColor: rgba(yellow, 0.1);
+$successColor: rgba(green, 0.1);
+$infoColor: rgba(blue, 0.1);
 
 //Buttons
 $buttonBackgroundColor: rgba($highlightColor, 0.5);
 $buttonBackgroundColorHover: rgba($highlightColor, 0.75);
 $buttonBackgroundColorActive: rgba($highlightColor2, 0.75);
 $buttonBackgroundColorDisabled: rgba($highlightColor, 0.25);
+$buttonBackgroundColorDelete: rgba($highlightColor3, 0.5);
+$buttonBackgroundColorDeleteHover: rgba($highlightColor3, 0.75);
 $buttonForegroundColor: $alternateForegroundColor;
 
 //Spacing

@@ -3,16 +3,24 @@
 //Maincolors
 $mainBackgroundColor: #666;
 $mainForegroundColor: #fff;
-
 $highlightColor: #79ebee;
 $highlightColor2: #c03dbf;
+$highlightColor3: red;
 $alternateForegroundColor: #fff;
+
+//Infocolors
+$errorColor: rgba(red, 0.75);
+$warningColor: rgba(yellow, 0.75);
+$successColor: rgba(green, 0.75);
+$infoColor: rgba(blue, 0.75);
 
 //buttons
 $buttonBackgroundColor: rgba($highlightColor, 0.75);
 $buttonBackgroundColorHover: rgba($highlightColor, 0.5);
 $buttonBackgroundColorActive: rgba($highlightColor2, 0.75);
 $buttonBackgroundColorDisabled: rgba($highlightColor, 0.25);
+$buttonBackgroundColorDelete: rgba($highlightColor3, 0.25);
+$buttonBackgroundColorDeleteHover: rgba($highlightColor3, 0.75);
 $buttonForegroundColor: $alternateForegroundColor;
 
 //Spacing

@@ -3,6 +3,15 @@ define([], function() {
 
     'use strict';
 
+    var logLevels = {
+        all: 0,
+        info: 10,
+        success: 20,
+        warning: 30,
+        error: 40,
+        none: 9999
+    };
+
     return {
         localStorageName: 'kn:storage',
         defaultSort: 'duedate',
@@ -88,6 +97,10 @@ define([], function() {
                 name: 'Fancy',
                 path: 'resource/main-secondary.css'
             }
-        ]
+        ],
+        logLevels: logLevels,
+        uiLogShowDuration: 1500,
+        uiLogLevel: logLevels.all,
+        consoleLogLevel: logLevels.all
     };
 });

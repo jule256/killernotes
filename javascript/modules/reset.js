@@ -10,7 +10,7 @@ define(
     // configuration
 
     // module
-   return function() {
+    return function() {
 
         // @todo JSDoc for all functions
 
@@ -22,40 +22,60 @@ define(
         var handlebarContext = null;
         var handleBarHtml = null;
 
+       /**
+        *
+        */
         var publicConstructor = function() {
             handlebarSource = $('#' + handlebarTemplateId).html();
             handlebarTemplate = handlebars.compile(handlebarSource);
 
         };
 
-       var publicRender = function() {
-           privatePreRender();
+       /**
+        * appends the created html into the designated region of the DOM
+        *
+        * @author Julian Mollik <jule@creative-coding.net>
+        */
+        var publicRender = function() {
+            privatePreRender();
 
-           $('#' + handlebarRegionId).html(handleBarHtml);
+            $('#' + handlebarRegionId).html(handleBarHtml);
 
-           privatePostRender();
-       };
-
-        var privatePreRender = function() {
-            handlebarContext = {
-                title: 'reset'
-            };
-            handleBarHtml = handlebarTemplate(handlebarContext);
+            privatePostRender();
         };
 
-        var privatePostRender = function() {
-            $('#reset').on('click', function() {
-                $.event.trigger({
-                    type: 'kn:reset',
-                    kn: {},
-                    time: new Date()
-                });
-            });
-        };
+        /**
+         * automatically called before the html is appended into the DOM.
+         * prepares the handlebar templating (setting context, creating the html)
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         */
+         var privatePreRender = function() {
+             handlebarContext = {
+                 title: 'reset'
+             };
+             handleBarHtml = handlebarTemplate(handlebarContext);
+         };
 
-        return {
-            constructor: publicConstructor,
-            render: publicRender
-        };
+        /**
+         * automatically called after the html is appended into the DOM.
+         * sets listeners and triggers
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         */
+         var privatePostRender = function() {
+             $('#reset').on('click', function() {
+                 $.event.trigger({
+                     type: 'kn:reset',
+                     kn: {},
+                     time: new Date()
+                 });
+             });
+         };
+
+         return {
+             constructor: publicConstructor,
+             render: publicRender
+         };
     };
 });

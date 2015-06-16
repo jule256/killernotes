@@ -150,6 +150,19 @@ define(
                 id = null; // reset id (indicating that edit-mode is over)
             });
 
+            $('#edit-delete').on('click', function() {
+                if (confirm('Do you really want to delete this note?')) {
+                    $.event.trigger({
+                        type: 'kn:edit:delete',
+                        kn: {
+                            id: id
+                        },
+                        time: new Date()
+                    });
+                    id = null; // reset id (indicating that edit-mode is over)
+                }
+            });
+
             auxiliary.ratingHelper('#edit-importance');
         };
 

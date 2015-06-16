@@ -101,12 +101,17 @@ h3 {
     outline: none; }
   .button-link.active {
     background-color: rgba(192, 61, 191, 0.75); }
-  .button-link.disabled, .button-link.disable:hover {
+  .button-link.disabled, .button-link.disabled:hover {
     cursor: not-allowed !important;
     background-color: rgba(121, 235, 238, 0.25); }
+  .button-link.delete {
+    background-color: rgba(255, 0, 0, 0.25); }
+    .button-link.delete:hover {
+      background-color: rgba(255, 0, 0, 0.75); }
 
 body {
   min-height: 100vh;
+  min-width: 590px;
   padding: 0;
   margin: 0;
   display: flex;
@@ -115,11 +120,6 @@ body {
 main {
   flex: 1; }
 
-/*
-h2 {
-  margin:  0 0 $defaultNarrowSpacing;
-  font-size: 1.1em;
-}*/
 header {
   padding: 25px 50px;
   display: flex;
@@ -162,6 +162,9 @@ footer {
 .kn-filter {
   flex: 1;
   text-align: right; }
+  .kn-filter .button-link {
+    position: relative;
+    top: -2px; }
 
 .kn-form-create {
   margin: 0 50px 25px; }
@@ -234,7 +237,7 @@ footer {
     .kn-view .kn-note-info ul li {
       display: flex;
       align-items: baseline; }
-      .kn-view .kn-note-info ul li i {
+      .kn-view .kn-note-info ul li em {
         flex: 0 0 20px;
         text-align: left; }
       .kn-view .kn-note-info ul li:not(:last-child) {
@@ -277,5 +280,21 @@ footer {
     .kn-style-picker select:focus {
       background: rgba(121, 235, 238, 0.5);
       outline: none; }
+  .kn-style-picker label {
+    display: none; }
+
+.kn-log {
+  font-size: 0.8em; }
+  .kn-log .kn-log-message {
+    display: none;
+    padding: 10px 50px; }
+  .kn-log .level-10 {
+    background-color: rgba(0, 0, 255, 0.75); }
+  .kn-log .level-20 {
+    background-color: rgba(0, 128, 0, 0.75); }
+  .kn-log .level-30 {
+    background-color: rgba(255, 255, 0, 0.75); }
+  .kn-log .level-40 {
+    background-color: rgba(255, 0, 0, 0.75); }
 
 /*# sourceMappingURL=main-secondary.css.map */

@@ -78,7 +78,8 @@
       li {
         display: flex;
         align-items: baseline;
-        i {
+
+        em {
           flex: 0 0 $defaultNarrowSpacing * 2;
           text-align: left;
         }
