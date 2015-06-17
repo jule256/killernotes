@@ -12,7 +12,7 @@ define(
     var returnedAuxiliary = {
 
         /**
-         * Handlbar helper to generate form-fields. Templates can be defined for each formtype by the designer
+         * Handlebar helper to generate form-fields. Templates can be defined for each formtype by the designer
          *
          * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
          * @param {*} formElement
@@ -44,7 +44,8 @@ define(
                     break;
                 case 'rating':
                     formElementContext.max = formElement.max;
-                    /* falls through */
+                    formElementContext.value = typeof formElement.value === 'undefined' ? 0 : formElement.value;
+                    break;
                 case 'input':
                 case 'text':
                 case 'date':

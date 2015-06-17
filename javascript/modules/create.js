@@ -43,6 +43,14 @@ define(
 
             $(document).bind('kn:create', privateResetCreateForm);
             $(document).bind('kn:create:validation:failed', privateShowError);
+
+            //TODO: richtiger ort hier? oder methode publicRegisterEvents?
+            $('body').on('click', '.kn-notes-create', function() {
+                // only show create-form if edit is not active
+                if (!privateIsEditActive()) {
+                    privateToggleCreateForm();
+                }
+            });
         };
 
         /**
@@ -128,23 +136,6 @@ define(
                 }
             });
 
-            $createToggle.on('click', function() {
-                if (!privateIsEditActive()) {
-                    // only show create-form if edit is not active
-                    var $noteIcon = $(this).find('.kn-icon');
-                    $noteIcon.toggleClass('fa-minus');
-                    $noteIcon.toggleClass('fa-plus');
-
-                    $(this).toggleClass('active');
-
-                    $('.kn-form-create').toggle();
-
-                    console.log('CREATECLICK');
-                }
-
-                console.log('CREATECLICK2');
-            });
-
             // add rating event
             auxiliary.ratingHelper();
 
@@ -156,12 +147,29 @@ define(
         };
 
         /**
+         * Toggles the create form
+         *
+         * @author dominik süsstrunk <dominik.suesstrunk@gmail.com>
+         * @private
+         */
+        var privateToggleCreateForm = function() {
+
+            var $noteIcon = $createToggle.find('.kn-icon');
+            $noteIcon.toggleClass('fa-minus');
+            $noteIcon.toggleClass('fa-plus');
+            $createToggle.toggleClass('active');
+
+            $('.kn-form-create').toggle();
+        };
+
+        /**
          * resets the create form by re-rendering it
          *
          * @author Julian Mollik <jule@creative-coding.net>
          * @private
          */
         var privateResetCreateForm = function() {
+            privateToggleCreateForm();
             publicRender();
         };
 
@@ -173,6 +181,7 @@ define(
          * @private
          */
         var privateDisableCreate = function() {
+            privateToggleCreateForm();
             $submit.attr('disabled', true);
             $createToggle.addClass('disabled'); // @todo Dominik "not-allowed" cursor is overruled by "pointer" curser
         };
