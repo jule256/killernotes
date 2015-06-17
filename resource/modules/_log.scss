@@ -1,6 +1,6 @@
 .kn-log {
 
-  font-size: $smallFontSize;
+  @include smallFont;
 
   .kn-log-message {
     display:none;

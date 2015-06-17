@@ -28,6 +28,8 @@ h3 {
   -moz-border-radius: 2px;
   -ms-border-radius: 2px;
   border-radius: 2px; }
+  .kn-form input, .kn-form textarea {
+    background-color: #fff; }
   .kn-form > div {
     padding: 10px 0 0; }
   .kn-form h3, .kn-form .kn-form-text, .kn-form .kn-form-create-submit, .kn-form .kn-form-input, .kn-form .kn-form-rating, .kn-form .kn-form-checkbox {
@@ -111,7 +113,7 @@ h3 {
 
 body {
   min-height: 100vh;
-  min-width: 590px;
+  min-width: 610px;
   padding: 0;
   margin: 0;
   display: flex;
@@ -271,7 +273,8 @@ footer {
 .kn-style-picker {
   margin-right: 25px; }
   .kn-style-picker select {
-    height: 28px;
+    height: 25px;
+    padding: 0;
     background: rgba(147, 128, 108, 0.5);
     border: 0;
     color: #fff;
@@ -284,6 +287,7 @@ footer {
     display: none; }
 
 .kn-log {
+  font-weight: 300;
   font-size: 0.8em; }
   .kn-log .kn-log-message {
     display: none;
