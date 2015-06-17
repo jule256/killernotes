@@ -22,6 +22,7 @@
   - ~~Exception Handling: Errorview & Loglevels (Dominik)~~ ✓
     - to be implemented in modules where it makes sense (auxiliary.logMessage)
   - data on server
+    - rest service
   - store/precompile handlebar templates (Dominik)
   - ~~form generator: good or bad? good!~~ ✓
   - ⚠ replace `bind()` with `on()` (Julian)
