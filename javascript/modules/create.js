@@ -181,7 +181,6 @@ define(
          * @private
          */
         var privateDisableCreate = function() {
-            privateToggleCreateForm();
             $submit.attr('disabled', true);
             $createToggle.addClass('disabled'); // @todo Dominik "not-allowed" cursor is overruled by "pointer" curser
         };
