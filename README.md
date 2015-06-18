@@ -67,7 +67,9 @@ machine:killernotes user$ npm install nedb --save
 ```
 
 #### app
-Start server 
+  - Start index.js
+  - Client: localhost:3000
+  - Service localhost:3000/notes
 
 #### Service
 The service has following methods
