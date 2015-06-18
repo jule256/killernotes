@@ -107,6 +107,18 @@ module.exports = function() {
     };
 
     /**
+     * Delete all notes and send back the number of deleted notes
+     *
+     * @param {object} req
+     * @param {object} res
+     */
+    var publicDeleteAllNotes = function(req, res) {
+        store.deleteAllNotes(function(err, count) {
+           res.send(count.toString());
+        });
+    };
+
+    /**
      * Get the current hash/state of the all notes
      * Needed for syncing
      *
@@ -135,6 +147,7 @@ module.exports = function() {
         updateNote: publicUpdateNote,
         deleteNote: publicDeleteNote,
         getAllNotes: publicGetAllNotes,
+        deleteAllNotes: publicDeleteAllNotes,
         getState: publicGetState
     };
 }();

@@ -12,6 +12,7 @@ module.exports = (function() {
     var router = express.Router();
 
     router.get('/', notes.getAllNotes);
+    router.delete('/', notes.deleteAllNotes);
     router.post('/', notes.addNote);
     router.get('/state', notes.getState);
     router.get('/:id/', notes.getNote);

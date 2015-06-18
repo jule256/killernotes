@@ -74,11 +74,13 @@ machine:killernotes user$ npm install nedb --save
 #### Service
 The service has following methods
   - GET /notes 
-  Get all notes
-  - GET /notes/state
-  Get current state/hash of all notes:
+    Get all notes
   - POST /notes 
     Add new note
+  - DELETE /notes
+    remove all notes 
+  - GET /notes/state
+    Get current state/hash of all notes
   - GET /notes/:id
     Get a note by id
   - PUT /notes/:id

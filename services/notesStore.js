@@ -55,21 +55,6 @@ module.exports = function()
     };
 
     /**
-     *  delete a note from the db by its id
-     *
-     * @author dominik.suesstrunk <dominik.suesstrunk@gmail.com>
-     * @param {string} id
-     * @param {function} callback
-     */
-    var publicDelete = function(id, callback) {
-        db.remove({ _id: id }, {}, function(err, count) {
-            if (callback) {
-                callback(err, count);
-            }
-        });
-    };
-
-    /**
      * Get a note from the database by id
      *
      * @author dominik.suesstrunk <dominik.suesstrunk@gmail.com>
@@ -114,11 +99,40 @@ module.exports = function()
             });
     };
 
+    /**
+     *  delete a note from the db by its id
+     *
+     * @author dominik.suesstrunk <dominik.suesstrunk@gmail.com>
+     * @param {string} id
+     * @param {function} callback
+     */
+    var publicDelete = function(id, callback) {
+        db.remove({ _id: id }, {}, function(err, count) {
+            if (callback) {
+                callback(err, count);
+            }
+        });
+    };
+
+    /**
+     * Deletes all notes from the database
+     *
+     * @param {function} callback
+     */
+    var publicDeleteAllNotes = function(callback) {
+      db.remove({}, { multi: true }, function(err, count) {
+          if(callback) {
+              callback(err, count);
+          }
+      });
+    };
+
     return {
         getNote: publicGetNote,
         addNote: publicAddNote,
         updateNote: publicUpdateNote,
         deleteNote: publicDelete,
-        getAllNotes: publicGetAllNotes
+        getAllNotes: publicGetAllNotes,
+        deleteAllNotes: publicDeleteAllNotes
     };
 }();
