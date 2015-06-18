@@ -8,6 +8,7 @@
 
     var app = express();
 
+    //TODO: Middleware for logging
     app.use(bodyParser.json());
     app.use('/notes', notesRoutes);
 

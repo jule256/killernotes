@@ -1,9 +1,13 @@
-var datastore = require('nedb');
-
+/**
+ * notesStore Module
+ *
+ * @author dominik.suesstrunk <dominik.suesstrunk@gmail.com>
+ */
 module.exports = function()
 {
     'use strict';
 
+    var datastore = require('nedb');
     var db = new datastore({ filename: './data/notes.db', autoload: true });
 
     /**
