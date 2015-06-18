@@ -221,12 +221,9 @@
     // For value examples, see https://github.com/jshint/jshint/blob/c047ea1b01097fcc220fcd1a55c41f67ae2e6e81/jshint.js#L556
     "globals":  {
         "define": true,
-        "Backbone": true,
         "$": true,
-        "_": true,
         "moment": true,
         "window": true,
-        "Bonnie": true,
         "alert": true,
         "console": true,
         "setTimeout": true
