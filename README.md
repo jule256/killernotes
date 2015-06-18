@@ -1,8 +1,14 @@
 # Killernotes
 
+### todo Server
+
+  - Notifications über polling von hash auf alle notes auf dem server (/state)
+  - GET, POST /notes
+  - GET, PUT, DELETE /notes/:id
+
 ### @todo:
 
-  - ⚠ form evaluation (Julian)
+  - ~~form evaluation~~ (Julian) ✓
   - CSS Layouting (Dominik) 
     - basic ✓
   - ~~Importance: Stars/Flashes instead of select-dropdown~~ (Dominik) ✓
@@ -41,7 +47,7 @@
 
 ### @ideas
   - Additional features
-    - ~~delete single note~~✓
+    - ~~delete single note~~ ✓
     - maybe fallback on Cookie if Storage is not supported on browser?
     - jquery datepicker (firefox, safari, ...)
     - background depending on duedate/importance
