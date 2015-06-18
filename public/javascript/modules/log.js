@@ -37,7 +37,7 @@ define(
                 handlebarSource = $('#' + handlebarTemplateId).html();
                 handlebarTemplate = handlebars.compile(handlebarSource);
 
-                $(document).bind('kn:log:message', privateLogMessage);
+                $(document).on('kn:log:message', privateLogMessage);
             };
 
             /**

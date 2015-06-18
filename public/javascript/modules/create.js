@@ -41,8 +41,8 @@ define(
             handlebarSource = $('#' + handlebarTemplateId).html();
             handlebarTemplate = handlebars.compile(handlebarSource);
 
-            $(document).bind('kn:create', privateResetCreateForm);
-            $(document).bind('kn:create:validation:failed', privateShowError);
+            $(document).on('kn:create', privateResetCreateForm);
+            $(document).on('kn:create:validation:failed', privateShowError);
 
             //TODO: richtiger ort hier? oder methode publicRegisterEvents?
             $('body').on('click', '.kn-notes-create', function() {
@@ -140,10 +140,10 @@ define(
             auxiliary.ratingHelper();
 
             // in edit mode, disable saving of new notes
-            $(document).bind('kn:edit', privateDisableCreate);
-            $(document).bind('kn:edit:cancel', privateEnableCreate);
-            $(document).bind('kn:data:change', privateEnableCreate);
-            $(document).bind('kn:reset:complete', privateEnableCreate);
+            $(document).on('kn:edit', privateDisableCreate);
+            $(document).on('kn:edit:cancel', privateEnableCreate);
+            $(document).on('kn:data:change', privateEnableCreate);
+            $(document).on('kn:reset:complete', privateEnableCreate);
         };
 
         /**

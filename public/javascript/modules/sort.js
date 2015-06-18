@@ -47,11 +47,11 @@ define(
          * @constructor
          */
         var publicConstructor = function() {
-            $(document).bind('kn:view:complete', privateHighlightSort);
-            $(document).bind('kn:edit', privateDisableSort);
-            $(document).bind('kn:edit:cancel', privateEnableSort);
-            $(document).bind('kn:data:change', privateEnableSort);
-            $(document).bind('kn:reset:complete', privateEnableSort);
+            $(document).on('kn:view:complete', privateHighlightSort);
+            $(document).on('kn:edit', privateDisableSort);
+            $(document).on('kn:edit:cancel', privateEnableSort);
+            $(document).on('kn:data:change', privateEnableSort);
+            $(document).on('kn:reset:complete', privateEnableSort);
 
             handlebarSource = $('#' + handlebarTemplateId).html();
             handlebarTemplate = handlebars.compile(handlebarSource);

@@ -33,7 +33,7 @@ define(
          * @constructor
          */
         var publicConstructor = function() {
-            $(document).bind('kn:edit', privatePrepareEditForm);
+            $(document).on('kn:edit', privatePrepareEditForm);
 
             handlebarSource = $('#' + handlebarTemplateId).html();
             handlebarTemplate = handlebars.compile(handlebarSource);

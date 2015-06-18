@@ -8,7 +8,7 @@
 
 ### @todo:
 
-  - ⚠ form evaluation (Julian)
+  - ~~form evaluation~~ (Julian) ✓
   - CSS Layouting (Dominik) 
     - basic ✓
     - responsive
@@ -47,7 +47,7 @@
 
 ### @ideas
   - Additional features
-    - ~~delete single note~~✓
+    - ~~delete single note~~ ✓
     - maybe fallback on Cookie if Storage is not supported on browser?
     - jquery datepicker (firefox, safari, ...)
     - background depending on duedate/importance

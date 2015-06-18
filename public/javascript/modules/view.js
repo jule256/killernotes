@@ -44,12 +44,12 @@ define(
             handlebarSource = $('#' + handlebarTemplateId).html();
             handlebarTemplate = handlebars.compile(handlebarSource);
 
-            $(document).bind('kn:sort', privateUpdateSort);
-            $(document).bind('kn:data:change', publicRender);
-            $(document).bind('kn:reset:complete', publicRender);
-            $(document).bind('kn:edit:cancel', publicRender);
-            $(document).bind('kn:filter', privateUpdateFilter);
-            $(document).bind('kn:edit:validation:failed', privateShowError);
+            $(document).on('kn:sort', privateUpdateSort);
+            $(document).on('kn:data:change', publicRender);
+            $(document).on('kn:reset:complete', publicRender);
+            $(document).on('kn:edit:cancel', publicRender);
+            $(document).on('kn:filter', privateUpdateFilter);
+            $(document).on('kn:edit:validation:failed', privateShowError);
         };
 
         /**
@@ -146,11 +146,11 @@ define(
                 time: new Date()
             });
 
-            $(document).bind('kn:edit', privateDisableEdit);
-            $(document).bind('kn:edit:cancel', privateEnableEdit);
-            $(document).bind('kn:reset:complete', privateEnableEdit);
-            $(document).bind('kn:edit:save', privateEnableEdit);
-            $(document).bind('kn:edit:delete', privateEnableEdit);
+            $(document).on('kn:edit', privateDisableEdit);
+            $(document).on('kn:edit:cancel', privateEnableEdit);
+            $(document).on('kn:reset:complete', privateEnableEdit);
+            $(document).on('kn:edit:save', privateEnableEdit);
+            $(document).on('kn:edit:delete', privateEnableEdit);
         };
 
         /**

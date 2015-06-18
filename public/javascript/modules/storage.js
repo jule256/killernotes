@@ -26,10 +26,10 @@ define(
                     throw Error('local storage not supported, this app will not run in your browser');
                 }
 
-                $(document).bind('kn:create', privateStoreNote);
-                $(document).bind('kn:reset', privateResetNotes);
-                $(document).bind('kn:edit:save', privateStoreNote);
-                $(document).bind('kn:edit:delete', privateDeleteNote);
+                $(document).on('kn:create', privateStoreNote);
+                $(document).on('kn:reset', privateResetNotes);
+                $(document).on('kn:edit:save', privateStoreNote);
+                $(document).on('kn:edit:delete', privateDeleteNote);
             };
 
             /**
