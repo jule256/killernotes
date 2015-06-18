@@ -5,85 +5,104 @@ define(
         'modules/sort',
         'modules/create',
         'modules/storage',
+        'modules/engine/localstorage2',
         'modules/view',
         'modules/reset',
         'modules/edit',
         'modules/filter',
         'modules/stylepicker',
         'modules/log'
-    ], function($, SortRef, CreateRef, StorageRef, ViewRef, ResetRef, EditRef, FilterRef, StylePickerRef, LogRef) {
+    ], function(
+        $,
+        SortRef,
+        CreateRef,
+        StorageRef,
+        LocalStorageRef,
+        ViewRef,
+        ResetRef,
+        EditRef,
+        FilterRef,
+        StylePickerRef,
+        LogRef) {
 
     'use strict';
 
-   return function() {
+    return function() {
 
        var version = 0.3;
 
-       var publicStart = function() {
-           var myStylepicker,
-               mySort,
-               myCreate,
-               myView,
-               myReset,
-               myStorage,
-               myEdit,
-               myFilter,
-               myLog;
+        var publicStart = function() {
+            var myStylepicker,
+                mySort,
+                myCreate,
+                myView,
+                myReset,
+                myLocalStorage,
+                myStorage,
+                myEdit,
+                myFilter,
+                myLog;
 
-           // StylePicker
-           myStylepicker = new StylePickerRef();
-           myStylepicker.constructor();
-           myStylepicker.render();
+            // localstorage engine
+            myLocalStorage = new LocalStorageRef();
+            myLocalStorage.constructor();
 
-           // edit
-           myEdit = new EditRef();
-           myEdit.constructor();
+            // storage
+            myStorage = new StorageRef();
+            myStorage.constructor();
+            myStorage.setEngine(myLocalStorage);
 
-           // create
-           myCreate = new CreateRef();
-           myCreate.constructor();
-           myCreate.registerEdit(myEdit);
-           myCreate.render();
+            // StylePicker
+            myStylepicker = new StylePickerRef();
+            myStylepicker.constructor();
+            myStylepicker.render();
 
-           // sort
-           mySort = new SortRef();
-           mySort.constructor();
-           mySort.registerEdit(myEdit);
-           mySort.render();
+            // edit
+            myEdit = new EditRef();
+            myEdit.constructor();
 
-           // filter
-           myFilter = new FilterRef();
-           myFilter.constructor();
-           myFilter.registerEdit(myEdit);
-           myFilter.render();
+            // create
+            myCreate = new CreateRef();
+            myCreate.constructor();
+            myCreate.registerEdit(myEdit);
+            myCreate.render();
 
-           // view
-           myView = new ViewRef();
-           myView.constructor();
-           myView.registerEdit(myEdit);
-           myView.render();
+            // sort
+            mySort = new SortRef();
+            mySort.constructor();
+            mySort.registerEdit(myEdit);
+            mySort.render();
 
-           // reset
-           myReset = new ResetRef();
-           myReset.constructor();
-           myReset.render();
+            // filter
+            myFilter = new FilterRef();
+            myFilter.constructor();
+            myFilter.registerEdit(myEdit);
+            myFilter.render();
 
-           // storage
-           myStorage = new StorageRef();
-           myStorage.constructor();
+            // view
+            myView = new ViewRef();
+            myView.constructor();
+            myView.registerEdit(myEdit);
+            myView.registerStorage(myStorage);
+            myView.render();
 
-           // storage
-           myLog = new LogRef();
-           myLog.constructor();
-       };
+            // reset
+            myReset = new ResetRef();
+            myReset.constructor();
+            myReset.render();
 
-       var publicGetVersion = function() {
-           return version;
-       };
+            // logger
+            myLog = new LogRef();
+            myLog.constructor();
+        };
 
-       return {
-           start: publicStart,
-           getVersion: publicGetVersion
-       };
-   };
+        var publicGetVersion = function() {
+            return version;
+        };
+
+        return {
+            start: publicStart,
+            getVersion: publicGetVersion
+        };
+    };
 });

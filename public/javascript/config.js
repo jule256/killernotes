@@ -13,7 +13,6 @@ define([], function() {
     };
 
     return {
-        localStorageName: 'kn:storage',
         defaultSort: 'duedate',
         defaultShowFinished: false,
         formElements: [

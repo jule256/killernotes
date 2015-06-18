@@ -18,16 +18,16 @@ define(
 
         // class variables
         var editRef = null;
+        var storageRef = null;
 
         // handlebar settings
-        var handlebarRegionId = 'region-view';
         var handlebarRegionId = 'region-view';
         var handlebarTemplateId = 'template-view';
         var handlebarPartialTemplateId = 'template-partial-note';
         var handlebarSource = null;
         var handlebarTemplate = null;
         var handlebarContext = null;
-        var handleBarHtml = null;
+//      var handleBarHtml = null;
 
         /**
          * constructor
@@ -58,11 +58,10 @@ define(
          * @author Julian Mollik <jule@creative-coding.net>
          */
         var publicRender = function() {
-            privatePreRender();
-
-            $('#' + handlebarRegionId).html(handleBarHtml);
-
-            privatePostRender();
+            privatePreRender().done(function(handleBarHtml) {
+                $('#' + handlebarRegionId).html(handleBarHtml);
+                privatePostRender();
+            });
         };
 
         /**
@@ -75,6 +74,16 @@ define(
             editRef = editRefParam;
         };
 
+        /**
+         * registeres the given storageRefParam in this class to be able to retrieve notes
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         * @param {object} storageRefParam
+         */
+        var publicRegisterStorage = function(storageRefParam) {
+            storageRef = storageRefParam;
+        };
+
         // private functions
 
         /**
@@ -85,11 +94,20 @@ define(
          * @private
          */
         var privatePreRender = function() {
-            handlebarContext = {
-                title: 'view',
-                noteElements: privateGetNoteElements()
-            };
-            handleBarHtml = handlebarTemplate(handlebarContext);
+            var deferred = $.Deferred();
+
+            privateGetNoteElements().done(function(cleanedElements) {
+                var handleBarHtml;
+                handlebarContext = {
+                    title: 'view',
+                    noteElements: cleanedElements
+                };
+                handleBarHtml = handlebarTemplate(handlebarContext);
+
+                deferred.resolve(handleBarHtml);
+            });
+
+            return deferred.promise();
         };
 
         /**
@@ -100,6 +118,61 @@ define(
          * @private
          */
         var privatePostRender = function() {
+            privateRetrieveNotes().done(function(noteElements) {
+                console.log('privateRetrieveNotes() DONE: ', noteElements);
+                $.each(noteElements, function(key, value) {
+
+                    // add change state functionality
+                    $('#note-' + key + ' .kn-note-state').on('click', function() {
+                        if (!privateIsEditActive()) {
+                            // only trigger event if there is no other edit-process in progress
+                            value.finished = !value.finished;
+                            $.event.trigger({
+                                type: 'kn:edit:save',
+
+                                kn: {
+                                    id: key,
+                                    data: value
+                                },
+                                time: new Date()
+                            });
+                        }
+                    });
+
+                    // add edit click functionality
+                    $('#note-' + key + ' .kn-note-edit').on('click', function() {
+                        if (!privateIsEditActive()) {
+                            // only trigger event if there is no other edit-process in progress
+                            $.event.trigger({
+                                type: 'kn:edit',
+                                kn: {
+                                    id: key,
+                                    data: value
+                                },
+                                time: new Date()
+                            });
+                        }
+                    });
+                });
+
+                // inform other modules that view rendering is complete
+                $.event.trigger({
+                    type: 'kn:view:complete',
+                    kn: {
+                        sort: sorting
+                    },
+                    time: new Date()
+                });
+
+                $(document).on('kn:edit', privateDisableEdit);
+                $(document).on('kn:edit:cancel', privateEnableEdit);
+                $(document).on('kn:reset:complete', privateEnableEdit);
+                $(document).on('kn:edit:save', privateEnableEdit);
+                $(document).on('kn:edit:delete', privateEnableEdit);
+            });
+        };
+
+        var privatePostRenderX = function() {
             var noteElements = privateRetrieveNotes();
 
             $.each(noteElements, function(key, value) {
@@ -161,6 +234,45 @@ define(
          * @private
          */
         var privateGetNoteElements = function() {
+            var deferred = $.Deferred();
+
+            privateRetrieveNotes().done(function(noteElements) {
+                var cleanedElements = [],
+                    date;
+
+                // parse createdate to a more human readable format
+                $.each(noteElements, function(key, value) {
+                    date = new Date(value.createdate);
+
+                    if (!value.finished || showFinished) {
+                        cleanedElements.push({
+                            title: value.title || '<no title>',
+                            note: value.note || '<no content>',
+                            createdate: value.createdate,
+                            duedate: value.duedate,
+                            importance: value.importance,
+                            finished: value.finished
+                        });
+                    }
+                });
+
+                // sort objects in array by current active sorting
+                cleanedElements.sort(privateCompareNotes);
+
+                deferred.resolve(cleanedElements);
+            });
+
+            return deferred.promise();
+        };
+
+        /**
+         * prepares the note-data so it can be used by the handlebars context
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         * @returns {Array}
+         * @private
+         */
+        var privateGetNoteElementsX = function() {
             var noteElements = privateRetrieveNotes(),
                 cleanedElements = [],
                 date;
@@ -228,8 +340,11 @@ define(
          * @returns {object}
          * @private
          */
-        var privateRetrieveNotes = function() {
-            return JSON.parse(localStorage.getItem(config.localStorageName)) || {};
+        var privateRetrieveNotesX = function() {
+            if (storageRef === null) {
+                throw Error ('storageRef is not set');
+            }
+            return storageRef.getNotes();
         };
 
         /**
@@ -247,6 +362,21 @@ define(
 
             // add "disabled" class to all other finish-note links
             $note.not('#note-' + ev.kn.id).find('.kn-note-state').addClass('disabled');
+        };
+
+        var privateRetrieveNotes = function() {
+            var deferred = $.Deferred();
+
+            if (storageRef === null) {
+                throw Error ('storageRef is not set');
+            }
+
+            storageRef.getNotes().done(function(jsonData) {
+                console.log('privateRetrieveNotes() DONE: ', jsonData);
+                deferred.resolve(jsonData);
+            });
+
+            return deferred.promise();
         };
 
         /**
@@ -335,7 +465,8 @@ define(
         return {
             constructor: publicConstructor,
             render: publicRender,
-            registerEdit: publicRegisterEdit
+            registerEdit: publicRegisterEdit,
+            registerStorage: publicRegisterStorage
         };
     };
 });
