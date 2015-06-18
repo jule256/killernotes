@@ -5,7 +5,6 @@
   - ⚠ form evaluation (Julian)
   - CSS Layouting (Dominik) 
     - basic ✓
-    - responsive
   - ~~Importance: Stars/Flashes instead of select-dropdown~~ (Dominik) ✓
   - ~~default values for due-create and due-time in create form~~ (Julian) ✓
   - ~~reset create form after kn:created~~ (Julian) ✓
@@ -26,6 +25,7 @@
   - store/precompile handlebar templates (Dominik)
   - ~~form generator: good or bad? good!~~ ✓
   - ⚠ replace `bind()` with `on()` (Julian)
+  - server-config
   
 ### bugs
   - ~~note editing always sets `finished:false`~~ ✓
@@ -51,6 +51,33 @@
     - ~~css tweaking: min-width of 590px to prevent line-breaking in create/sort/filter area and github-link~~ ✓
     - ~~css tweaking: "finished" button is not horizontally aligned with create and sort buttons~~ ✓
     
+### server
+#### install
+```sh
+machine:/ user$ cd path/to/the/project/killernotes/
+machine:killernotes user$ npm install express --save
+machine:killernotes user$ npm install body-parser --save
+machine:killernotes user$ npm install nedb --save
+```
+
+#### app
+Start server 
+
+#### Service
+The service has following methods
+    - GET /notes 
+      Get all notes
+    - GET /notes/state
+      Get current state/hash of all notes:
+    - POST /notes 
+      Add new note
+    - GET /notes/:id
+      Get a note by id
+    - PUT /notes/:id
+      Update a note by id
+    - DELETE /notes/:id
+      Delete a note by its id
+
 ### code style
 #### JSHint
 To configure JSHint in Jetbrains WebStorm go to `Preferences` → `Languages & Frameworks` → `JavaScript` → `Code Quality Tools` → `JSHint` and make sure the checkbox "enable" and the checkbox "Use config files" are checked. WebStorm should automatically use the file `.jshintrc` file in the project's root.

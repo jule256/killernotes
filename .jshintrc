@@ -229,7 +229,9 @@
         "Bonnie": true,
         "alert": true,
         "console": true,
-        "setTimeout": true
+        "setTimeout": true,
+        "require": true,
+        "module": true
     },
     
     // MORE OTHER
