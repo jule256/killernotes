@@ -43,7 +43,7 @@ module.exports = function()
             duedate: duedate,
             importance: importance,
             finished: false,
-            createddate: JSON.stringify(new Date())
+            createdate: Date.now().toString()
         };
 
         //var note = new Note(title, noteText, duedate, importance);
@@ -63,7 +63,7 @@ module.exports = function()
      */
     var publicGetNote = function(id, callback)
     {
-        db.findOne({ _id: id }, function(err, note) {
+        db.findOne({ createdate: id }, function(err, note) {
             if (callback) {
                 callback(err, note);
             }
@@ -91,7 +91,7 @@ module.exports = function()
             finished: finished
         };
 
-        db.update({ _id: id },
+        db.update({ createdate: id },
             { $set: updateData }, function(err, count) {
                 if (callback) {
                     callback(err, count);
@@ -107,7 +107,7 @@ module.exports = function()
      * @param {function} callback
      */
     var publicDelete = function(id, callback) {
-        db.remove({ _id: id }, {}, function(err, count) {
+        db.remove({ createdate: id }, {}, function(err, count) {
             if (callback) {
                 callback(err, count);
             }

@@ -123,7 +123,7 @@ define(
                 $.each(noteElements, function(key, value) {
 
                     // add change state functionality
-                    $('#note-' + key + ' .kn-note-state').on('click', function() {
+                    $('#note-' + value.createdate + ' .kn-note-state').on('click', function() {
                         if (!privateIsEditActive()) {
                             // only trigger event if there is no other edit-process in progress
                             value.finished = !value.finished;
@@ -131,7 +131,7 @@ define(
                                 type: 'kn:edit:save',
 
                                 kn: {
-                                    id: key,
+                                    id: value.createdate,
                                     data: value
                                 },
                                 time: new Date()
@@ -140,13 +140,14 @@ define(
                     });
 
                     // add edit click functionality
-                    $('#note-' + key + ' .kn-note-edit').on('click', function() {
+                    $('#note-' + value.createdate + ' .kn-note-edit').on('click', function() {
+
                         if (!privateIsEditActive()) {
                             // only trigger event if there is no other edit-process in progress
                             $.event.trigger({
                                 type: 'kn:edit',
                                 kn: {
-                                    id: key,
+                                    id: value.createdate,
                                     data: value
                                 },
                                 time: new Date()
@@ -242,13 +243,13 @@ define(
 
                 // parse createdate to a more human readable format
                 $.each(noteElements, function(key, value) {
-                    date = new Date(value.createdate);
+                    date = new Date(+value.createdate);
 
                     if (!value.finished || showFinished) {
                         cleanedElements.push({
                             title: value.title || '<no title>',
                             note: value.note || '<no content>',
-                            createdate: value.createdate,
+                            createdate: +value.createdate,
                             duedate: value.duedate,
                             importance: value.importance,
                             finished: value.finished
@@ -279,13 +280,13 @@ define(
 
             // parse createdate to a more human readable format
             $.each(noteElements, function(key, value) {
-                date = new Date(value.createdate);
+                date = new Date(+value.createdate);
 
                 if (!value.finished || showFinished) {
                     cleanedElements.push({
                         title: value.title || '<no title>',
                         note: value.note || '<no content>',
-                        createdate: value.createdate,
+                        createdate: +value.createdate,
                         duedate: value.duedate,
                         importance: value.importance,
                         finished: value.finished

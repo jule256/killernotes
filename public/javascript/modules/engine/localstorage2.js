@@ -39,20 +39,21 @@ define(
         var publicGetList = function(param) {
 
             var deferred = $.Deferred(),
-                jsonData;
+                data;
 
             console.log('localstorage.js publicGetList()', param);
 
-            jsonData = JSON.parse(localStorage.getItem(localStorageName)) || {};
+            data = JSON.parse(localStorage.getItem(localStorageName)) || {};
 
-            deferred.resolve(jsonData);
+            deferred.resolve(data);
 
             return deferred.promise();
         };
 
         var publicCreate = function(data) {
             var existingData = privateGetExistingData(),
-                key = Date.now();
+                key = Date.now(),
+                deferred = $.Deferred();
 
             console.log('localstorage.js publicCreate()', data);
 
@@ -65,11 +66,14 @@ define(
             // store merged data
             localStorage.setItem(localStorageName, JSON.stringify(existingData));
 
-            // @todo return promise
+            deferred.resolve(data);
+
+            return deferred.promise();
         };
 
         var publicUpdate = function(data, key) {
-            var existingData = privateGetExistingData();
+            var existingData = privateGetExistingData(),
+                deferred = $.Deferred();
 
             console.log('localstorage.js publicUpdate()', data, key);
 
@@ -82,23 +86,47 @@ define(
             // store merged data
             localStorage.setItem(localStorageName, JSON.stringify(existingData));
 
-            // @todo return promise
+            deferred.resolve(data);
+            return deferred.promise();
         };
 
-        var publicDelete = function(data, key) {
-            var existingData = privateGetExistingData();
+        var publicDelete = function(key) {
+            var existingData = privateGetExistingData(),
+                deferred = $.Deferred();
 
-            console.log('localstorage.js publicDelete()', data, key);
+            console.log('localstorage.js publicDelete()', key);
 
             // remove item from existsing data
             delete existingData[+key];
 
             // store merged data
             localStorage.setItem(localStorageName, JSON.stringify(existingData));
+
+            deferred.resolve(1);
+            return deferred.promise();
         };
 
-        var publicDeleteAll = function(data, key) {
+        var publicDeleteAll = function() {
+            var deferred = $.Deferred();
+
             localStorage.removeItem(localStorageName);
+
+            deferred.resolve();
+            return deferred.promise();
+        };
+
+        /**
+         * Get current state of all notes
+         *
+         * @returns {promise}
+         */
+        var publicGetState = function() {
+            var deferred = $.Deferred();
+
+            var result = localStorage.getItem(localStorageName);
+
+            deferred.resolve(result);
+            return deferred.promise();
         };
 
         var publicToString = function() {
@@ -122,6 +150,7 @@ define(
             update: publicUpdate,
             delete: publicDelete,
             deleteAll: publicDeleteAll,
+            getState: publicGetState,
             toString: publicToString
         };
     };

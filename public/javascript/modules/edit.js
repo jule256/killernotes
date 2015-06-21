@@ -152,6 +152,7 @@ define(
 
             $('#edit-delete').on('click', function() {
                 if (confirm('Do you really want to delete this note?')) {
+                    //data = auxiliary.extractData('edit');
                     $.event.trigger({
                         type: 'kn:edit:delete',
                         kn: {

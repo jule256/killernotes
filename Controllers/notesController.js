@@ -103,6 +103,9 @@ module.exports = function() {
                 res.status(404);
                 res.send('Note ' + id + ' not found');
             }
+            else {
+                res.send({});
+            }
         });
     };
 

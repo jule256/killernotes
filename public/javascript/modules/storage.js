@@ -50,23 +50,14 @@ define(
             if (!privateEngineHasFunction(fn, 'getList')) {
                 return;
             }
-            else {
-                // @todo feedback with promises
 
-                // console.log('calling getList() of engine', engine.toString());
+            var promise = fn('param');
+            promise.done(function(responseData) {
+                auxiliary.logMessage(config.logLevels.info, 'engine.getList() DONE');
+                deferred.resolve(responseData);
+            });
 
-                fn('param').done(function(jsonData) {
-                    console.log('engine.getList() DONE: ', jsonData);
-                    deferred.resolve(jsonData);
-                });
-
-                // var returnValue = fn.apply(null, []);
-
-                // console.log('returnValue', returnValue);
-
-//              return {}; // returnValue;
-                return deferred.promise();
-            }
+            return deferred.promise();
         };
 
         // private functions
@@ -79,9 +70,9 @@ define(
          * @private
          */
         var privateDeleteNote = function(ev) {
-            var data = ev.kn.data,
-                key = ev.kn.id,
-                fn;
+           var key = ev.kn.id,
+               fn,
+               promise;
 
             if (!privateCheckEngine()) {
                 return;
@@ -92,15 +83,19 @@ define(
                 return;
             }
             else {
-                // @todo feedback with promises
-                fn.apply(null, [ data, key ]);
+                promise = fn.apply(null, [ key ]);
             }
 
-            // log success message
-            auxiliary.logMessage(config.logLevels.success, 'Note ' + key + ' deleted', true);
+            // show message
+            promise.done(function(responseData) {
+                auxiliary.logMessage(config.logLevels.success, 'Note deleted', true);
 
-            // trigger event so other modules can react
-            privateTriggerDataUpdate(); // key, {}
+                privateTriggerDataUpdate(null, null);
+            });
+            promise.fail(function(responseData) {
+                auxiliary.logMessage(config.logLevels.error, 'Note not deleted!', true);
+                auxiliary.logMessage(config.logLevels.error, data, false);
+            });
         };
 
         /**
@@ -114,7 +109,8 @@ define(
 
             var newNote = typeof ev.kn.id === 'undefined',
                 data = ev.kn.data,
-                fn;
+                fn,
+                promise;
 
             if (!privateCheckEngine()) {
                 return;
@@ -126,8 +122,7 @@ define(
                     return;
                 }
                 else {
-                    // @todo feedback with promises
-                    fn.apply(null, [ data, 'param2' ]);
+                    promise = fn.apply(null, [ data ]);
                 }
             }
             else {
@@ -136,15 +131,21 @@ define(
                     return;
                 }
                 else {
-                    fn.apply(null, [ data, ev.kn.id ]);
+                    promise = fn.apply(null, [data, ev.kn.id]);
                 }
             }
 
             // show message
-            auxiliary.logMessage(config.logLevels.success, 'note \'' + data.title + '\' saved', true);
+            promise.done(function(responseData) {
+                auxiliary.logMessage(config.logLevels.success, 'note \'' + data.title + '\' saved', true);
 
-            // trigger event so other modules can react
-            privateTriggerDataUpdate(); // key, data
+                privateTriggerDataUpdate(data, ev.kn.id);
+            });
+            promise.fail(function(responseData) {
+                auxiliary.logMessage(config.logLevels.error, 'note \'' + data.title + '\' not saved!', true);
+                auxiliary.logMessage(config.logLevels.error, data, false);
+            });
+
         };
 
         /**
@@ -154,7 +155,8 @@ define(
          * @private
          */
         var privateResetNotes = function() {
-            var fn;
+            var fn,
+                promise;
 
             if (!privateCheckEngine()) {
                 return;
@@ -166,12 +168,21 @@ define(
             }
             else {
                 // @todo feedback with promises
-                fn.apply(null, [] );
+                promise = fn.apply(null);
             }
 
             auxiliary.logMessage(config.logLevels.info, 'All notes removed', true);
 
-            privateTriggerDataUpdate(); // 0, {}
+            // show message
+            promise.done(function(responseData) {
+                auxiliary.logMessage(config.logLevels.success, 'All notes removed', true);
+
+                privateTriggerDataUpdate(null, null);
+            });
+            promise.fail(function(responseData) {
+                auxiliary.logMessage(config.logLevels.error, 'Reset failed!', true);
+                auxiliary.logMessage(config.logLevels.error, data, false);
+            });
         };
 
         /**

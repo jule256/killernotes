@@ -102,6 +102,20 @@ define(
         };
 
         /**
+         * Get current state of all notes
+         *
+         * @returns {promise}
+         */
+        var publicGetState = function() {
+            var deferred = $.Deferred();
+
+            var result = localStorage.getItem(localStorageName);
+
+            deferred.resolve(result);
+            return deferred.promise();
+        };
+
+        /**
          * reads the local storage and returns its data as object (empty if not found)
          * @author Julian Mollik <jule@creative-coding.net>
          * @returns {object}
@@ -118,6 +132,7 @@ define(
             update: publicUpdate,
             delete: publicDelete,
             deleteAll: publicDeleteAll,
+            getState: publicGetState,
             toString: publicToString
         };
     };
