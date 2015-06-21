@@ -3,8 +3,8 @@
 ### todo Server
 
   - Notifications über polling von hash auf alle notes auf dem server (/state)
-  - GET, POST /notes
-  - GET, PUT, DELETE /notes/:id
+  - ~~ GET, POST /notes~~
+  - ~~ GET, PUT, DELETE /notes/:id~~ 
 
 ### @todo:
 
