@@ -140,7 +140,7 @@ module.exports = function() {
             md5Sum.update(allNotesString);
             md5Hash = md5Sum.digest('hex');
 
-            res.send(md5Hash);
+            res.send(JSON.stringify(md5Hash));
         });
     };
 
