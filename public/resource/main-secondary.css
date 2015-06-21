@@ -48,6 +48,8 @@ h3 {
     flex: 0 0 100%; }
   .kn-form .kn-form-time label, .kn-form .kn-form-input label, .kn-form .kn-form-text label {
     display: none; }
+  .kn-form .kn-form-date {
+    margin-right: 10px; }
   .kn-form .kn-form-date, .kn-form .kn-form-rating, .kn-form .kn-form-checkbox {
     display: flex;
     flex-flow: row;

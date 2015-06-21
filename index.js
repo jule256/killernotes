@@ -1,8 +1,11 @@
 ;(function() {
     'use strict';
 
+    var server;
+
     var http = require('http');
     var express = require('express');
+    var config = require('./config.js');
     var bodyParser = require('body-parser');
     var notesRoutes = require('./routes/notesRoutes.js');
 
@@ -10,11 +13,13 @@
 
     //TODO: Middleware for logging
     app.use(bodyParser.json());
+
     app.use('/notes', notesRoutes);
 
     app.use(express.static(__dirname + '/public'));
 
-    //TODO: serverconfig with port, db, etc
-    http.createServer(app).listen(3000);
-    console.log('server started at localhost:3000');
+    server = http.createServer(app);
+    server.listen(config.port);
+
+    console.log('server started at localhost:' + config.port);
 })();

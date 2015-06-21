@@ -65,11 +65,13 @@ define(
          */
          var privatePostRender = function() {
              $('#reset').on('click', function() {
-                 $.event.trigger({
-                     type: 'kn:reset',
-                     kn: {},
-                     time: new Date()
-                 });
+                 if(confirm('Do you really want to delete all notes?')) {
+                     $.event.trigger({
+                         type: 'kn:reset',
+                         kn: {},
+                         time: new Date()
+                     });
+                 }
              });
          };
 

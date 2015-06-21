@@ -8,7 +8,8 @@ module.exports = function()
     'use strict';
 
     var datastore = require('nedb');
-    var db = new datastore({ filename: './data/notes.db', autoload: true });
+    var config = require('../config.js');
+    var db = new datastore({ filename: config.datastore, autoload: true });
 
     /**
      * Get all notes from the database

@@ -77,6 +77,10 @@ h3 {
     }
   }
 
+  .kn-form-date {
+    margin-right: $defaultNarrowSpacing;
+  }
+
   .kn-form-date, .kn-form-rating, .kn-form-checkbox {
     display: flex;
     flex-flow: row;

@@ -7,6 +7,7 @@ module.exports = function() {
     'use strict';
 
     var crypto = require('crypto');
+    var config = require('../config.js');
     var store = require('../services/notesStore.js');
 
     /**
@@ -132,15 +133,15 @@ module.exports = function() {
     var publicGetState = function(req, res) {
         store.getAllNotes(function(err, notes) {
             var allNotesString,
-                md5Sum,
-                md5Hash;
+                hashSum,
+                hash;
 
             allNotesString = JSON.stringify(notes);
-            md5Sum = crypto.createHash('md5');
-            md5Sum.update(allNotesString);
-            md5Hash = md5Sum.digest('hex');
+            hashSum = crypto.createHash(config.hashAlgorithm);
+            hashSum.update(allNotesString);
+            hash = hashSum.digest(config.hashEncoding);
 
-            res.send(JSON.stringify(md5Hash));
+            res.send(JSON.stringify(hash));
         });
     };
 
