@@ -36,7 +36,15 @@ h3 {
 
   input, textarea {
     background-color: $mainBackgroundColor;
+    border: 1px solid $highlightColor;
+
+    &:focus {
+      outline: none;
+      border: 1px solid $highlightColor2;
+    }
   }
+
+
 
   >div {
     padding: $defaultNarrowSpacing 0 0;
@@ -164,9 +172,9 @@ h3 {
     background-color: $buttonBackgroundColorActive;
   }
 
-  .disabled, .disabled:hover {
+  &.disabled, &.disabled:hover {
     cursor: not-allowed !important;
-    background-color: $buttonBackgroundColorDisabled;
+    background-color: $buttonBackgroundColorDisabled !important;
   }
 
   &.delete {
@@ -178,6 +186,8 @@ h3 {
   }
 }
 
-.disabled, .disabled:hover {
-  cursor: not-allowed !important;
+.kn-note {
+  .disabled, .disabled:hover {
+    cursor: not-allowed !important;
+  }
 }

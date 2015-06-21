@@ -29,7 +29,11 @@ h3 {
   -ms-border-radius: 2px;
   border-radius: 2px; }
   .kn-form input, .kn-form textarea {
-    background-color: #fff; }
+    background-color: #fff;
+    border: 1px solid #93806C; }
+    .kn-form input:focus, .kn-form textarea:focus {
+      outline: none;
+      border: 1px solid #2e8b57; }
   .kn-form > div {
     padding: 10px 0 0; }
   .kn-form input.error, .kn-form textarea.error {
@@ -105,15 +109,15 @@ h3 {
     outline: none; }
   .button-link.active {
     background-color: rgba(46, 139, 87, 0.75); }
-  .button-link .disabled, .button-link .disabled:hover {
+  .button-link.disabled, .button-link.disabled:hover {
     cursor: not-allowed !important;
-    background-color: rgba(147, 128, 108, 0.25); }
+    background-color: rgba(147, 128, 108, 0.25) !important; }
   .button-link.delete {
     background-color: rgba(255, 0, 0, 0.5); }
     .button-link.delete:hover {
       background-color: rgba(255, 0, 0, 0.75); }
 
-.disabled, .disabled:hover {
+.kn-note .disabled, .kn-note .disabled:hover {
   cursor: not-allowed !important; }
 
 body {
