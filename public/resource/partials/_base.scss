@@ -42,6 +42,23 @@ h3 {
     padding: $defaultNarrowSpacing 0 0;
   }
 
+  input.error, textarea.error {
+    background-color: $errorColor;
+  }
+
+  .hide {
+    display: none;
+  }
+  .message {
+    color: $highlightColor3;
+    @include smallFont;
+
+  }
+
+  .kn-form-date-message {
+
+  }
+
   h3, .kn-form-text, .kn-form-create-submit, .kn-form-input, .kn-form-rating, .kn-form-checkbox {
     flex: 0 0 100%;
   }
@@ -71,17 +88,6 @@ h3 {
 
     input, textarea {
       padding: 5px;
-    }
-
-    // temporary by jule_
-    input.error {
-      background-color: red;
-    }
-    .hide {
-      display: none;
-    }
-    .message {
-      color: deeppink;
     }
 
     textarea {
@@ -158,7 +164,7 @@ h3 {
     background-color: $buttonBackgroundColorActive;
   }
 
-  &.disabled, &.disabled:hover {
+  .disabled, .disabled:hover {
     cursor: not-allowed !important;
     background-color: $buttonBackgroundColorDisabled;
   }
@@ -170,4 +176,8 @@ h3 {
       background-color: $buttonBackgroundColorDeleteHover;
     }
   }
+}
+
+.disabled, .disabled:hover {
+  cursor: not-allowed !important;
 }

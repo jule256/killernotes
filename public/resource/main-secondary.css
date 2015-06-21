@@ -32,6 +32,14 @@ h3 {
     background-color: #666; }
   .kn-form > div {
     padding: 10px 0 0; }
+  .kn-form input.error, .kn-form textarea.error {
+    background-color: rgba(255, 0, 0, 0.75); }
+  .kn-form .hide {
+    display: none; }
+  .kn-form .message {
+    color: red;
+    font-weight: 300;
+    font-size: 0.8em; }
   .kn-form h3, .kn-form .kn-form-text, .kn-form .kn-form-create-submit, .kn-form .kn-form-input, .kn-form .kn-form-rating, .kn-form .kn-form-checkbox {
     flex: 0 0 100%; }
   .kn-form .kn-form-time label, .kn-form .kn-form-input label, .kn-form .kn-form-text label {
@@ -49,12 +57,6 @@ h3 {
     flex-flow: column; }
     .kn-form .kn-form-input input, .kn-form .kn-form-input textarea, .kn-form .kn-form-text input, .kn-form .kn-form-text textarea {
       padding: 5px; }
-    .kn-form .kn-form-input input.error, .kn-form .kn-form-text input.error {
-      background-color: red; }
-    .kn-form .kn-form-input .hide, .kn-form .kn-form-text .hide {
-      display: none; }
-    .kn-form .kn-form-input .message, .kn-form .kn-form-text .message {
-      color: deeppink; }
     .kn-form .kn-form-input textarea, .kn-form .kn-form-text textarea {
       height: 100px; }
   .kn-form .kn-form-actions {
@@ -103,13 +105,16 @@ h3 {
     outline: none; }
   .button-link.active {
     background-color: rgba(192, 61, 191, 0.75); }
-  .button-link.disabled, .button-link.disabled:hover {
+  .button-link .disabled, .button-link .disabled:hover {
     cursor: not-allowed !important;
     background-color: rgba(121, 235, 238, 0.25); }
   .button-link.delete {
     background-color: rgba(255, 0, 0, 0.25); }
     .button-link.delete:hover {
       background-color: rgba(255, 0, 0, 0.75); }
+
+.disabled, .disabled:hover {
+  cursor: not-allowed !important; }
 
 body {
   min-height: 100vh;
@@ -157,7 +162,7 @@ footer {
   background-color: rgba(121, 235, 238, 0.33); }
 
 .kn-notes-actions {
-  padding: 25px 50px;
+  padding: 10px 50px 0;
   display: flex;
   align-items: center; }
 
@@ -261,7 +266,8 @@ footer {
   font-size: 0.8em; }
 
 .kn-form-create {
-  display: none; }
+  display: none;
+  margin-top: 10px; }
   .kn-form-create .kn-form-create-finished {
     display: none; }
 
@@ -288,10 +294,11 @@ footer {
 
 .kn-log {
   font-weight: 300;
-  font-size: 0.8em; }
+  font-size: 0.8em;
+  min-height: 25px; }
   .kn-log .kn-log-message {
     display: none;
-    padding: 10px 50px; }
+    padding: 5px 50px; }
   .kn-log .level-10 {
     background-color: rgba(0, 0, 255, 0.75); }
   .kn-log .level-20 {

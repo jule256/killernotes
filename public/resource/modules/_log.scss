@@ -1,12 +1,12 @@
 .kn-log {
 
   @include smallFont;
+  min-height: $defaultNormalSpacing;
 
   .kn-log-message {
     display:none;
-    padding: $defaultNarrowSpacing $defaultWideSpacing;
+    padding: ($defaultNarrowSpacing / 2) $defaultWideSpacing;
   }
-
   .level-10 {
     background-color: $infoColor;
   }

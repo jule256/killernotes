@@ -26,8 +26,8 @@
   - ~~disable sorting during edit mode~~ (Julian) ✓
   - ~~Exception Handling: Errorview & Loglevels (Dominik)~~ ✓
     - to be implemented in modules where it makes sense (auxiliary.logMessage)
-  - data on server
-    - rest service
+  - ~~data on server~~
+    - ~~rest service~~
   - store/precompile handlebar templates (Dominik)
   - ~~form generator: good or bad? good!~~ ✓
   - ⚠ replace `bind()` with `on()` (Julian)
@@ -42,8 +42,9 @@
   - ~~⚠ edit & create: the hidden "Importance" input has no default value (should be 0)~~ (Dominik)
   - ~~⚠ fancy css: date and time input is white on white~~ (Dominik)
   - ~~⚠ finish-filter: only works if click is on label `.filter-finished` and not if on on span `.kn-filter-finished` (Dominik)~~ ✓
-  - ⚠ finish-filter: `.disabled` does not work correctly (cursor, bg-color), e.g. if edit mode is active (Dominik) ✓
+  - ~~⚠ finish-filter: `.disabled` does not work correctly (cursor, bg-color), e.g. if edit mode is active~~ (Dominik) ✓
   - ~~⚠ line breaks in note-text~~ ✓
+  - ⚠ duedate error message in form not in right position
 
 ### @ideas
   - Additional features
