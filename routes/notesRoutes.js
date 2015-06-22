@@ -7,7 +7,7 @@ module.exports = (function() {
     'use strict';
 
     // register the routes for all note-operations
-    var notes = require('./notesController.js');
+    var notes = require('../controllers/notesController.js');
     var express = require('express');
     var router = express.Router();
 
