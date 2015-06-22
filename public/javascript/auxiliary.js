@@ -260,42 +260,6 @@ define(
                 },
                 time: new Date()
             });
-        },
-
-        /**
-         * @todo I think it's in the wrong place here
-         *
-         * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
-         */
-        ratingHelper: function(id) {
-
-            var $ratingItem = $('.rating-item');
-
-            var setStateClass = function($element, value) {
-                if ($element.attr('data-value') <= value) {
-                    $element.addClass('active');
-                } else {
-                    $element.removeClass('active');
-                }
-            };
-
-            if (id) {
-                var value = $(id).val();
-                if (value > 0) {
-                    $ratingItem.each(function() {
-                        setStateClass($(this), value);
-                    });
-                }
-            }
-
-            $ratingItem.on('click', function() {
-                var value = $(this).attr('data-value');
-                $(this).parent().find('input').val(value);
-
-                $(this).parent().children('.rating-item').each(function() {
-                    setStateClass($(this), value);
-                });
-            });
         }
     };
 

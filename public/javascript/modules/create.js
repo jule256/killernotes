@@ -5,8 +5,9 @@ define(
         'handlebars',
         'config',
         'auxiliary',
-        'validate'
-    ], function($, handlebars, config, auxiliary, validate) {
+        'validate',
+        'plugins/jquery.rating'
+    ], function($, handlebars, config, auxiliary, validate, rating) {
 
     'use strict';
 
@@ -136,8 +137,12 @@ define(
                 }
             });
 
-            // add rating event
-            auxiliary.ratingHelper();
+            // add rating
+            $('.kn-form-create .kn-rating').rating({
+                callback: function(value) {
+                    $('#create-importance').val(value);
+                }
+            });
 
             // in edit mode, disable saving of new notes
             $(document).on('kn:edit', privateDisableCreate);

@@ -5,8 +5,9 @@ define(
         'handlebars',
         'config',
         'auxiliary',
-        'validate'
-    ], function($, handlebars, config, auxiliary, validate) {
+        'validate',
+        'plugins/jquery.rating'
+    ], function($, handlebars, config, auxiliary, validate, rating) {
 
     'use strict';
 
@@ -112,7 +113,8 @@ define(
          */
         var privatePostRender = function() {
             var data,
-                validation;
+                validation,
+                $importance;
 
             $('#edit-submit').on('click', function() {
                 data = auxiliary.extractData('edit');
@@ -164,7 +166,15 @@ define(
                 }
             });
 
-            auxiliary.ratingHelper('#edit-importance');
+
+            // add rating
+            $importance = $('#edit-importance');
+            $('.kn-form-edit .kn-rating').rating({
+                value: $importance.val(),
+                callback: function(value) {
+                    $importance.val(value);
+                }
+            });
         };
 
         /**
