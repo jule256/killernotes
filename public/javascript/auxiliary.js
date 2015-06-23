@@ -250,12 +250,18 @@ define(
          * @param {string} message
          * @param {boolean} showOnUi
          */
-        logMessage: function(level, message, showOnUi) {
+        logMessage: function(level, showOnUi, message) {
+            var additionalData = '';
+            if(arguments.length > 3) {
+                additionalData = Array.prototype.slice.call(arguments, [3]);
+            }
+
             $.event.trigger({
                 type: 'kn:log:message',
                 kn: {
                     level: level,
                     message: message,
+                    additionalData: additionalData,
                     showOnUi: showOnUi
                 },
                 time: new Date()

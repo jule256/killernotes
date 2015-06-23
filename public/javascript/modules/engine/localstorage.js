@@ -37,8 +37,7 @@ define(
         };
 
         var publicGetList = function() {
-
-            console.log('localstorage.js publicGetList()');
+            auxiliary.logMessage(config.logLevels.info, false, 'localstorage.js publicGetList()');
 
             return JSON.parse(localStorage.getItem(localStorageName)) || {};
         };
@@ -47,7 +46,7 @@ define(
             var existingData = privateGetExistingData(),
                 key = Date.now();
 
-            console.log('localstorage.js publicCreate()', data);
+            auxiliary.logMessage(config.logLevels.info, false, 'localstorage.js publicCreate()', data);
 
             // enhance data with create date
             data.createdate = +key; // make sure 'key' is number
@@ -64,7 +63,7 @@ define(
         var publicUpdate = function(data, key) {
             var existingData = privateGetExistingData();
 
-            console.log('localstorage.js publicUpdate()', data, key);
+            auxiliary.logMessage(config.logLevels.info, false, 'localstorage.js publicUpdate()', data, key);
 
             // enhance data with create date
             data.createdate = +key; // make sure 'key' is number
@@ -81,7 +80,7 @@ define(
         var publicDelete = function(data, key) {
             var existingData = privateGetExistingData();
 
-            console.log('localstorage.js publicDelete()', data, key);
+            auxiliary.logMessage(config.logLevels.info, false, 'localstorage.js publicDelete()', data, key);
 
             // remove item from existsing data
             delete existingData[+key];
@@ -92,7 +91,7 @@ define(
 
         var publicDeleteAll = function(data, key) {
 
-            console.log('localstorage.js publicDeleteAll()', data, key);
+            auxiliary.logMessage(config.logLevels.info, false, 'localstorage.js publicDeleteAll()', data, key);
 
             localStorage.removeItem(localStorageName);
         };

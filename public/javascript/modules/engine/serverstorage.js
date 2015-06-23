@@ -31,9 +31,9 @@ define(
 
         };
 
-        var publicGetList = function(param) {
+        var publicGetList = function() {
 
-            console.log('serverstorage.js publicGetList()', param);
+            auxiliary.logMessage(config.logLevels.info, false, 'serverstorage.js publicGetList()');
 
             return $.ajax({
                 url: '/notes',
@@ -44,7 +44,7 @@ define(
 
         var publicCreate = function(data) {
 
-            console.log('serverstorage.js publicCreate()', data);
+            auxiliary.logMessage(config.logLevels.info, false, 'serverstorage.js publicCreate()', data);
 
             return $.ajax({
                 url: '/notes',
@@ -57,7 +57,7 @@ define(
 
         var publicUpdate = function(data, key) {
 
-            console.log('serverstorage.js publicUpdate()', data, key);
+            auxiliary.logMessage(config.logLevels.info, false, 'serverstorage.js publicUpdate()', data, key);
 
             // enhance data with create date
             data.createdate = +key; // make sure 'key' is number
@@ -73,7 +73,7 @@ define(
 
         var publicDelete = function(key) {
 
-            console.log('serverstorage.js publicDelete()', key);
+            auxiliary.logMessage(config.logLevels.info, false, 'serverstorage.js publicDelete()', key);
 
             return $.ajax({
                 url: '/notes/' + key,
@@ -85,7 +85,7 @@ define(
 
         var publicDeleteAll = function() {
 
-            console.log('serverstorage.js publicDeleteAll()');
+            auxiliary.logMessage(config.logLevels.info, false, 'serverstorage.js publicDeleteAll()');
 
             return $.ajax({
                 url: '/notes',

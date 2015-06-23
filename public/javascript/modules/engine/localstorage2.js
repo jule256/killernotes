@@ -41,7 +41,7 @@ define(
             var deferred = $.Deferred(),
                 data;
 
-            console.log('localstorage.js publicGetList()', param);
+            auxiliary.logMessage(config.logLevels.info, false, 'localstorage.js publicGetList()', param);
 
             data = JSON.parse(localStorage.getItem(localStorageName)) || {};
 
@@ -55,7 +55,7 @@ define(
                 key = Date.now(),
                 deferred = $.Deferred();
 
-            console.log('localstorage.js publicCreate()', data);
+            auxiliary.logMessage(config.logLevels.info, false, 'localstorage.js publicCreate()', data);
 
             // enhance data with create date
             data.createdate = +key; // make sure 'key' is number
@@ -75,7 +75,7 @@ define(
             var existingData = privateGetExistingData(),
                 deferred = $.Deferred();
 
-            console.log('localstorage.js publicUpdate()', data, key);
+            auxiliary.logMessage(config.logLevels.info, false, 'localstorage.js publicUpdate()', data, key);
 
             // enhance data with create date
             data.createdate = +key; // make sure 'key' is number
@@ -94,7 +94,7 @@ define(
             var existingData = privateGetExistingData(),
                 deferred = $.Deferred();
 
-            console.log('localstorage.js publicDelete()', key);
+            auxiliary.logMessage(config.logLevels.info, false, 'localstorage.js publicDelete()', key);
 
             // remove item from existsing data
             delete existingData[+key];

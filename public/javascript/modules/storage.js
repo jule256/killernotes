@@ -51,9 +51,9 @@ define(
                 return;
             }
 
-            var promise = fn('param');
+            var promise = fn.apply(null);
             promise.done(function(responseData) {
-                auxiliary.logMessage(config.logLevels.info, 'engine.getList() DONE');
+                auxiliary.logMessage(config.logLevels.info, false, 'engine.getList() DONE');
                 deferred.resolve(responseData);
             });
 
@@ -87,14 +87,14 @@ define(
             }
 
             // show message
-            promise.done(function(responseData) {
-                auxiliary.logMessage(config.logLevels.success, 'Note deleted', true);
+            promise.done(function() {
+                auxiliary.logMessage(config.logLevels.success, true, 'Note deleted');
 
                 privateTriggerDataUpdate(null, null);
             });
             promise.fail(function(responseData) {
-                auxiliary.logMessage(config.logLevels.error, 'Note not deleted!', true);
-                auxiliary.logMessage(config.logLevels.error, data, false);
+                auxiliary.logMessage(config.logLevels.error, true, 'Note not deleted!');
+                auxiliary.logMessage(config.logLevels.error, false, responseData);
             });
         };
 
@@ -136,14 +136,14 @@ define(
             }
 
             // show message
-            promise.done(function(responseData) {
-                auxiliary.logMessage(config.logLevels.success, 'note \'' + data.title + '\' saved', true);
+            promise.done(function() {
+                auxiliary.logMessage(config.logLevels.success, true, 'note \'' + data.title + '\' saved');
 
                 privateTriggerDataUpdate(data, ev.kn.id);
             });
             promise.fail(function(responseData) {
-                auxiliary.logMessage(config.logLevels.error, 'note \'' + data.title + '\' not saved!', true);
-                auxiliary.logMessage(config.logLevels.error, data, false);
+                auxiliary.logMessage(config.logLevels.error, true, 'note \'' + data.title + '\' not saved!');
+                auxiliary.logMessage(config.logLevels.error, false, responseData);
             });
 
         };
@@ -171,17 +171,17 @@ define(
                 promise = fn.apply(null);
             }
 
-            auxiliary.logMessage(config.logLevels.info, 'All notes removed', true);
+            auxiliary.logMessage(config.logLevels.info, true, 'All notes removed');
 
             // show message
-            promise.done(function(responseData) {
-                auxiliary.logMessage(config.logLevels.success, 'All notes removed', true);
+            promise.done(function() {
+                auxiliary.logMessage(config.logLevels.success, true, 'All notes removed');
 
                 privateTriggerDataUpdate(null, null);
             });
             promise.fail(function(responseData) {
-                auxiliary.logMessage(config.logLevels.error, 'Reset failed!', true);
-                auxiliary.logMessage(config.logLevels.error, data, false);
+                auxiliary.logMessage(config.logLevels.error, true, 'Reset failed!');
+                auxiliary.logMessage(config.logLevels.error, false, responseData);
             });
         };
 
@@ -212,7 +212,7 @@ define(
 
         var privateCheckEngine = function() {
             if (engine === null || typeof engine === 'undefined') {
-                auxiliary.logMessage(config.logLevels.error, 'no storage engine specified', true);
+                auxiliary.logMessage(config.logLevels.error, true, 'no storage engine specified');
                 return false;
             }
             return true;

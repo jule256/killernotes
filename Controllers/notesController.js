@@ -1,7 +1,7 @@
 /**
  * notesController Module
  *
- * @author dominik.suesstrunk <dominik.suesstrunk@gmail.com>
+ * @author dominik süsstrunk <dominik.suesstrunk@gmail.com>
  */
 module.exports = function() {
     'use strict';
@@ -13,7 +13,7 @@ module.exports = function() {
     /**
      * Gets all notes from the the database and sends them back
      *
-     * @author dominik.suesstrunk <dominik.suesstrunk@gmail.com>
+     * @author dominik süsstrunk <dominik.suesstrunk@gmail.com>
      * @param {object} req
      * @param {object} res
      */
@@ -26,7 +26,7 @@ module.exports = function() {
     /**
      * Gets a note by its id and sends it back
      *
-     * @author dominik.suesstrunk <dominik.suesstrunk@gmail.com>
+     * @author dominik süsstrunk <dominik.suesstrunk@gmail.com>
      * @param {object} req
      * @param {object} res
      */
@@ -47,7 +47,7 @@ module.exports = function() {
      * Adds a new note and sends the new note back
      *
      *
-     * @author dominik.suesstrunk <dominik.suesstrunk@gmail.com>
+     * @author dominik süsstrunk <dominik.suesstrunk@gmail.com>
      * @param {object} req
      * @param {object} res
      */
@@ -65,7 +65,7 @@ module.exports = function() {
     /**
      * Updates the note and sends back the updated note or responds with 404
      *
-     * @author dominik.suesstrunk <dominik.suesstrunk@gmail.com>
+     * @author dominik süsstrunk <dominik.suesstrunk@gmail.com>
      * @param {object} req
      * @param {object} res
      */
@@ -92,7 +92,7 @@ module.exports = function() {
     /**
      * Deletes a note from the db and sends back the number of deleted notes (should be 1)
      *
-     * @author dominik.suesstrunk <dominik.suesstrunk@gmail.com>
+     * @author dominik süsstrunk <dominik.suesstrunk@gmail.com>
      * @param {object} req
      * @param {object} res
      */
@@ -126,7 +126,7 @@ module.exports = function() {
      * Get the current hash/state of the all notes
      * Needed for syncing
      *
-     * @author dominik.suesstrunk <dominik.suesstrunk@gmail.com>
+     * @author dominik süsstrunk <dominik.suesstrunk@gmail.com>
      * @param {object} req
      * @param {object} res
      */

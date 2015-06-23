@@ -119,7 +119,7 @@ define(
          */
         var privatePostRender = function() {
             privateRetrieveNotes().done(function(noteElements) {
-                console.log('privateRetrieveNotes() DONE: ', noteElements);
+                auxiliary.logMessage(config.logLevels.info, false, 'privateRetrieveNotes() DONE', noteElements);
                 $.each(noteElements, function(key, value) {
 
                     // add change state functionality
@@ -318,7 +318,7 @@ define(
                 case 'duedate':
                     return note2.duedate - note1.duedate;
                 default:
-                    console.error('"' + sorting + '" is not a valid sorting machanism');
+                    auxiliary.logMessage(config.logLevels.error, false, '"' + sorting + '" is not a valid sorting machanism');
                     return 0;
             }
         };
@@ -372,9 +372,9 @@ define(
                 throw Error ('storageRef is not set');
             }
 
-            storageRef.getNotes().done(function(jsonData) {
-                console.log('privateRetrieveNotes() DONE: ', jsonData);
-                deferred.resolve(jsonData);
+            storageRef.getNotes().done(function(responseData) {
+                auxiliary.logMessage(config.logLevels.info, false, 'privateRetrieveNotes() DONE: ', responseData);
+                deferred.resolve(responseData);
             });
 
             return deferred.promise();

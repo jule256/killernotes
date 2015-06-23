@@ -88,6 +88,8 @@ define(
              * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
              */
             privateLogMessage = function(ev) {
+                var additionalData = ev.kn.additionalData;
+
                 message = ev.kn.message;
                 level = ev.kn.level;
 
@@ -98,18 +100,18 @@ define(
                 if (config.consoleLogLevel <= level) {
                     switch (level) {
                         case config.logLevels.error:
-                            console.error(message);
+                            console.error(message, additionalData);
                             break;
                         case config.logLevels.warning:
-                            console.warn(message);
+                            console.warn(message, additionalData);
                             break;
                         case config.logLevels.info:
-                            console.info(message);
+                            console.info(message, additionalData);
                             break;
                         case config.logLevels.none:
                             break;
                         default:
-                            console.log(message);
+                            console.log(message, additionalData);
                     }
                 }
             };

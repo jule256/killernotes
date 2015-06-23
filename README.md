@@ -9,8 +9,8 @@
 ### @todo:
 
   - ~~form evaluation~~ (Julian) ✓
-  - CSS Layouting (Dominik) 
-    - basic ✓
+  - ~~CSS Layouting~~ (Dominik) 
+    - ~~basic~~ ✓
   - ~~Importance: Stars/Flashes instead of select-dropdown~~ (Dominik) ✓
   - ~~default values for due-create and due-time in create form~~ (Julian) ✓
   - ~~reset create form after kn:created~~ (Julian) ✓
@@ -25,13 +25,13 @@
   - ~~add JSCS and JSHint configuration~~ (Julian) ✓
   - ~~disable sorting during edit mode~~ (Julian) ✓
   - ~~Exception Handling: Errorview & Loglevels (Dominik)~~ ✓
-    - to be implemented in modules where it makes sense (auxiliary.logMessage)
+    - ~~to be implemented in modules where it makes sense (auxiliary.logMessage)~~
   - ~~data on server~~
     - ~~rest service~~
   - store/precompile handlebar templates (Dominik)
   - ~~form generator: good or bad? good!~~ ✓
   - ⚠ replace `bind()` with `on()` (Julian)
-  - server-config
+  - ~~server-config~~
   
 ### bugs
   - ~~note editing always sets `finished:false`~~ ✓
