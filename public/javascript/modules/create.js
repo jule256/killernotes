@@ -45,7 +45,6 @@ define(
             $(document).on('kn:create', privateResetCreateForm);
             $(document).on('kn:create:validation:failed', privateShowError);
 
-            //TODO: richtiger ort hier? oder methode publicRegisterEvents?
             $('body').on('click', '.kn-notes-create', function() {
                 // only show create-form if edit is not active
                 if (!privateIsEditActive()) {
