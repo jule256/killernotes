@@ -122,7 +122,7 @@ module.exports = function()
      */
     var publicDeleteAllNotes = function(callback) {
       db.remove({}, { multi: true }, function(err, count) {
-          if(callback) {
+          if (callback) {
               callback(err, count);
           }
       });

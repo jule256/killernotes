@@ -21,3 +21,4 @@ public/resource/main.css.map
 *.map
 
 node_modules
+*.db
