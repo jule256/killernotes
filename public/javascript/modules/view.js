@@ -1,4 +1,4 @@
-/* globals define:true, console:true, document:true, killernotes:true */
+/* globals define:true, console:true, killernotes:true */
 define(
     [
         'jQuery',
@@ -41,23 +41,12 @@ define(
 
             handlebarTemplate = killernotes.templates.view;
 
-            $(document).off('kn:sort', privateUpdateSort);
-            $(document).on('kn:sort', privateUpdateSort);
-
-            $(document).off('kn:data:change', publicRender);
-            $(document).on('kn:data:change', publicRender);
-
-            $(document).off('kn:reset:complete', publicRender);
-            $(document).on('kn:reset:complete', publicRender);
-
-            $(document).off('kn:edit:cancel', publicRender);
-            $(document).on('kn:edit:cancel', publicRender);
-
-            $(document).off('kn:filter', privateUpdateFilter);
-            $(document).on('kn:filter', privateUpdateFilter);
-
-            $(document).off('kn:edit:validation:failed', privateShowError);
-            $(document).on('kn:edit:validation:failed', privateShowError);
+            auxiliary.listenTo('kn:sort', privateUpdateSort);
+            auxiliary.listenTo('kn:data:change', publicRender);
+            auxiliary.listenTo('kn:reset:complete', publicRender);
+            auxiliary.listenTo('kn:edit:cancel', publicRender);
+            auxiliary.listenTo('kn:filter', privateUpdateFilter);
+            auxiliary.listenTo('kn:edit:validation:failed', privateShowError);
 
             $('body').on('click', '#notes-refresh', function() {
                 // only perform if edit is not active
@@ -142,7 +131,6 @@ define(
             $refreshButton = $('#notes-refresh');
 
             privateRetrieveNotes().done(function(noteElements) {
-                // auxiliary.logMessage(config.logLevels.info, false, 'privateRetrieveNotes() DONE', noteElements);
                 $.each(noteElements, function(key, value) {
 
                     // add change state functionality
@@ -185,20 +173,11 @@ define(
                     }
                 });
 
-                $(document).off('kn:edit', privateDisableActions);
-                $(document).on('kn:edit', privateDisableActions);
-
-                $(document).off('kn:edit:cancel', privateEnableActions);
-                $(document).on('kn:edit:cancel', privateEnableActions);
-
-                $(document).off('kn:reset:complete', privateEnableActions);
-                $(document).on('kn:reset:complete', privateEnableActions);
-
-                $(document).off('kn:edit:save', privateEnableActions);
-                $(document).on('kn:edit:save', privateEnableActions);
-
-                $(document).off('kn:edit:delete', privateEnableActions);
-                $(document).on('kn:edit:delete', privateEnableActions);
+                auxiliary.listenTo('kn:edit', privateDisableActions);
+                auxiliary.listenTo('kn:edit:cancel', privateEnableActions);
+                auxiliary.listenTo('kn:reset:complete', privateEnableActions);
+                auxiliary.listenTo('kn:edit:save', privateEnableActions);
+                auxiliary.listenTo('kn:edit:delete', privateEnableActions);
 
                 privateGetState(false);
             });
@@ -326,7 +305,6 @@ define(
             }
 
             storageRef.getNotes().done(function(responseData) {
-                // auxiliary.logMessage(config.logLevels.info, false, 'privateRetrieveNotes() DONE: ', responseData);
                 deferred.resolve(responseData);
             });
 
@@ -466,7 +444,7 @@ define(
                     concatinatedMessage.push(messages[i]);
                 }
 
-                $errorDiv.removeClass('hide'); // @todo or fancy effect?
+                $errorDiv.removeClass('hide');
                 $errorDiv.html(concatinatedMessage.join('<br />'));
             });
         };

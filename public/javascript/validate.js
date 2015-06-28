@@ -27,8 +27,6 @@ define(
                 validationMessages = [],
                 allValidationMessages = {};
 
-            // @todo set all error messages classes to "hide"
-
             for (i = 0; i < formElements.length; i++) {
                 formElement = formElements[i];
 

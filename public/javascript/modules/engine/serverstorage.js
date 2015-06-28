@@ -1,4 +1,4 @@
-/* globals define:true, console:true, document:true, localStorage:true */
+/* globals define:true, console:true */
 define(
     [
         'jQuery'
@@ -37,9 +37,6 @@ define(
          * @returns {Promise}
          */
         var publicGetList = function() {
-
-            // auxiliary.logMessage(config.logLevels.info, false, 'serverstorage.js publicGetList()');
-
             return $.ajax({
                 url: '/notes',
                 method: 'GET',
@@ -54,9 +51,6 @@ define(
          * @returns {Promise}
          */
         var publicCreate = function(data) {
-
-            // auxiliary.logMessage(config.logLevels.info, false, 'serverstorage.js publicCreate()', data);
-
             return $.ajax({
                 url: '/notes',
                 method: 'POST',
@@ -75,9 +69,6 @@ define(
          * @returns {Promise}
          */
         var publicUpdate = function(data, key) {
-
-            // auxiliary.logMessage(config.logLevels.info, false, 'serverstorage.js publicUpdate()', data, key);
-
             // enhance data with create date
             data.createdate = +key; // make sure 'key' is number
 
@@ -98,9 +89,6 @@ define(
          * @returns {Promise}
          */
         var publicDelete = function(key) {
-
-            // auxiliary.logMessage(config.logLevels.info, false, 'serverstorage.js publicDelete()', key);
-
             return $.ajax({
                 url: '/notes/' + key,
                 method: 'DELETE',
@@ -116,9 +104,6 @@ define(
          * @returns {Promise}
          */
         var publicDeleteAll = function() {
-
-            // auxiliary.logMessage(config.logLevels.info, false, 'serverstorage.js publicDeleteAll()');
-
             return $.ajax({
                 url: '/notes',
                 method: 'DELETE',

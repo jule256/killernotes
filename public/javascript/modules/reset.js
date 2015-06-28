@@ -11,8 +11,6 @@ define(
     // module
     return function() {
 
-        // @todo JSDoc for all functions
-
         // handlebar settings
         var handlebarRegionId = 'region-reset';
         var handlebarTemplate = null;

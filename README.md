@@ -46,7 +46,7 @@ machine:killernotes user$ gulp
   - ~~⚠ standardize event naming (maybe 'kn:`<type`>:`<action`>')~~ ✓ (Julian)
   - ~~add JSCS and JSHint configuration~~ (Julian) ✓
   - ~~disable sorting during edit mode~~ (Julian) ✓
-  - ~~Exception Handling: Errorview & Loglevels (Dominik)~~ ✓
+  - ~~Exception Handling: Errorview & Loglevels~~ (Dominik) ✓
     - ~~to be implemented in modules where it makes sense (auxiliary.logMessage)~~
   - ~~data on server~~
     - ~~rest service~~
@@ -57,7 +57,7 @@ machine:killernotes user$ gulp
   
 ### bugs
   - ~~note editing always sets `finished:false`~~ ✓
-  - ⚠ check for dangling events: Everytime the view is newly rendered, new events are generated in privatePostRender()
+  - ~~⚠ check for dangling events: Everytime the view is newly rendered, new events are generated in privatePostRender()~~ (Julian) ✓
   - ~~disabled buttons still work~~ (Julian) ✓
   - ~~⚠ note can be safed without duedate/time~~ (Julian)
   - ~~⚠ after create: create form gets not reset and create-form-toggle does not work~~

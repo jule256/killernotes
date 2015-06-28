@@ -1,4 +1,4 @@
-/* global define:true, console:true, killernotes:true */
+/* global define:true, console:true, killernotes:true, document:true */
 define(
     [
         'jQuery',
@@ -279,6 +279,19 @@ define(
                     showOnUi: showOnUi
                 }
             });
+        },
+
+        /**
+         * removes the given event string from document and re-adds it (to prevent dangling events with multiple
+         * triggering)
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         * @param {string} eventName
+         * @param {function} eventFunction
+         */
+        listenTo: function(eventName, eventFunction) {
+            $(document).off(eventName, eventFunction);
+            $(document).on(eventName, eventFunction);
         }
     };
 

@@ -1,8 +1,9 @@
-/* globals define:true, console:true, document:true, killernotes:true */
+/* globals define:true, console:true, killernotes:true */
 define(
     [
-        'jQuery'
-    ], function($) {
+        'jQuery',
+        'auxiliary'
+    ], function($, auxiliary) {
 
     'use strict';
 
@@ -101,17 +102,10 @@ define(
             });
 
             // in edit mode, disable filtering of new notes
-            $(document).off('kn:edit', privateDisableFilter);
-            $(document).on('kn:edit', privateDisableFilter);
-
-            $(document).off('kn:edit:cancel', privateEnableFilter);
-            $(document).on('kn:edit:cancel', privateEnableFilter);
-
-            $(document).off('kn:data:change', privateEnableFilter);
-            $(document).on('kn:data:change', privateEnableFilter);
-
-            $(document).off('kn:reset:complete', privateEnableFilter);
-            $(document).on('kn:reset:complete', privateEnableFilter);
+            auxiliary.listenTo('kn:edit', privateDisableFilter);
+            auxiliary.listenTo('kn:edit:cancel', privateEnableFilter);
+            auxiliary.listenTo('kn:data:change', privateEnableFilter);
+            auxiliary.listenTo('kn:reset:complete', privateEnableFilter);
         };
 
         /**

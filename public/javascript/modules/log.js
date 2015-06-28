@@ -1,9 +1,10 @@
-/* globals define:true, console:true, document:true, killernotes:true */
+/* globals define:true, console:true, killernotes:true */
 define(
     [
         'jQuery',
-        'config'
-    ], function($, config) {
+        'config',
+        'auxiliary'
+    ], function($, config, auxiliary) {
 
         'use strict';
 
@@ -33,8 +34,7 @@ define(
             var publicConstructor = function() {
                 handlebarTemplate = killernotes.templates.log;
 
-                $(document).off('kn:log:message', privateLogMessage);
-                $(document).on('kn:log:message', privateLogMessage);
+                auxiliary.listenTo('kn:log:message', privateLogMessage);
             };
 
             /**

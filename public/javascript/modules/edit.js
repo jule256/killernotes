@@ -1,4 +1,4 @@
-/* globals define:true, console:true, document:true, killernotes:true, confirm:true */
+/* globals define:true, console:true, killernotes:true, confirm:true */
 define(
     [
         'jQuery',
@@ -32,8 +32,7 @@ define(
          * @constructor
          */
         var publicConstructor = function() {
-            $(document).off('kn:edit', privatePrepareEditForm);
-            $(document).on('kn:edit', privatePrepareEditForm);
+            auxiliary.listenTo('kn:edit', privatePrepareEditForm);
 
             handlebarTemplate = killernotes.templates.edit;
         };
@@ -200,7 +199,6 @@ define(
                             returnData[i].value = date;
                             returnData[formElement.dependee].value = time;
                         }
-                        // @todo maybe add some fallback here to tackle missconfiguration of the config
                     }
 
                     else {

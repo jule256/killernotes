@@ -1,4 +1,4 @@
-/* globals define:true, console:true, document:true */
+/* globals define:true, console:true */
 define(
     [
         'jQuery',
@@ -27,17 +27,10 @@ define(
                 throw Error('local storage not supported, this app will not run in your browser');
             }
 
-            $(document).off('kn:create', privateStoreNote);
-            $(document).on('kn:create', privateStoreNote);
-
-            $(document).off('kn:reset', privateResetNotes);
-            $(document).on('kn:reset', privateResetNotes);
-
-            $(document).off('kn:edit:save', privateStoreNote);
-            $(document).on('kn:edit:save', privateStoreNote);
-
-            $(document).off('kn:edit:delete', privateDeleteNote);
-            $(document).on('kn:edit:delete', privateDeleteNote);
+            auxiliary.listenTo('kn:create', privateStoreNote);
+            auxiliary.listenTo('kn:reset', privateResetNotes);
+            auxiliary.listenTo('kn:edit:save', privateStoreNote);
+            auxiliary.listenTo('kn:edit:delete', privateDeleteNote);
         };
 
         /**
@@ -71,7 +64,6 @@ define(
 
             var promise = fn.apply(null);
             promise.done(function(responseData) {
-                // auxiliary.logMessage(config.logLevels.info, false, 'engine.getList() DONE');
                 deferred.resolve(responseData);
             });
 
@@ -212,7 +204,6 @@ define(
                 return;
             }
             else {
-                // @todo feedback with promises
                 promise = fn.apply(null);
             }
 

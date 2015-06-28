@@ -1,4 +1,4 @@
-/* globals define:true, console:true, document:true, localStorage:true */
+/* globals define:true, console:true, localStorage:true */
 define(
     [
         'jQuery',

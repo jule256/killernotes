@@ -1,8 +1,9 @@
-/* globals define:true, console:true, document:true, killernotes:true */
+/* globals define:true, console:true, killernotes:true */
 define(
     [
-        'jQuery'
-    ], function($) {
+        'jQuery',
+        'auxiliary'
+    ], function($, auxiliary) {
 
     'use strict';
 
@@ -44,20 +45,12 @@ define(
          * @constructor
          */
         var publicConstructor = function() {
-            $(document).off('kn:view:complete', privateHighlightSort);
-            $(document).on('kn:view:complete', privateHighlightSort);
-
-            $(document).off('kn:edit', privateDisableSort);
-            $(document).on('kn:edit', privateDisableSort);
-
-            $(document).off('kn:edit:cancel', privateEnableSort);
-            $(document).on('kn:edit:cancel', privateEnableSort);
-
-            $(document).off('kn:data:change', privateEnableSort);
-            $(document).on('kn:data:change', privateEnableSort);
-
-            $(document).off('kn:reset:complete', privateEnableSort);
-            $(document).on('kn:reset:complete', privateEnableSort);
+            auxiliary.listenTo('kn:view:complete', privateHighlightSort);
+            auxiliary.listenTo('kn:edit', privateDisableSort);
+            auxiliary.listenTo('kn:edit:cancel', privateEnableSort);
+            auxiliary.listenTo('kn:data:change', privateEnableSort);
+            auxiliary.listenTo('kn:reset:complete', privateEnableSort);
+            auxiliary.listenTo('kn:reset:complete', privateEnableSort);
 
             handlebarTemplate = killernotes.templates.sort;
         };
