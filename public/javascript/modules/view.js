@@ -244,7 +244,8 @@ define(
                 case 'duedate':
                     return note2.duedate - note1.duedate;
                 default:
-                    auxiliary.logMessage(config.logLevels.error, false, '"' + sorting + '" is not a valid sorting machanism');
+                    auxiliary.logMessage(config.logLevels.error, false, '"' + sorting + '" is not a valid ' +
+                        'sorting machanism');
                     return 0;
             }
         };
@@ -375,7 +376,7 @@ define(
          * @private
          */
         var privateSetRefreshState = function(hasNewData) {
-            if(hasNewData) {
+            if (hasNewData) {
                 $refreshButton.addClass('highlight');
             } else {
                 $refreshButton.removeClass('highlight');
@@ -396,26 +397,26 @@ define(
 
             var promise = storageRef.getState();
 
-            promise.done(function (currentState) {
+            promise.done(function(currentState) {
 
-                if (triggerUpdate && dataState !== null && dataState != currentState) {
+                if (triggerUpdate && dataState !== null && dataState !== currentState) {
                     privateSetRefreshState(true);
-                    auxiliary.logMessage(config.logLevels.info, true, 'New data is available!')
-                } else if(!triggerUpdate) {
+                    auxiliary.logMessage(config.logLevels.info, true, 'New data is available!');
+                } else if (!triggerUpdate) {
                     privateSetRefreshState(false);
                 }
 
                 dataState = currentState;
 
-                if(triggerUpdate) {
+                if (triggerUpdate) {
                     window.setTimeout(function() {
                         privateGetState(true);
                     }, config.dataRefreshIntervall);
                 }
             });
 
-            promise.fail(function (responseData) {
-                auxiliary.logMessage(config.logLevels.error, false, 'Get state failed', responseData)
+            promise.fail(function(responseData) {
+                auxiliary.logMessage(config.logLevels.error, false, 'Get state failed', responseData);
             });
         };
 

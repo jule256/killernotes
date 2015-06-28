@@ -37,7 +37,7 @@ define(
          * Sets the engine to work with (server, local, ...)
          *
          * @author Dominik Süsstrunk <dominik.suesstrunk@gmail.com>
-         * @param engineRef
+         * @param {object} engineRef
          */
         var publicSetEngine = function(engineRef) {
             engine = engineRef;
@@ -47,7 +47,7 @@ define(
          * Get notes promise from the storage engine
          *
          * @author Dominik Süsstrunk <dominik.suesstrunk@gmail.com>
-         * @returns {promise}
+         * @returns {*}
          */
         var publicGetNotes = function() {
             var fn,
@@ -75,7 +75,7 @@ define(
          * Get state promise from storage engine
          *
          * @author Dominik Süsstrunk <dominik.suesstrunk@gmail.com>
-         * @returns {promise}
+         * @returns {*}
          */
         var publicGetState = function() {
             var fn,
@@ -169,7 +169,7 @@ define(
                     return;
                 }
                 else {
-                    promise = fn.apply(null, [data, ev.kn.id]);
+                    promise = fn.apply(null, [ data, ev.kn.id ]);
                 }
             }
 

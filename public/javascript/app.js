@@ -45,7 +45,7 @@ define(
          */
         var publicStart = function() {
 
-            // put handlebars into the window-object because the precompiled templates/templates.js needs it there
+            // put handlebars into the window-object because the precompiled templates/templates.js needs it there >:-[
             // @todo check if there is a better way
             window.Handlebars = handlebars;
             // get the precompiled templates.js via ajax

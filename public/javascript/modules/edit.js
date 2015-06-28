@@ -1,4 +1,4 @@
-/* globals define:true, console:true, document:true, killernotes:true */
+/* globals define:true, console:true, document:true, killernotes:true, confirm:true */
 define(
     [
         'jQuery',
@@ -162,7 +162,6 @@ define(
                     id = null; // reset id (indicating that edit-mode is over)
                 }
             });
-
 
             // add rating
             $importance = $('#edit-importance');

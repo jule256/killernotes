@@ -1,4 +1,4 @@
-/* globals define:true, console:true, killernotes:true */
+/* globals define:true, console:true, killernotes:true, confirm:true */
 define(
     [
         'jQuery'
@@ -65,7 +65,7 @@ define(
          */
          var privatePostRender = function() {
              $('#reset').on('click', function() {
-                 if(confirm('Do you really want to delete all notes?')) {
+                 if (confirm('Do you really want to delete all notes?')) {
                      $.event.trigger({
                          type: 'kn:reset',
                          kn: {},

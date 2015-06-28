@@ -80,9 +80,10 @@ define([], function() {
                 title: 'Note',
                 type: 'text',
                 validator: {
+                    notEmpty: true,
                     length: {
                         min: 3,
-                        max: 30
+                        max: 500
                     }
                 }
             }

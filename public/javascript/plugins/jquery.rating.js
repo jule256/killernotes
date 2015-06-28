@@ -3,13 +3,15 @@ define(
         'jQuery'
     ], function($) {
 
+        'use strict';
+
         /**
          * Rating plugin for Killernotes app
          *
          * @author dominik süsstrunk <dominik.suesstrunk@gmail.com>
          * @param {object} options
          */
-        $.fn.rating = function (options) {
+        $.fn.rating = function(options) {
 
             // private vars
             var settings = $.extend({
@@ -33,7 +35,7 @@ define(
              * @param {boolean} setValue
              * @returns {number}
              */
-            var privateSetRating = function (element, value, setValue) {
+            var privateSetRating = function(element, value, setValue) {
                 if (setValue === true) {
                     $(element).attr(settings.dataValueAttribute, value);
                     if (settings.callback) {
@@ -41,7 +43,7 @@ define(
                     }
                 }
 
-                $(element).children(settings.matchElement).each(function (index) {
+                $(element).children(settings.matchElement).each(function(index) {
                     if (setValue === true) {
                         $(this).attr(settings.dataValueAttribute, index + 1);
                     }
@@ -65,17 +67,17 @@ define(
              * @author dominik süsstrunk <dominik.suesstrunk@gmail.com>
              * @param {object} element
              */
-            var privateAddHandlers = function (element) {
-                $(element).children(settings.matchElement).on('mouseenter', function () {
+            var privateAddHandlers = function(element) {
+                $(element).children(settings.matchElement).on('mouseenter', function() {
                     privateSetRating($(this).parent(), $(this).attr(settings.dataValueAttribute), false);
                 });
 
-                $(element).children(settings.matchElement).on('click', function () {
+                $(element).children(settings.matchElement).on('click', function() {
                     var value = $(this).attr(settings.dataValueAttribute);
                     privateSetRating($(this).parent(), value, true);
                 });
 
-                $(element).on('mouseout', function () {
+                $(element).on('mouseout', function() {
                     privateSetRating(this, $(this).attr(settings.dataValueAttribute), true);
                 });
             };

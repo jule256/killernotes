@@ -37,7 +37,7 @@ machine:killernotes user$ gulp
   - ~~reset create form after kn:created~~ (Julian) ✓
   - ~~sort view: use handlebars correctly~~ (Dominik) ✓
   - ~~style picker~~ (Dominik) ✓
-  - JSDoc comments for "every" function (Beide)
+  - ~~JSDoc comments for "every" function~~ ✓
   - ~~get variable-names straight: formElement/s vs. formOptions/s~~ (Julian) ✓
   - ~~find a better solution for the Date zero-padding problem~~ ✓
   - ~~don't allow edit-mode if another note is already in edit mode~~ (Julian) ✓

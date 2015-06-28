@@ -47,7 +47,7 @@ define(
             var deferred = $.Deferred(),
                 data;
 
-            auxiliary.logMessage(config.logLevels.info, false, 'localstorage.js publicGetList()', param);
+            auxiliary.logMessage(config.logLevels.info, false, 'localstorage.js publicGetList()');
 
             data = JSON.parse(localStorage.getItem(localStorageName)) || {};
 
