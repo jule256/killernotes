@@ -1,5 +1,19 @@
 # Killernotes
 
+### get application running for review
+ - [download the "abgabe"-Branch as zip] [1] and unzip it
+ - navigate to the folder and execute `npm install` which will install the necessary `npm` dependencies
+ - execute `gulp` to precompile the handlebar templates
+ - open the project in _WebStorm_ and run the `index.js` file in the project's root
+ - enter `localhost:3000` in your browser of choice (we strongly recommend Google Chrome because of it's native html5 
+ date- and time-picker) and enjoy _a killer app_ ☻
+ 
+```sh
+machine:/ user$ cd path/to/the/project/killernotes/
+machine:killernotes user$ npm install
+machine:killernotes user$ gulp
+```
+
 ### todo Server
 
   - ~~Notifications über polling von hash auf alle notes auf dem server (/state)~~
@@ -131,4 +145,6 @@ Check the "Search for config(s)" radiobutton and WebStorm should automatically u
 
 ##### not active:
 `"requireMultipleVarDecl": true`
+
+[1]:https://github.com/jule256/killernotes/archive/abgabe.zip
 

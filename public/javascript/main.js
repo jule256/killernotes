@@ -2,9 +2,7 @@
 require.config({
     paths: {
         'jQuery': '../vendor/jquery/jquery-2.1.4',
-//      'jQuery': 'vendor/jquery/jquery-2.1.4.min',
-//      'handlebars': '../vendor/handlebars/handlebars-v3.0.3'
-        'handlebars': '../vendor/handlebars/handlebars.amd'
+        'handlebars': '../vendor/handlebars/handlebars-v3.0.3'
     },
     shim: {
         'jQuery': {

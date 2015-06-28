@@ -82,19 +82,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var _interopRequireWildcard = __webpack_require__(8)['default'];
+	var _interopRequireDefault = __webpack_require__(8)['default'];
 
 	exports.__esModule = true;
 
 	var _runtime = __webpack_require__(1);
 
-	var _runtime2 = _interopRequireWildcard(_runtime);
+	var _runtime2 = _interopRequireDefault(_runtime);
 
 	// Compiler imports
 
 	var _AST = __webpack_require__(2);
 
-	var _AST2 = _interopRequireWildcard(_AST);
+	var _AST2 = _interopRequireDefault(_AST);
 
 	var _Parser$parse = __webpack_require__(3);
 
@@ -102,15 +102,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _JavaScriptCompiler = __webpack_require__(5);
 
-	var _JavaScriptCompiler2 = _interopRequireWildcard(_JavaScriptCompiler);
+	var _JavaScriptCompiler2 = _interopRequireDefault(_JavaScriptCompiler);
 
 	var _Visitor = __webpack_require__(6);
 
-	var _Visitor2 = _interopRequireWildcard(_Visitor);
+	var _Visitor2 = _interopRequireDefault(_Visitor);
 
 	var _noConflict = __webpack_require__(7);
 
-	var _noConflict2 = _interopRequireWildcard(_noConflict);
+	var _noConflict2 = _interopRequireDefault(_noConflict);
 
 	var _create = _runtime2['default'].create;
 	function create() {
@@ -150,36 +150,38 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var _interopRequireWildcard = __webpack_require__(8)['default'];
+	var _interopRequireWildcard = __webpack_require__(9)['default'];
+
+	var _interopRequireDefault = __webpack_require__(8)['default'];
 
 	exports.__esModule = true;
 
-	var _import = __webpack_require__(9);
+	var _import = __webpack_require__(10);
 
 	var base = _interopRequireWildcard(_import);
 
 	// Each of these augment the Handlebars object. No need to setup here.
 	// (This is done to easily share code between commonjs and browse envs)
 
-	var _SafeString = __webpack_require__(10);
+	var _SafeString = __webpack_require__(11);
 
-	var _SafeString2 = _interopRequireWildcard(_SafeString);
+	var _SafeString2 = _interopRequireDefault(_SafeString);
 
-	var _Exception = __webpack_require__(11);
+	var _Exception = __webpack_require__(12);
 
-	var _Exception2 = _interopRequireWildcard(_Exception);
+	var _Exception2 = _interopRequireDefault(_Exception);
 
-	var _import2 = __webpack_require__(12);
+	var _import2 = __webpack_require__(13);
 
 	var Utils = _interopRequireWildcard(_import2);
 
-	var _import3 = __webpack_require__(13);
+	var _import3 = __webpack_require__(14);
 
 	var runtime = _interopRequireWildcard(_import3);
 
 	var _noConflict = __webpack_require__(7);
 
-	var _noConflict2 = _interopRequireWildcard(_noConflict);
+	var _noConflict2 = _interopRequireDefault(_noConflict);
 
 	// For compatibility and usage outside of module systems, make the Handlebars object a namespace
 	function create() {
@@ -372,28 +374,30 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var _interopRequireWildcard = __webpack_require__(8)['default'];
+	var _interopRequireDefault = __webpack_require__(8)['default'];
+
+	var _interopRequireWildcard = __webpack_require__(9)['default'];
 
 	exports.__esModule = true;
 	exports.parse = parse;
 
-	var _parser = __webpack_require__(14);
+	var _parser = __webpack_require__(15);
 
-	var _parser2 = _interopRequireWildcard(_parser);
+	var _parser2 = _interopRequireDefault(_parser);
 
 	var _AST = __webpack_require__(2);
 
-	var _AST2 = _interopRequireWildcard(_AST);
+	var _AST2 = _interopRequireDefault(_AST);
 
-	var _WhitespaceControl = __webpack_require__(15);
+	var _WhitespaceControl = __webpack_require__(16);
 
-	var _WhitespaceControl2 = _interopRequireWildcard(_WhitespaceControl);
+	var _WhitespaceControl2 = _interopRequireDefault(_WhitespaceControl);
 
-	var _import = __webpack_require__(16);
+	var _import = __webpack_require__(17);
 
 	var Helpers = _interopRequireWildcard(_import);
 
-	var _extend = __webpack_require__(12);
+	var _extend = __webpack_require__(13);
 
 	exports.parser = _parser2['default'];
 
@@ -423,22 +427,22 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var _interopRequireWildcard = __webpack_require__(8)['default'];
+	var _interopRequireDefault = __webpack_require__(8)['default'];
 
 	exports.__esModule = true;
 	exports.Compiler = Compiler;
 	exports.precompile = precompile;
 	exports.compile = compile;
 
-	var _Exception = __webpack_require__(11);
+	var _Exception = __webpack_require__(12);
 
-	var _Exception2 = _interopRequireWildcard(_Exception);
+	var _Exception2 = _interopRequireDefault(_Exception);
 
-	var _isArray$indexOf = __webpack_require__(12);
+	var _isArray$indexOf = __webpack_require__(13);
 
 	var _AST = __webpack_require__(2);
 
-	var _AST2 = _interopRequireWildcard(_AST);
+	var _AST2 = _interopRequireDefault(_AST);
 
 	var slice = [].slice;
 
@@ -955,21 +959,21 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var _interopRequireWildcard = __webpack_require__(8)['default'];
+	var _interopRequireDefault = __webpack_require__(8)['default'];
 
 	exports.__esModule = true;
 
-	var _COMPILER_REVISION$REVISION_CHANGES = __webpack_require__(9);
+	var _COMPILER_REVISION$REVISION_CHANGES = __webpack_require__(10);
 
-	var _Exception = __webpack_require__(11);
+	var _Exception = __webpack_require__(12);
 
-	var _Exception2 = _interopRequireWildcard(_Exception);
+	var _Exception2 = _interopRequireDefault(_Exception);
 
-	var _isArray = __webpack_require__(12);
+	var _isArray = __webpack_require__(13);
 
-	var _CodeGen = __webpack_require__(17);
+	var _CodeGen = __webpack_require__(18);
 
-	var _CodeGen2 = _interopRequireWildcard(_CodeGen);
+	var _CodeGen2 = _interopRequireDefault(_CodeGen);
 
 	function Literal(value) {
 	  this.value = value;
@@ -2022,17 +2026,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var _interopRequireWildcard = __webpack_require__(8)['default'];
+	var _interopRequireDefault = __webpack_require__(8)['default'];
 
 	exports.__esModule = true;
 
-	var _Exception = __webpack_require__(11);
+	var _Exception = __webpack_require__(12);
 
-	var _Exception2 = _interopRequireWildcard(_Exception);
+	var _Exception2 = _interopRequireDefault(_Exception);
 
 	var _AST = __webpack_require__(2);
 
-	var _AST2 = _interopRequireWildcard(_AST);
+	var _AST2 = _interopRequireDefault(_AST);
 
 	function Visitor() {
 	  this.parents = [];
@@ -2195,21 +2199,48 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
+
+	exports["default"] = function (obj) {
+	  if (obj && obj.__esModule) {
+	    return obj;
+	  } else {
+	    var newObj = {};
+
+	    if (typeof obj === "object" && obj !== null) {
+	      for (var key in obj) {
+	        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
+	      }
+	    }
+
+	    newObj["default"] = obj;
+	    return newObj;
+	  }
+	};
+
+	exports.__esModule = true;
+
+/***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 
-	var _interopRequireWildcard = __webpack_require__(8)['default'];
+	var _interopRequireWildcard = __webpack_require__(9)['default'];
+
+	var _interopRequireDefault = __webpack_require__(8)['default'];
 
 	exports.__esModule = true;
 	exports.HandlebarsEnvironment = HandlebarsEnvironment;
 	exports.createFrame = createFrame;
 
-	var _import = __webpack_require__(12);
+	var _import = __webpack_require__(13);
 
 	var Utils = _interopRequireWildcard(_import);
 
-	var _Exception = __webpack_require__(11);
+	var _Exception = __webpack_require__(12);
 
-	var _Exception2 = _interopRequireWildcard(_Exception);
+	var _Exception2 = _interopRequireDefault(_Exception);
 
 	var VERSION = '3.0.1';
 	exports.VERSION = VERSION;
@@ -2470,7 +2501,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/* [args, ]options */
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2489,7 +2520,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2532,7 +2563,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2651,12 +2682,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _interopRequireWildcard = __webpack_require__(8)['default'];
+	var _interopRequireWildcard = __webpack_require__(9)['default'];
+
+	var _interopRequireDefault = __webpack_require__(8)['default'];
 
 	exports.__esModule = true;
 	exports.checkRevision = checkRevision;
@@ -2669,15 +2702,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.invokePartial = invokePartial;
 	exports.noop = noop;
 
-	var _import = __webpack_require__(12);
+	var _import = __webpack_require__(13);
 
 	var Utils = _interopRequireWildcard(_import);
 
-	var _Exception = __webpack_require__(11);
+	var _Exception = __webpack_require__(12);
 
-	var _Exception2 = _interopRequireWildcard(_Exception);
+	var _Exception2 = _interopRequireDefault(_Exception);
 
-	var _COMPILER_REVISION$REVISION_CHANGES$createFrame = __webpack_require__(9);
+	var _COMPILER_REVISION$REVISION_CHANGES$createFrame = __webpack_require__(10);
 
 	function checkRevision(compilerInfo) {
 	  var compilerRevision = compilerInfo && compilerInfo[0] || 1,
@@ -2888,7 +2921,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3571,18 +3604,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports["default"];
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _interopRequireWildcard = __webpack_require__(8)['default'];
+	var _interopRequireDefault = __webpack_require__(8)['default'];
 
 	exports.__esModule = true;
 
 	var _Visitor = __webpack_require__(6);
 
-	var _Visitor2 = _interopRequireWildcard(_Visitor);
+	var _Visitor2 = _interopRequireDefault(_Visitor);
 
 	function WhitespaceControl() {}
 	WhitespaceControl.prototype = new _Visitor2['default']();
@@ -3788,12 +3821,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _interopRequireWildcard = __webpack_require__(8)['default'];
+	var _interopRequireDefault = __webpack_require__(8)['default'];
 
 	exports.__esModule = true;
 	exports.SourceLocation = SourceLocation;
@@ -3805,9 +3838,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.prepareRawBlock = prepareRawBlock;
 	exports.prepareBlock = prepareBlock;
 
-	var _Exception = __webpack_require__(11);
+	var _Exception = __webpack_require__(12);
 
-	var _Exception2 = _interopRequireWildcard(_Exception);
+	var _Exception2 = _interopRequireDefault(_Exception);
 
 	function SourceLocation(source, locInfo) {
 	  this.source = source;
@@ -3924,7 +3957,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3932,7 +3965,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.__esModule = true;
 	/*global define */
 
-	var _isArray = __webpack_require__(12);
+	var _isArray = __webpack_require__(13);
 
 	var SourceNode = undefined;
 
