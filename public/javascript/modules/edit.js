@@ -32,6 +32,7 @@ define(
          * @constructor
          */
         var publicConstructor = function() {
+            $(document).off('kn:edit', privatePrepareEditForm);
             $(document).on('kn:edit', privatePrepareEditForm);
 
             handlebarTemplate = killernotes.templates.edit;

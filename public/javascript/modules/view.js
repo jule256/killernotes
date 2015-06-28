@@ -41,11 +41,22 @@ define(
 
             handlebarTemplate = killernotes.templates.view;
 
+            $(document).off('kn:sort', privateUpdateSort);
             $(document).on('kn:sort', privateUpdateSort);
+
+            $(document).off('kn:data:change', publicRender);
             $(document).on('kn:data:change', publicRender);
+
+            $(document).off('kn:reset:complete', publicRender);
             $(document).on('kn:reset:complete', publicRender);
+
+            $(document).off('kn:edit:cancel', publicRender);
             $(document).on('kn:edit:cancel', publicRender);
+
+            $(document).off('kn:filter', privateUpdateFilter);
             $(document).on('kn:filter', privateUpdateFilter);
+
+            $(document).off('kn:edit:validation:failed', privateShowError);
             $(document).on('kn:edit:validation:failed', privateShowError);
 
             $('body').on('click', '#notes-refresh', function() {
@@ -174,12 +185,19 @@ define(
                     }
                 });
 
-                console.log('adding document.on-listeners ...');
-
+                $(document).off('kn:edit', privateDisableActions);
                 $(document).on('kn:edit', privateDisableActions);
+
+                $(document).off('kn:edit:cancel', privateEnableActions);
                 $(document).on('kn:edit:cancel', privateEnableActions);
+
+                $(document).off('kn:reset:complete', privateEnableActions);
                 $(document).on('kn:reset:complete', privateEnableActions);
+
+                $(document).off('kn:edit:save', privateEnableActions);
                 $(document).on('kn:edit:save', privateEnableActions);
+
+                $(document).off('kn:edit:delete', privateEnableActions);
                 $(document).on('kn:edit:delete', privateEnableActions);
 
                 privateGetState(false);

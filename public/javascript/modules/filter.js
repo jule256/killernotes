@@ -101,9 +101,16 @@ define(
             });
 
             // in edit mode, disable filtering of new notes
+            $(document).off('kn:edit', privateDisableFilter);
             $(document).on('kn:edit', privateDisableFilter);
+
+            $(document).off('kn:edit:cancel', privateEnableFilter);
             $(document).on('kn:edit:cancel', privateEnableFilter);
+
+            $(document).off('kn:data:change', privateEnableFilter);
             $(document).on('kn:data:change', privateEnableFilter);
+
+            $(document).off('kn:reset:complete', privateEnableFilter);
             $(document).on('kn:reset:complete', privateEnableFilter);
         };
 

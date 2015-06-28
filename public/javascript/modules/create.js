@@ -39,7 +39,10 @@ define(
 
             handlebarTemplate = killernotes.templates.create;
 
+            $(document).off('kn:create', privateResetCreateForm);
             $(document).on('kn:create', privateResetCreateForm);
+
+            $(document).off('kn:create:validation:failed', privateShowError);
             $(document).on('kn:create:validation:failed', privateShowError);
 
             $('body').on('click', '#notes-create', function() {
@@ -140,9 +143,16 @@ define(
             });
 
             // in edit mode, disable saving of new notes
+            $(document).off('kn:edit', privateDisableCreate);
             $(document).on('kn:edit', privateDisableCreate);
+
+            $(document).off('kn:edit:cancel', privateEnableCreate);
             $(document).on('kn:edit:cancel', privateEnableCreate);
+
+            $(document).off('kn:data:change', privateEnableCreate);
             $(document).on('kn:data:change', privateEnableCreate);
+
+            $(document).off('kn:reset:complete', privateEnableCreate);
             $(document).on('kn:reset:complete', privateEnableCreate);
         };
 

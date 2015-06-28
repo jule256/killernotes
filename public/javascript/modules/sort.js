@@ -44,10 +44,19 @@ define(
          * @constructor
          */
         var publicConstructor = function() {
+            $(document).off('kn:view:complete', privateHighlightSort);
             $(document).on('kn:view:complete', privateHighlightSort);
+
+            $(document).off('kn:edit', privateDisableSort);
             $(document).on('kn:edit', privateDisableSort);
+
+            $(document).off('kn:edit:cancel', privateEnableSort);
             $(document).on('kn:edit:cancel', privateEnableSort);
+
+            $(document).off('kn:data:change', privateEnableSort);
             $(document).on('kn:data:change', privateEnableSort);
+
+            $(document).off('kn:reset:complete', privateEnableSort);
             $(document).on('kn:reset:complete', privateEnableSort);
 
             handlebarTemplate = killernotes.templates.sort;

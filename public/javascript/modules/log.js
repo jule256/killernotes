@@ -33,6 +33,7 @@ define(
             var publicConstructor = function() {
                 handlebarTemplate = killernotes.templates.log;
 
+                $(document).off('kn:log:message', privateLogMessage);
                 $(document).on('kn:log:message', privateLogMessage);
             };
 
