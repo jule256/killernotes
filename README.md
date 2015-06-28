@@ -93,17 +93,19 @@ The service has following methods
 #### install
 ```sh
 machine:/ user$ cd path/to/the/project/killernotes/
-machine:killernotes user$ npm update
+machine:killernotes user$ npm install gulp
+machine:killernotes user$ npm install gulp-handlebars
+machine:killernotes user$ npm install gulp-wrap
+machine:killernotes user$ npm install gulp-declare
+machine:killernotes user$ npm install gulp-concat
 ```
+
 #### precompile templates
-
-
 every time a template from /public/templates/ is changed, run `gulp` manually:
 ```sh
 machine:/ user$ cd path/to/the/project/killernotes/
 machine:killernotes user$ gulp
 ```
-
 
 ### code style
 #### JSHint
