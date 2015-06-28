@@ -59,6 +59,27 @@ define(
             return deferred.promise();
         };
 
+        var publicGetState = function() {
+            var fn,
+                deferred = $.Deferred();
+
+            if (!privateCheckEngine()) {
+                return;
+            }
+
+            fn = engine.getState;
+            if (!privateEngineHasFunction(fn, 'getState')) {
+                return;
+            }
+
+            var promise = fn.apply(null);
+            promise.done(function(responseData) {
+                deferred.resolve(responseData);
+            });
+
+            return deferred.promise();
+        };
+
         // private functions
 
         /**
@@ -220,7 +241,8 @@ define(
         return {
             constructor: publicConstructor,
             setEngine: publicSetEngine,
-            getNotes: publicGetNotes
+            getNotes: publicGetNotes,
+            getState: publicGetState
         };
     };
 });

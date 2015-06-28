@@ -195,3 +195,17 @@ h3 {
     cursor: not-allowed !important;
   }
 }
+
+.highlight {
+  -webkit-animation-name: pulse;
+  -webkit-animation-duration: 2000ms;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: ease-in-out;
+}
+
+@-webkit-keyframes pulse
+{
+  0% {background-color: $buttonBackgroundColor}
+  50% {background-color: $buttonBackgroundColorActive;}
+  100% {background-color: $buttonBackgroundColor;}
+}

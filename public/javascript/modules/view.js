@@ -19,6 +19,8 @@ define(
         // class variables
         var editRef = null;
         var storageRef = null;
+        var dataState = null;
+        var $refreshButton = null;
 
         // handlebar settings
         var handlebarRegionId = 'region-view';
@@ -45,6 +47,18 @@ define(
             $(document).on('kn:edit:cancel', publicRender);
             $(document).on('kn:filter', privateUpdateFilter);
             $(document).on('kn:edit:validation:failed', privateShowError);
+
+            $('body').on('click', '#notes-refresh', function() {
+                // only perform if edit is not active
+                if (!privateIsEditActive()) {
+                    publicRender();
+                    privateSetRefreshState(false);
+                }
+            });
+
+            window.setTimeout(function() {
+                privateGetState(true);
+            }, 10000);
         };
 
         /**
@@ -113,6 +127,9 @@ define(
          * @private
          */
         var privatePostRender = function() {
+
+            $refreshButton = $('#notes-refresh');
+
             privateRetrieveNotes().done(function(noteElements) {
                 // auxiliary.logMessage(config.logLevels.info, false, 'privateRetrieveNotes() DONE', noteElements);
                 $.each(noteElements, function(key, value) {
@@ -160,66 +177,14 @@ define(
                     time: new Date()
                 });
 
-                $(document).on('kn:edit', privateDisableEdit);
-                $(document).on('kn:edit:cancel', privateEnableEdit);
-                $(document).on('kn:reset:complete', privateEnableEdit);
-                $(document).on('kn:edit:save', privateEnableEdit);
-                $(document).on('kn:edit:delete', privateEnableEdit);
+                $(document).on('kn:edit', privateDisableActions);
+                $(document).on('kn:edit:cancel', privateEnableActions);
+                $(document).on('kn:reset:complete', privateEnableActions);
+                $(document).on('kn:edit:save', privateEnableActions);
+                $(document).on('kn:edit:delete', privateEnableActions);
+
+                privateGetState(false);
             });
-        };
-
-        var privatePostRenderX = function() {
-            var noteElements = privateRetrieveNotes();
-
-            $.each(noteElements, function(key, value) {
-
-                // add change state functionality
-                $('#note-' + key + ' .kn-note-state').on('click', function() {
-                    if (!privateIsEditActive()) {
-                        // only trigger event if there is no other edit-process in progress
-                        value.finished = !value.finished;
-                        $.event.trigger({
-                            type: 'kn:edit:save',
-
-                            kn: {
-                                id: key,
-                                data: value
-                            },
-                            time: new Date()
-                        });
-                    }
-                });
-
-                // add edit click functionality
-                $('#note-' + key + ' .kn-note-edit').on('click', function() {
-                    if (!privateIsEditActive()) {
-                        // only trigger event if there is no other edit-process in progress
-                        $.event.trigger({
-                            type: 'kn:edit',
-                            kn: {
-                                id: key,
-                                data: value
-                            },
-                            time: new Date()
-                        });
-                    }
-                });
-            });
-
-            // inform other modules that view rendering is complete
-            $.event.trigger({
-                type: 'kn:view:complete',
-                kn: {
-                    sort: sorting
-                },
-                time: new Date()
-            });
-
-            $(document).on('kn:edit', privateDisableEdit);
-            $(document).on('kn:edit:cancel', privateEnableEdit);
-            $(document).on('kn:reset:complete', privateEnableEdit);
-            $(document).on('kn:edit:save', privateEnableEdit);
-            $(document).on('kn:edit:delete', privateEnableEdit);
         };
 
         /**
@@ -262,40 +227,6 @@ define(
         };
 
         /**
-         * prepares the note-data so it can be used by the handlebars context
-         *
-         * @author Julian Mollik <jule@creative-coding.net>
-         * @returns {Array}
-         * @private
-         */
-        var privateGetNoteElementsX = function() {
-            var noteElements = privateRetrieveNotes(),
-                cleanedElements = [],
-                date;
-
-            // parse createdate to a more human readable format
-            $.each(noteElements, function(key, value) {
-                date = new Date(+value.createdate);
-
-                if (!value.finished || showFinished) {
-                    cleanedElements.push({
-                        title: value.title || '<no title>',
-                        note: value.note || '<no content>',
-                        createdate: +value.createdate,
-                        duedate: value.duedate,
-                        importance: value.importance,
-                        finished: value.finished
-                    });
-                }
-            });
-
-            // sort objects in array by current active sorting
-            cleanedElements.sort(privateCompareNotes);
-
-            return cleanedElements;
-        };
-
-        /**
          * compares the given two note objects by the currently active sorting. Usable by the Array.sort() function
          *
          * @author Julian Mollik <jule@creative-coding.net>
@@ -330,27 +261,13 @@ define(
         };
 
         /**
-         * gets the notes from localStorage and returns them as JSON-object
-         *
-         * @author Julian Mollik <jule@creative-coding.net>
-         * @returns {object}
-         * @private
-         */
-        var privateRetrieveNotesX = function() {
-            if (storageRef === null) {
-                throw Error ('storageRef is not set');
-            }
-            return storageRef.getNotes();
-        };
-
-        /**
          * visually disables all non affected edit-links by adding the css class 'disabled'
          *
          * @author Julian Mollik <jule@creative-coding.net>
          * @param {object} ev
          * @private
          */
-        var privateDisableEdit = function(ev) {
+        var privateDisableActions = function(ev) {
             var $note = $('.kn-note');
 
             // add "disabled" class to all other edit-note links
@@ -358,6 +275,8 @@ define(
 
             // add "disabled" class to all other finish-note links
             $note.not('#note-' + ev.kn.id).find('.kn-note-state').addClass('disabled');
+
+            $refreshButton.addClass('disabled');
         };
 
         var privateRetrieveNotes = function() {
@@ -381,7 +300,7 @@ define(
          * @author Julian Mollik <jule@creative-coding.net>
          * @private
          */
-        var privateEnableEdit = function() {
+        var privateEnableActions = function() {
             var $note = $('.kn-note');
 
             // remove "disabled" class of all edit-note links
@@ -391,6 +310,8 @@ define(
             // remove "disabled" class to all finish-note links
             // note: since the view gets re-rendered on cancel AND on save, the following line is actually not needed
             $note.find('.kn-note-state').removeClass('disabled');
+
+            $refreshButton.removeClass('disabled');
         };
 
         /**
@@ -422,6 +343,43 @@ define(
                 throw Error ('editRef is not set');
             }
             return editRef.isEditActive();
+        };
+
+        var privateSetRefreshState = function(hasNewData) {
+            if(hasNewData) {
+                $refreshButton.addClass('highlight');
+            } else {
+                $refreshButton.removeClass('highlight');
+            }
+        };
+
+        var privateGetState = function(triggerUpdate) {
+            if (storageRef === null) {
+                throw Error('storageRef is not set');
+            }
+
+            var promise = storageRef.getState();
+
+            promise.done(function (currentState) {
+
+                if (triggerUpdate && dataState !== null && dataState != currentState) {
+                    privateSetRefreshState(true);
+                } else {
+                    privateSetRefreshState(false);
+                }
+
+                dataState = currentState;
+
+                if(triggerUpdate) {
+                    window.setTimeout(function() {
+                        privateGetState(true);
+                    }, 10000);
+                }
+            });
+
+            promise.fail(function (responseData) {
+                auxiliary.logMessage(config.logLevels.error, false, 'Get state failed', responseData)
+            });
         };
 
         /**

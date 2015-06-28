@@ -18,7 +18,7 @@ define(
 
         // class variables
         var $submit = null; // store jquery-element to avoid multiple DOM-queries
-        var $createToggle = null; // store jquery-element to avoid multiple DOM-queries
+        var $createButton = null; // store jquery-element to avoid multiple DOM-queries
         var editRef = null;
 
         // handlebars settings
@@ -42,7 +42,7 @@ define(
             $(document).on('kn:create', privateResetCreateForm);
             $(document).on('kn:create:validation:failed', privateShowError);
 
-            $('body').on('click', '.kn-notes-create', function() {
+            $('body').on('click', '#notes-create', function() {
                 // only show create-form if edit is not active
                 if (!privateIsEditActive()) {
                     privateToggleCreateForm();
@@ -104,7 +104,7 @@ define(
 
             // query DOM once, use often
             $submit = $('#create-submit');
-            $createToggle = $('.kn-notes-create');
+            $createButton = $('#notes-create');
 
             $submit.on('click', function() {
                 data = auxiliary.extractData('create');
@@ -155,10 +155,10 @@ define(
          */
         var privateToggleCreateForm = function() {
 
-            var $noteIcon = $createToggle.find('.kn-icon');
+            var $noteIcon = $createButton.find('.kn-icon');
             $noteIcon.toggleClass('fa-minus');
             $noteIcon.toggleClass('fa-plus');
-            $createToggle.toggleClass('active');
+            $createButton.toggleClass('active');
 
             $('.kn-form-create').toggle();
         };
@@ -183,7 +183,8 @@ define(
          */
         var privateDisableCreate = function() {
             $submit.attr('disabled', true);
-            $createToggle.addClass('disabled'); // @todo Dominik "not-allowed" cursor is overruled by "pointer" curser
+            $submit.addClass('disabled');
+            $createButton.addClass('disabled');
         };
 
         /**
@@ -195,7 +196,8 @@ define(
          */
         var privateEnableCreate = function() {
             $submit.removeAttr('disabled');
-            $createToggle.removeClass('disabled'); // @todo Dominik fix "not-allowed" cursor
+            $submit.removeClass('disabled');
+            $createButton.removeClass('disabled');
         };
 
         /**
