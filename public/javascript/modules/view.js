@@ -58,7 +58,7 @@ define(
 
             window.setTimeout(function() {
                 privateGetState(true);
-            }, 10000);
+            }, config.dataRefreshIntervall);
         };
 
         /**
@@ -373,7 +373,7 @@ define(
                 if(triggerUpdate) {
                     window.setTimeout(function() {
                         privateGetState(true);
-                    }, 10000);
+                    }, config.dataRefreshIntervall);
                 }
             });
 

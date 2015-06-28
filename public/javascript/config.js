@@ -97,6 +97,7 @@ define([], function() {
                 path: 'resource/main-secondary.css'
             }
         ],
+        dataRefreshIntervall: 10000, // in ms
         logLevels: logLevels,
         uiLogShowDuration: 1500,
         uiLogLevel: logLevels.all,
