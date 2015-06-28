@@ -1,4 +1,4 @@
-/* global define:true, console:true */
+/* global define:true, console:true, killernotes:true */
 define(
     [
         'jQuery',
@@ -23,7 +23,6 @@ define(
             var formElementContext,
                 mode = options.data.root.mode,
                 typeTemplate = returnedAuxiliary.getFormTypeTemplate(formElement.type);
-            // @todo Templates should only be loaded once (not a problem if we precompile them)
 
             formElement = returnedAuxiliary.handleMagicStrings(formElement);
 
@@ -192,13 +191,14 @@ define(
          * compiles the template for the specified type
          *
          * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
+         * @author Julian Mollik <jule@creative-coding.net>
          * @param {string} type
          * @returns {function}
          */
         getFormTypeTemplate: function(type) {
-            var handlebarSource = $('#template-form-' + type).html();
-            if (handlebarSource) {
-                return handlebars.compile(handlebarSource);
+            var compiledHandlebar = killernotes.templates.form[type];
+            if (compiledHandlebar) {
+                return compiledHandlebar;
             }
 
             return function() {};
@@ -247,13 +247,13 @@ define(
          *
          * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
          * @param {number} level
-         * @param {string} message
          * @param {boolean} showOnUi
+         * @param {string} message
          */
         logMessage: function(level, showOnUi, message) {
             var additionalData = '';
-            if(arguments.length > 3) {
-                additionalData = Array.prototype.slice.call(arguments, [3]);
+            if (arguments.length > 3) {
+                additionalData = Array.prototype.slice.call(arguments, [ 3 ]);
             }
 
             $.event.trigger({

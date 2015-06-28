@@ -2,6 +2,8 @@
 define(
     [
         'jQuery',
+        'handlebars',
+        'config',
         'modules/sort',
         'modules/create',
         'modules/storage',
@@ -15,6 +17,8 @@ define(
         'modules/log'
     ], function(
         $,
+        handlebars,
+        ConfigRef,
         SortRef,
         CreateRef,
         StorageRef,
@@ -24,15 +28,60 @@ define(
         EditRef,
         FilterRef,
         StylePickerRef,
-        LogRef) {
+        LogRef
+    ) {
 
     'use strict';
 
     return function() {
 
-       var version = 0.3;
+        var version = '0.4.0';
 
+        /**
+         * starts the application by loading the precompiled templates and after that calling the privateStart()
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         */
         var publicStart = function() {
+
+            // put handlebars into the window-object because the precompiled templates/templates.js needs it there
+            // @todo check if there is a better way
+            window.Handlebars = handlebars;
+            // get the precompiled templates.js via ajax
+            $.getScript(ConfigRef.templatesPath)
+                .done(function(/*script, textStatus*/) {
+                    // after templates are loaded and therefore templates are in the window-object,
+                    // start the actual application
+                    privateStart();
+                })
+                .fail(function(jqxhr, settings, exception) {
+                    throw Error(
+                        'could not load precompiled templates from "' + ConfigRef.templatesPath + '", ' +
+                        'did you run "gulp" on command line? ',
+                        exception
+                    );
+                });
+        };
+
+        /**
+         * returns the version of this killernotes App
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         * @public
+         * @returns {string}
+         */
+        var publicGetVersion = function() {
+            return version;
+        };
+
+        // private functions
+
+        /**
+         * loads and initializes the modules of the application and thus actually starts the app
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         */
+        var privateStart = function() {
             var myStylepicker,
                 mySort,
                 myCreate,
@@ -95,10 +144,6 @@ define(
             // logger
             myLog = new LogRef();
             myLog.constructor();
-        };
-
-        var publicGetVersion = function() {
-            return version;
         };
 
         return {

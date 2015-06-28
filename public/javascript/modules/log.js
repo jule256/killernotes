@@ -1,10 +1,9 @@
-/* globals define:true, console:true, document:true */
+/* globals define:true, console:true, document:true, killernotes:true */
 define(
     [
         'jQuery',
         'config',
-        'handlebars'
-    ], function($, config, handlebars) {
+    ], function($, config) {
 
         'use strict';
 
@@ -22,8 +21,6 @@ define(
 
             // handlebar settings
             var handlebarRegionId = 'region-log';
-            var handlebarTemplateId = 'template-log';
-            var handlebarSource = null;
             var handlebarTemplate = null;
             var handlebarContext = null;
             var handleBarHtml = null;
@@ -34,8 +31,7 @@ define(
              * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
              */
             var publicConstructor = function() {
-                handlebarSource = $('#' + handlebarTemplateId).html();
-                handlebarTemplate = handlebars.compile(handlebarSource);
+                handlebarTemplate = killernotes.templates.log;
 
                 $(document).on('kn:log:message', privateLogMessage);
             };

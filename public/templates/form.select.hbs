@@ -1,0 +1,11 @@
+<div class="kn-form-select kn-form-{{formId}}-{{name}}">
+    <label for="{{formId}}-{{name}}">
+        {{title}}
+    </label>
+    <select id="{{formId}}-{{name}}">
+        {{#each options}}
+            <option value="{{key}}" {{selected}}>{{value}}</option>
+        {{/each}}
+    </select>
+    <div class="hide message" id="{{formId}}-{{name}}-error"></div>
+</div>

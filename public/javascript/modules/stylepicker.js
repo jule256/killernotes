@@ -1,22 +1,17 @@
-/* globals define:true, console:true */
+/* globals define:true, console:true, killernotes:true */
 define(
     [
         'jQuery',
-        'config',
-        'handlebars'
-    ], function($, config, handlebars) {
+        'config'
+    ], function($, config) {
 
         'use strict';
 
         // module
         return function() {
 
-            // @todo JSDoc for all functions
-
             // configuration
             var handlebarRegionId = 'region-stylepicker';
-            var handlebarTemplateId = 'template-stylepicker';
-            var handlebarSource = null;
             var handlebarTemplate = null;
             var handlebarContext = null;
             var handleBarHtml = null;
@@ -25,10 +20,10 @@ define(
              * constructor
              *
              * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
+             * @constructor
              */
             var publicConstructor = function() {
-                handlebarSource = $('#' + handlebarTemplateId).html();
-                handlebarTemplate = handlebars.compile(handlebarSource);
+                handlebarTemplate = killernotes.templates.stylepicker;
             };
 
             /**

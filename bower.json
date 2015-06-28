@@ -1,0 +1,23 @@
+{
+  "name": "killernotes bower",
+  "version": "0.4.0",
+  "authors": [
+    "Julian Mollik <jule@creative-coding.net>",
+    "Dominik Süsstrunk <dominik.suestrunk@gmail.com>"
+  ],
+  "description": "it's a killer app",
+  "license": "Proprietary",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "public/vendor/"
+  ],
+  "main": "index.js",
+  "homepage": "https://github.com/jule256/killernotes",
+  "moduleType": [
+    "amd"
+  ]
+}

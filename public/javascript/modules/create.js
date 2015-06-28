@@ -1,4 +1,4 @@
-/* globals define:true, console:true, document:true */
+/* globals define:true, console:true, document:true, killernotes:true */
 define(
     [
         'jQuery',
@@ -23,8 +23,6 @@ define(
 
         // handlebars settings
         var handlebarRegionId = 'region-create';
-        var handlebarTemplateId = 'template-create';
-        var handlebarSource = null;
         var handlebarTemplate = null;
         var handlebarContext = null;
         var handleBarHtml = null;
@@ -39,8 +37,7 @@ define(
             handlebars.registerHelper('formElement', auxiliary.handlebarsFormElementHelper);
             handlebars.registerHelper('times', auxiliary.handlebarsForLoop);
 
-            handlebarSource = $('#' + handlebarTemplateId).html();
-            handlebarTemplate = handlebars.compile(handlebarSource);
+            handlebarTemplate = killernotes.templates.create;
 
             $(document).on('kn:create', privateResetCreateForm);
             $(document).on('kn:create:validation:failed', privateShowError);

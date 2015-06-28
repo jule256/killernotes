@@ -28,7 +28,7 @@
     - ~~to be implemented in modules where it makes sense (auxiliary.logMessage)~~
   - ~~data on server~~
     - ~~rest service~~
-  - store/precompile handlebar templates (Dominik)
+  - ~~store/precompile handlebar templates~~ ✓ (Julian)
   - ~~form generator: good or bad? good!~~ ✓
   - ⚠ replace `bind()` with `on()` (Julian)
   - ~~server-config~~
@@ -88,6 +88,22 @@ The service has following methods
     Update a note by id
   - DELETE /notes/:id
     Delete a note by its id
+    
+### client
+#### install
+```sh
+machine:/ user$ cd path/to/the/project/killernotes/
+machine:killernotes user$ npm update
+```
+#### precompile templates
+
+
+every time a template from /public/templates/ is changed, run `gulp` manually:
+```sh
+machine:/ user$ cd path/to/the/project/killernotes/
+machine:killernotes user$ gulp
+```
+
 
 ### code style
 #### JSHint

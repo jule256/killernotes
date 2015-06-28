@@ -1,0 +1,34 @@
+<article class="kn-note finished-{{finished}}" id="note-{{createdate}}">
+
+    <div class="kn-note-info">
+        <ul>
+            <li class="kn-note-duedate" title="due"><em class="fa fa-calendar-o"></em> <time>{{timestampToDate duedate}}</time></li>
+            <li class="kn-note-createdate" title="created"><em class="fa fa-plus-circle"></em> <time>{{timestampToDate createdate}}</time></li>
+        </ul>
+    </div>
+    <div class="kn-note-text">
+        <h3>
+                <span class="kn-note-state">
+                    {{#if finished}}
+                        <em class="fa fa-check-square-o"></em>
+                    {{else}}
+                        <em class="fa fa-square-o"></em>
+                    {{/if}}
+                </span>
+                <span class="kn-note-title">
+                    {{title}}
+                </span>
+                <span class="kn-note-importance importance-{{importance}}">
+                    {{#times 1 importance}}
+                        <em class="fa fa-bolt"></em>
+                    {{/times}}
+                </span>
+        </h3>
+        <p class="kn-note-description">
+            {{breakLines note}}
+        </p>
+    </div>
+    <div class="kn-note-actions">
+        <a class="kn-note-edit button-link"><em class="fa fa-pencil"> Edit</em></a>
+    </div>
+</article>

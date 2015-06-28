@@ -1,0 +1,12 @@
+<div class="kn-form-{{formId}}-{{name}} kn-form-rating">
+    <label for="{{formId}}-{{name}}">
+        {{title}}
+    </label>
+        <span class="kn-rating">
+            {{#times 1 max}}
+                <em class="fa fa-bolt rating-item" data-value="{{.}}"></em>
+            {{/times}}
+            <input type="hidden" value="{{value}}" id="{{formId}}-{{name}}" />
+        </span>
+    <div class="hide message" id="{{formId}}-{{name}}-error"></div>
+</div>

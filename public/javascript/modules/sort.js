@@ -1,9 +1,8 @@
-/* globals define:true, console:true, document:true */
+/* globals define:true, console:true, document:true, killernotes:true */
 define(
     [
-        'jQuery',
-        'handlebars'
-    ], function($, handlebars) {
+        'jQuery'
+    ], function($) {
 
     'use strict';
 
@@ -34,8 +33,6 @@ define(
 
         // handlebar settings
         var handlebarRegionId = 'region-sort';
-        var handlebarTemplateId = 'template-sort';
-        var handlebarSource = null;
         var handlebarTemplate = null;
         var handlebarContext = null;
         var handleBarHtml = null;
@@ -53,8 +50,7 @@ define(
             $(document).on('kn:data:change', privateEnableSort);
             $(document).on('kn:reset:complete', privateEnableSort);
 
-            handlebarSource = $('#' + handlebarTemplateId).html();
-            handlebarTemplate = handlebars.compile(handlebarSource);
+            handlebarTemplate = killernotes.templates.sort;
         };
 
         /**

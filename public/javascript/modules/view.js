@@ -1,4 +1,4 @@
-/* globals define:true, console:true, document:true, localStorage:true */
+/* globals define:true, console:true, document:true, killernotes:true */
 define(
     [
         'jQuery',
@@ -22,12 +22,8 @@ define(
 
         // handlebar settings
         var handlebarRegionId = 'region-view';
-        var handlebarTemplateId = 'template-view';
-        var handlebarPartialTemplateId = 'template-partial-note';
-        var handlebarSource = null;
         var handlebarTemplate = null;
         var handlebarContext = null;
-//      var handleBarHtml = null;
 
         /**
          * constructor
@@ -36,13 +32,12 @@ define(
          * @constructor
          */
         var publicConstructor = function() {
-            handlebars.registerPartial('note', $('#' + handlebarPartialTemplateId).html());
+            handlebars.registerPartial('note', killernotes.templates.partial.note);
             handlebars.registerHelper('timestampToDate', privateHandlebarsTimestampToDateHelper);
             handlebars.registerHelper('times', auxiliary.handlebarsForLoop);
             handlebars.registerHelper('breakLines', auxiliary.handlebarsBreakLines);
 
-            handlebarSource = $('#' + handlebarTemplateId).html();
-            handlebarTemplate = handlebars.compile(handlebarSource);
+            handlebarTemplate = killernotes.templates.view;
 
             $(document).on('kn:sort', privateUpdateSort);
             $(document).on('kn:data:change', publicRender);
@@ -119,7 +114,7 @@ define(
          */
         var privatePostRender = function() {
             privateRetrieveNotes().done(function(noteElements) {
-                auxiliary.logMessage(config.logLevels.info, false, 'privateRetrieveNotes() DONE', noteElements);
+                // auxiliary.logMessage(config.logLevels.info, false, 'privateRetrieveNotes() DONE', noteElements);
                 $.each(noteElements, function(key, value) {
 
                     // add change state functionality
@@ -373,7 +368,7 @@ define(
             }
 
             storageRef.getNotes().done(function(responseData) {
-                auxiliary.logMessage(config.logLevels.info, false, 'privateRetrieveNotes() DONE: ', responseData);
+                // auxiliary.logMessage(config.logLevels.info, false, 'privateRetrieveNotes() DONE: ', responseData);
                 deferred.resolve(responseData);
             });
 

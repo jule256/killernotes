@@ -100,6 +100,7 @@ define([], function() {
         logLevels: logLevels,
         uiLogShowDuration: 1500,
         uiLogLevel: logLevels.all,
-        consoleLogLevel: logLevels.all
+        consoleLogLevel: logLevels.all,
+        templatesPath: '../templates/templates.js' // relative to public/javscript/app.js
     };
 });

@@ -2,10 +2,9 @@
 define(
     [
         'jQuery',
-        'handlebars',
         'config',
         'auxiliary'
-    ], function($, handlebars, config, auxiliary) {
+    ], function($, config, auxiliary) {
 
     'use strict';
 
@@ -53,7 +52,7 @@ define(
 
             var promise = fn.apply(null);
             promise.done(function(responseData) {
-                auxiliary.logMessage(config.logLevels.info, false, 'engine.getList() DONE');
+                // auxiliary.logMessage(config.logLevels.info, false, 'engine.getList() DONE');
                 deferred.resolve(responseData);
             });
 

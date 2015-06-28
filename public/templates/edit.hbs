@@ -1,0 +1,12 @@
+<div class="kn-form kn-form-edit">
+    <h3>Edit note</h3>
+    {{#each formElements}}
+        {{formElement .}}
+    {{/each}}
+
+    <div class="kn-form-actions">
+        <a id="edit-submit" class="button-link"><em class="fa fa-floppy-o"></em> save</a>
+        <a id="edit-cancel" class="button-link"><em class="fa fa-times"></em> cancel</a>
+        <a id="edit-delete" class="button-link delete"><em class="fa fa-trash"></em> delete</a>
+    </div>
+</div>

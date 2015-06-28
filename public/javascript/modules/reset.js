@@ -1,9 +1,8 @@
-/* globals define:true, console:true */
+/* globals define:true, console:true, killernotes:true */
 define(
     [
-        'jQuery',
-        'handlebars'
-    ], function($, handlebars) {
+        'jQuery'
+    ], function($) {
 
     'use strict';
 
@@ -16,19 +15,18 @@ define(
 
         // handlebar settings
         var handlebarRegionId = 'region-reset';
-        var handlebarTemplateId = 'template-reset';
-        var handlebarSource = null;
         var handlebarTemplate = null;
         var handlebarContext = null;
         var handleBarHtml = null;
 
        /**
+        * constructor
         *
+        * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
+        * @constructor
         */
         var publicConstructor = function() {
-            handlebarSource = $('#' + handlebarTemplateId).html();
-            handlebarTemplate = handlebars.compile(handlebarSource);
-
+           handlebarTemplate = killernotes.templates.reset;
         };
 
        /**

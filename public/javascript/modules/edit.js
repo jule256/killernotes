@@ -1,4 +1,4 @@
-/* globals define:true, console:true, document:true */
+/* globals define:true, console:true, document:true, killernotes:true */
 define(
     [
         'jQuery',
@@ -21,8 +21,6 @@ define(
         var id = null; // the id (aka create-timestamp) of the currently in edit mode note
 
         // handlebar settings
-        var handlebarTemplateId = 'template-edit';
-        var handlebarSource = null;
         var handlebarTemplate = null;
         var handlebarContext = null;
         var handleBarHtml = null;
@@ -36,8 +34,7 @@ define(
         var publicConstructor = function() {
             $(document).on('kn:edit', privatePrepareEditForm);
 
-            handlebarSource = $('#' + handlebarTemplateId).html();
-            handlebarTemplate = handlebars.compile(handlebarSource);
+            handlebarTemplate = killernotes.templates.edit;
         };
 
         /**
