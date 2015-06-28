@@ -401,7 +401,7 @@ define(
                 if (triggerUpdate && dataState !== null && dataState != currentState) {
                     privateSetRefreshState(true);
                     auxiliary.logMessage(config.logLevels.info, true, 'New data is available!')
-                } else {
+                } else if(!triggerUpdate) {
                     privateSetRefreshState(false);
                 }
 
