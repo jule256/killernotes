@@ -164,6 +164,12 @@ define(
             return deferred.promise();
         };
 
+        /**
+         * ToString Method
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         * @returns {string}
+         */
         var publicToString = function() {
             return '"localStorage" (store-name: ' + localStorageName + ')';
         };
