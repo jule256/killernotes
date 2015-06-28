@@ -20,7 +20,7 @@ machine:killernotes user$ gulp
  - event based system for maximum module independency
  - form-generator allows to change formular elements (type, validation, ...) easily via `config.js`
  - reset-all link to be able to delete all notes at once
- - notification area showing information about what's going on (note saved, note deleted, ...)
+ - notification area showing information about what's going on (note saved, note deleted, new data available ...)
 
 ### todo Server
 
