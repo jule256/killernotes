@@ -126,8 +126,7 @@ define(
                             type: 'kn:create',
                             kn: {
                                 data: data
-                            },
-                            time: new Date()
+                            }
                         });
                     }
                 }

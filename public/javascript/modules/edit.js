@@ -133,8 +133,7 @@ define(
                         kn: {
                             id: id,
                             data: data
-                        },
-                        time: new Date()
+                        }
                     });
                     id = null; // reset id (indicating that edit-mode is over)
                 }
@@ -143,8 +142,7 @@ define(
             $('#edit-cancel').on('click', function() {
                 $.event.trigger({
                     type: 'kn:edit:cancel',
-                    kn: {},
-                    time: new Date()
+                    kn: {}
                 });
                 id = null; // reset id (indicating that edit-mode is over)
             });
@@ -156,8 +154,7 @@ define(
                         type: 'kn:edit:delete',
                         kn: {
                             id: id
-                        },
-                        time: new Date()
+                        }
                     });
                     id = null; // reset id (indicating that edit-mode is over)
                 }

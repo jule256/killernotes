@@ -20,6 +20,7 @@ machine:killernotes user$ gulp
  - event based system for maximum module independency
  - form-generator allows to change formular elements (type, validation, ...) easily via `config.js`
  - reset-all link to be able to delete all notes at once
+ - notification area showing information about what's going on (note saved, note deleted, ...)
 
 ### todo Server
 
@@ -42,7 +43,7 @@ machine:killernotes user$ gulp
   - ~~find a better solution for the Date zero-padding problem~~ ✓
   - ~~don't allow edit-mode if another note is already in edit mode~~ (Julian) ✓
   - ~~maybe make preRender() and postRender() private, since they should not be called from outside~~ ✓
-  - ⚠ standardize event naming (maybe 'kn:`<type`>:`<action`>') (Julian)
+  - ~~⚠ standardize event naming (maybe 'kn:`<type`>:`<action`>')~~ ✓ (Julian)
   - ~~add JSCS and JSHint configuration~~ (Julian) ✓
   - ~~disable sorting during edit mode~~ (Julian) ✓
   - ~~Exception Handling: Errorview & Loglevels (Dominik)~~ ✓

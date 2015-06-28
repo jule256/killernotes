@@ -145,8 +145,7 @@ define(
                                 kn: {
                                     id: value.createdate,
                                     data: value
-                                },
-                                time: new Date()
+                                }
                             });
                         }
                     });
@@ -161,8 +160,7 @@ define(
                                 kn: {
                                     id: value.createdate,
                                     data: value
-                                },
-                                time: new Date()
+                                }
                             });
                         }
                     });
@@ -173,9 +171,10 @@ define(
                     type: 'kn:view:complete',
                     kn: {
                         sort: sorting
-                    },
-                    time: new Date()
+                    }
                 });
+
+                console.log('adding document.on-listeners ...');
 
                 $(document).on('kn:edit', privateDisableActions);
                 $(document).on('kn:edit:cancel', privateEnableActions);

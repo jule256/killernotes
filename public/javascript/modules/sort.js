@@ -109,8 +109,7 @@ define(
                             type: 'kn:sort',
                             kn: {
                                 sort: sortOption
-                            },
-                            time: new Date()
+                            }
                         });
                     }
                 });

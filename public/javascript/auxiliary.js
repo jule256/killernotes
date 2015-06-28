@@ -277,8 +277,7 @@ define(
                     message: message,
                     additionalData: additionalData,
                     showOnUi: showOnUi
-                },
-                time: new Date()
+                }
             });
         }
     };

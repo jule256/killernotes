@@ -93,8 +93,7 @@ define(
                         kn: {
                             type: 'finished',
                             filter: $(this).is(':checked')
-                        },
-                        time: new Date()
+                        }
                     });
 
                     $(this).parent().find('.button-link').toggleClass('active');

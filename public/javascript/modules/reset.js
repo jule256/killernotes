@@ -68,8 +68,7 @@ define(
                  if (confirm('Do you really want to delete all notes?')) {
                      $.event.trigger({
                          type: 'kn:reset',
-                         kn: {},
-                         time: new Date()
+                         kn: {}
                      });
                  }
              });
