@@ -1,11 +1,11 @@
 # Killernotes
 
-### get application running for review
+### get the application running for review
  - [download the "abgabe"-Branch as zip] [1] and unzip it
  - navigate to the folder and execute `npm install` which will install the necessary `npm` dependencies
  - execute `gulp` to precompile the handlebar templates
  - open the project in _WebStorm_ and run the `index.js` file in the project's root
- - enter `localhost:3000` in your browser of choice (we strongly recommend Google Chrome because of it's native html5 
+ - enter `localhost:3000` in your browser of choice (we strongly recommend Google Chrome because of its native html5 
  date- and time-picker) and enjoy _a killer app_ ☻
  
 ```sh
