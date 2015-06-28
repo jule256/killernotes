@@ -7,7 +7,8 @@ define(
         'modules/sort',
         'modules/create',
         'modules/storage',
-        //'modules/engine/localstorage2',
+        //'modules/engine/localstorage', // change storage engine
+                                         // @see https://github.com/jule256/killernotes#special-features
         'modules/engine/serverstorage',
         'modules/view',
         'modules/reset',
@@ -22,7 +23,7 @@ define(
         SortRef,
         CreateRef,
         StorageRef,
-        LocalStorageRef,
+        StorageEngineRef,
         ViewRef,
         ResetRef,
         EditRef,
@@ -87,20 +88,20 @@ define(
                 myCreate,
                 myView,
                 myReset,
-                myLocalStorage,
+                myStorageEngine,
                 myStorage,
                 myEdit,
                 myFilter,
                 myLog;
 
-            // localstorage engine
-            myLocalStorage = new LocalStorageRef();
-            myLocalStorage.constructor();
+            // storage engine
+            myStorageEngine = new StorageEngineRef();
+            myStorageEngine.constructor();
 
             // storage
             myStorage = new StorageRef();
             myStorage.constructor();
-            myStorage.setEngine(myLocalStorage);
+            myStorage.setEngine(myStorageEngine);
 
             // StylePicker
             myStylepicker = new StylePickerRef();

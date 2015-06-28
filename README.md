@@ -14,6 +14,12 @@ machine:killernotes user$ npm install
 machine:killernotes user$ gulp
 ```
 
+### special features
+ - killernotes running in browsertab *A* will get a refresh-notification if a note is added in another browsertab *B*
+ - storage-engine architecture allows to change the storage engine (`serverstorage.js`, `localstorage.js`)
+ - event based system for maximal module independency
+ - form-generator allows to change formular elements (type, validation, ...) easily via `config.js`
+
 ### todo Server
 
   - ~~Notifications über polling von hash auf alle notes auf dem server (/state)~~

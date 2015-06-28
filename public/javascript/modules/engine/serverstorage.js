@@ -14,6 +14,7 @@ define(
      *     - update()    -> update an existing note by id
      *     - delete()    -> delete an existing note by id
      *     - deleteAll() -> delete all existing notes
+     *     - getState()  -> gets the state-hash of all notes (necessary for polling)
      *
      * @author Julian Mollik <jule@creative-coding.net>
      */
