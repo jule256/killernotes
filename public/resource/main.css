@@ -137,7 +137,7 @@ h3 {
     background-color: rgba(147, 128, 108, 0.5); } }
 body {
   min-height: 100vh;
-  min-width: 610px;
+  min-width: 625px;
   padding: 0;
   margin: 0;
   display: flex;
