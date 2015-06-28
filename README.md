@@ -2,7 +2,7 @@
 
 ### todo Server
 
-  - Notifications über polling von hash auf alle notes auf dem server (/state)
+  - ~~Notifications über polling von hash auf alle notes auf dem server (/state)~~
   - ~~GET, POST /notes~~
   - ~~GET, PUT, DELETE /notes/:id~~ 
 
@@ -44,7 +44,7 @@
   - ~~⚠ finish-filter: only works if click is on label `.filter-finished` and not if on on span `.kn-filter-finished` (Dominik)~~ ✓
   - ~~⚠ finish-filter: `.disabled` does not work correctly (cursor, bg-color), e.g. if edit mode is active~~ (Dominik) ✓
   - ~~⚠ line breaks in note-text~~ ✓
-  - ⚠ duedate error message in form not in right position
+  - ~~⚠ duedate error message in form not in right position~~
 
 ### @ideas
   - Additional features
