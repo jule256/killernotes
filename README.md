@@ -30,7 +30,7 @@
     - ~~rest service~~
   - ~~store/precompile handlebar templates~~ ✓ (Julian)
   - ~~form generator: good or bad? good!~~ ✓
-  - ⚠ replace `bind()` with `on()` (Julian)
+  - ~~replace `bind()` with `on()`~~ ✓ (Julian)
   - ~~server-config~~
   
 ### bugs
