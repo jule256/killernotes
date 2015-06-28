@@ -221,10 +221,24 @@ define(
             return result;
         },
 
+        /**
+         * checks if value is a string
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         * @param {object} value
+         * @returns {boolean}
+         */
         isString: function(value) {
             return typeof value === 'string' || value instanceof String;
         },
 
+        /**
+         * checks if value is an array
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         * @param {object} value
+         * @returns {boolean}
+         */
         isArray: function(value) {
             return value.prop && value.prop.constructor === Array;
         },

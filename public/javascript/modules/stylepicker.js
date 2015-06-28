@@ -44,6 +44,7 @@ define(
              * prepares the handlebar templating (setting context, creating the html)
              *
              * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
+             * @private
              */
             var privatePreRender = function() {
                 handlebarContext = {
@@ -58,6 +59,7 @@ define(
              * sets listeners and triggers
              *
              * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
+             * @private
              */
             var privatePostRender = function() {
                 $('#style-picker').on('change', function() {

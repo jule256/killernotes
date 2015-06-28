@@ -23,6 +23,7 @@ define(
             }, options);
 
             // private methods
+
             /**
              * Set the rating value
              *

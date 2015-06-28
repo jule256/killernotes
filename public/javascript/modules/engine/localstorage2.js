@@ -36,7 +36,13 @@ define(
 
         };
 
-        var publicGetList = function(param) {
+        /**
+         * Get notes from storage
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         * @returns {Promise}
+         */
+        var publicGetList = function() {
 
             var deferred = $.Deferred(),
                 data;
@@ -50,6 +56,13 @@ define(
             return deferred.promise();
         };
 
+        /**
+         * Create a new note in the storage
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         * @param {Object} data
+         * @returns {Promise}
+         */
         var publicCreate = function(data) {
             var existingData = privateGetExistingData(),
                 key = Date.now(),
@@ -71,6 +84,14 @@ define(
             return deferred.promise();
         };
 
+        /**
+         * Update a note in the storage
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         * @param {Object} data
+         * @param {Number} key
+         * @returns {Promise}
+         */
         var publicUpdate = function(data, key) {
             var existingData = privateGetExistingData(),
                 deferred = $.Deferred();
@@ -90,6 +111,13 @@ define(
             return deferred.promise();
         };
 
+        /**
+         * Delete a note in the storage
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         * @param {Number} key
+         * @returns {Promise}
+         */
         var publicDelete = function(key) {
             var existingData = privateGetExistingData(),
                 deferred = $.Deferred();
@@ -106,6 +134,12 @@ define(
             return deferred.promise();
         };
 
+        /**
+         * Delete all notes in the storage
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         * @returns {Promise}
+         */
         var publicDeleteAll = function() {
             var deferred = $.Deferred();
 
@@ -118,6 +152,7 @@ define(
         /**
          * Get current state of all notes
          *
+         * @author Dominik Süsstrunk <dominik.suesstrunk@gmail.com>
          * @returns {promise}
          */
         var publicGetState = function() {

@@ -2,7 +2,7 @@
 define(
     [
         'jQuery',
-        'config',
+        'config'
     ], function($, config) {
 
         'use strict';
@@ -56,6 +56,7 @@ define(
              * prepares the handlebar templating (setting context, creating the html)
              *
              * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
+             * @private
              */
             var privatePreRender = function() {
                 handlebarContext = {
@@ -71,6 +72,7 @@ define(
              * sets listeners and triggers
              *
              * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
+             * @private
              */
             var privatePostRender = function() {
                var $logMessage = $('.kn-log-message');
@@ -82,6 +84,7 @@ define(
              * Shows the info message, if level is appropriate
              *
              * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
+             * @private
              */
             privateLogMessage = function(ev) {
                 var additionalData = ev.kn.additionalData;

@@ -249,12 +249,26 @@ define(
             }
         };
 
+        /**
+         * Update which sorting algorithm should be used
+         *
+         * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
+         * @param {object} ev
+         * @private
+         */
         var privateUpdateSort = function(ev) {
             sorting = ev.kn.sort.name;
 
             publicRender();
         };
 
+        /**
+         * Update wether the finished items should appear or not
+         *
+         * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
+         * @param {object} ev
+         * @private
+         */
         var privateUpdateFilter = function(ev) {
             showFinished = ev.kn.filter;
             publicRender();
@@ -279,6 +293,13 @@ define(
             $refreshButton.addClass('disabled');
         };
 
+        /**
+         * Gets the notes from the storage
+         *
+         * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
+         * @returns {promise}
+         * @private
+         */
         var privateRetrieveNotes = function() {
             var deferred = $.Deferred();
 
@@ -317,6 +338,7 @@ define(
         /**
          * takes the given timestamp and returns a string "dd/mm/yyyy hh:MM". Takes care of various shortcomings of
          * the native javascript Date object (like padding zeros and month values 0-11).
+         *
          * @author Julian Mollik <jule@creative-coding.net>
          * @param {Number} timestamp
          * @returns {string}
@@ -345,6 +367,13 @@ define(
             return editRef.isEditActive();
         };
 
+        /**
+         * sets the highlighting class on the refresh button
+         *
+         * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
+         * @param {boolean} hasNewData
+         * @private
+         */
         var privateSetRefreshState = function(hasNewData) {
             if(hasNewData) {
                 $refreshButton.addClass('highlight');
@@ -353,6 +382,13 @@ define(
             }
         };
 
+        /**
+         * gets the state of the data from the storage
+         *
+         * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
+         * @param {boolean} triggerUpdate
+         * @private
+         */
         var privateGetState = function(triggerUpdate) {
             if (storageRef === null) {
                 throw Error('storageRef is not set');

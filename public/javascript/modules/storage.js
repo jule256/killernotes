@@ -33,10 +33,22 @@ define(
             $(document).on('kn:edit:delete', privateDeleteNote);
         };
 
+        /**
+         * Sets the engine to work with (server, local, ...)
+         *
+         * @author Dominik Süsstrunk <dominik.suesstrunk@gmail.com>
+         * @param engineRef
+         */
         var publicSetEngine = function(engineRef) {
             engine = engineRef;
         };
 
+        /**
+         * Get notes promise from the storage engine
+         *
+         * @author Dominik Süsstrunk <dominik.suesstrunk@gmail.com>
+         * @returns {promise}
+         */
         var publicGetNotes = function() {
             var fn,
                 deferred = $.Deferred();
@@ -59,6 +71,12 @@ define(
             return deferred.promise();
         };
 
+        /**
+         * Get state promise from storage engine
+         *
+         * @author Dominik Süsstrunk <dominik.suesstrunk@gmail.com>
+         * @returns {promise}
+         */
         var publicGetState = function() {
             var fn,
                 deferred = $.Deferred();
@@ -223,6 +241,15 @@ define(
             });
         };
 
+        /**
+         * Checks if the engine contains a specific function
+         *
+         * @author Julian Mollik <jule@creative-coding.net>
+         * @param {function} fn
+         * @param {string} functionName
+         * @returns {boolean}
+         * @private
+         */
         var privateEngineHasFunction = function(fn, functionName) {
             if (typeof fn === 'undefined' || typeof fn !== 'function') {
                 throw Error('engine \'' + engine.toString() + '\' has no implementation of ' + functionName + '()');

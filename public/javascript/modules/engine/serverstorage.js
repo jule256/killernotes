@@ -1,10 +1,8 @@
 /* globals define:true, console:true, document:true, localStorage:true */
 define(
     [
-        'jQuery',
-        'config',
-        'auxiliary'
-    ], function($, config, auxiliary) {
+        'jQuery'
+    ], function($) {
 
     'use strict';
 
@@ -31,6 +29,12 @@ define(
 
         };
 
+        /**
+         * Get all notes from the storage
+         *
+         * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
+         * @returns {Promise}
+         */
         var publicGetList = function() {
 
             // auxiliary.logMessage(config.logLevels.info, false, 'serverstorage.js publicGetList()');
@@ -42,6 +46,12 @@ define(
             });
         };
 
+        /***
+         *
+         * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
+         * @param {Object} data
+         * @returns {Promise}
+         */
         var publicCreate = function(data) {
 
             // auxiliary.logMessage(config.logLevels.info, false, 'serverstorage.js publicCreate()', data);
@@ -55,6 +65,14 @@ define(
             });
         };
 
+        /**
+         * Update a note in the storage
+         *
+         * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
+         * @param {Object} data
+         * @param {Number} key
+         * @returns {Promise}
+         */
         var publicUpdate = function(data, key) {
 
             // auxiliary.logMessage(config.logLevels.info, false, 'serverstorage.js publicUpdate()', data, key);
@@ -71,6 +89,13 @@ define(
             });
         };
 
+        /**
+         * Delete a single item from the storage
+         *
+         * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
+         * @param {number} key
+         * @returns {Promise}
+         */
         var publicDelete = function(key) {
 
             // auxiliary.logMessage(config.logLevels.info, false, 'serverstorage.js publicDelete()', key);
@@ -83,6 +108,12 @@ define(
             });
         };
 
+        /**
+         * Delete all notes in the storage
+         *
+         * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
+         * @returns {Promise}
+         */
         var publicDeleteAll = function() {
 
             // auxiliary.logMessage(config.logLevels.info, false, 'serverstorage.js publicDeleteAll()');
@@ -95,6 +126,12 @@ define(
             });
         };
 
+        /**
+         * ToString method
+         *
+         * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
+         * @returns {string}
+         */
         var publicToString = function() {
             return 'serverstorage';
         };
@@ -102,6 +139,7 @@ define(
         /**
          * Get current state of all notes
          *
+         * @author Dominik Süsstrunk <dominik.suestrunk@gmail.com>
          * @returns {promise}
          */
         var publicGetState = function() {

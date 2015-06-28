@@ -1,3 +1,7 @@
+/**
+ *
+ * @author dominik.suesstrunk <dominik.suesstrunk@gmail.com>
+ */
 ;(function() {
     'use strict';
 
@@ -11,7 +15,6 @@
 
     var app = express();
 
-    //TODO: Middleware for logging
     app.use(bodyParser.json());
 
     app.use('/notes', notesRoutes);
